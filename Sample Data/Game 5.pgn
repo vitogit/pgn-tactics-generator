@@ -1,0 +1,17 @@
+[Event "Casual game"]
+[Site "https://lichess.org/q8XQGdrt"]
+[Date "2016.02.27"]
+[White "TS69"]
+[Black "Clarkey"]
+[Result "0-1"]
+[WhiteElo "1272"]
+[BlackElo "1660"]
+[PlyCount "70"]
+[Variant "Standard"]
+[TimeControl "300+2"]
+[ECO "B73"]
+[Opening "Sicilian Defense: Dragon Variation, Classical Variation #2"]
+[Termination "Time forfeit"]
+[Annotator "lichess.org"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nc6 5. Nc3 g6 6. Be2 Bg7 7. Be3 Nf6 { B73 Sicilian Defense: Dragon Variation, Classical Variation #2 } 8. f3 Bd7 9. Qd2 a6 10. a4 O-O 11. Bh6?? { (0.33 → -4.02) Blunder. Best move was Nxc6. } (11. Nxc6 bxc6 12. O-O Be6 13. Rfd1 d5 14. exd5 Nxd5 15. Nxd5 Qxd5 16. c3 Rfb8 17. a5 Qxd2) 11... Nxd4? { (-4.02 → -1.20) Mistake. Best move was Bxh6. } (11... Bxh6 12. Qxh6 Nxd4 13. Qd2 Nxe2 14. Nxe2 Qb6 15. b3 Rfc8 16. a5 Qc5 17. c3 Kg7 18. h3) 12. Bxg7 Nxe2? { (-1.18 → 0.62) Mistake. Best move was Nxc2+. } (12... Nxc2+ 13. Qxc2 Kxg7 14. O-O Qb6+ 15. Kh1 Rac8 16. Bd3 Be6 17. a5 Qb4 18. Ra4 Qc5 19. Qd2) 13. Bxf8? { (0.62 → -2.22) Mistake. Best move was Bxf6. } (13. Bxf6 exf6 14. Qxe2 Rc8 15. h4 f5 16. O-O-O Qa5 17. Rd5 Qb4 18. Qd2 fxe4 19. Rd4 Rc4) 13... Nxc3 14. bxc3?! { (-2.28 → -3.06) Inaccuracy. Best move was Qxc3. } (14. Qxc3 Kxf8) 14... Qxf8 15. O-O Rc8 16. Rfb1 Bc6 17. Qd4 Qh6 18. e5 dxe5 19. Qxe5 Nd5 20. c4 Nf6?! { (-2.82 → -2.30) Inaccuracy. Best move was Qe3+. } (20... Qe3+ 21. Qxe3 Nxe3 22. Ra3 Nxc4 23. Rc3 Nd6 24. a5 Kg7 25. Kf2 Rd8 26. Rb4 h5 27. h3) 21. Qxe7?! { (-2.30 → -3.14) Inaccuracy. Best move was Rd1. } (21. Rd1 Re8 22. a5 Nd7 23. Qc3 Qg5 24. Qd2 Qf6 25. Re1 e5 26. Qc3 Qe7 27. Rad1 f5) 21... Kg7? { (-3.14 → -2.03) Mistake. Best move was Ng4. } (21... Ng4 22. h3 Re8 23. Qd6 Ne5 24. Re1 Qf4 25. Kh1 Bxf3 26. gxf3 Qg3 27. Re2 Qxh3+ 28. Rh2) 22. Rd1 Re8 23. Qc5 Re2 24. Rd8 Rxg2+?? { (-2.15 → 3.86) Blunder. Best move was Nd7. } (24... Nd7 25. Qd4+ Ne5 26. Kf1 Qe3 27. Qxe3 Rxe3 28. Rd4 Rc3 29. Ra2 Nxc4 30. Ke2 Ne5 31. h4) 25. Kxg2 Bxf3+? { (3.86 → 5.76) Mistake. Best move was Ng4. } (25... Ng4 26. Qf8+ Kf6 27. Qxh6 Nxh6 28. Kf2 Nf5 29. a5 h5 30. Rad1 Ke5 31. Re1+ Kf6 32. Rb1) 26. Kxf3 Qh3+ 27. Ke2 Qg4+? { (5.14 → 6.43) Mistake. Best move was Qxh2+. } (27... Qxh2+ 28. Kd3 Qh3+ 29. Qe3 Qf5+ 30. Kd4 Qxc2 31. Re1 h5 32. Qe2 Qb3 33. Qe7 g5 34. Rd6) 28. Kd3 Qe4+?? { (6.10 → 9.31) Blunder. Best move was Qh3+. } (28... Qh3+ 29. Qe3) 29. Kc3 Qf3+?! { (8.94 → 9.45) Inaccuracy. Best move was Kh6. } (29... Kh6 30. Rf1 Qe6 31. Kb2 Nd7 32. Qc8 Qe5+ 33. Kb1 Nf6 34. Qxb7 Qe6 35. Qc7 Ne8 36. Qf4+) 30. Kb4 Ne4? { (8.87 → 16.11) Mistake. Best move was a5+. } (30... a5+ 31. Kb5 Kh6 32. Rg1 Ne4 33. Rd3 Nxc5 34. Rxf3 Ne4 35. Kxa5 Nd6 36. Kb6 Nxc4+ 37. Kxb7) 31. Qf8+ Kf6 32. Qh8+ Kf5 33. Qd4 b6 34. Rd5+ Kf4 35. Qf6+?? { (16.25 → -6.37) Blunder. Best move was Qe5+. } (35. Qe5+) 35... Nxf6 { White forfeits on time } 0-1

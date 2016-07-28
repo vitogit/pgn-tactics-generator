@@ -1,0 +1,17 @@
+[Event "Rated game"]
+[Site "https://lichess.org/CjLL1x30"]
+[Date "2016.05.01"]
+[White "Clarkey"]
+[Black "Tbonethedestroyer"]
+[Result "1-0"]
+[WhiteElo "1912"]
+[BlackElo "1915"]
+[PlyCount "69"]
+[Variant "Standard"]
+[TimeControl "600+0"]
+[ECO "A11"]
+[Opening "English Opening: Caro-Kann Defensive System"]
+[Termination "Normal"]
+[Annotator "lichess.org"]
+
+1. c4 c6 { A11 English Opening: Caro-Kann Defensive System } 2. Nc3 d5 3. cxd5 cxd5 4. d4 Nf6 5. Bg5 Bf5 6. Nf3 e6 7. e3 Nc6 8. Be2 Be7 9. O-O h6 10. Bh4 O-O 11. a3 a6 12. b4 Ne4 13. Bxe7 Qxe7 14. Nxe4 Bxe4 15. Bd3 f5 16. b5 axb5 17. Bxb5 Na5 18. a4 Nc4 19. Bxc4 dxc4 20. Ne5 Rac8 21. Ng6 Qg5 22. Nf4 Rfe8 23. f3 Bd3 24. Nxd3 Qxe3+ 25. Nf2 c3 26. Rc1 Red8 27. Qe1 Qxd4 28. Qxe6+ Kh8 29. Rcd1 Qxa4 30. Rxd8+ Rxd8 31. Qxf5 b5 32. h4 b4 33. Ne4 b3 34. Nf6 Rf8 35. Qh7# { Black is checkmated } 1-0

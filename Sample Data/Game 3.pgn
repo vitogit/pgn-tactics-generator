@@ -1,0 +1,17 @@
+[Event "Rated game"]
+[Site "https://lichess.org/GBYTExhb"]
+[Date "2016.07.23"]
+[White "rapgame"]
+[Black "TonyRo"]
+[Result "0-1"]
+[WhiteElo "2080"]
+[BlackElo "2383"]
+[PlyCount "98"]
+[Variant "Standard"]
+[TimeControl "900+5"]
+[ECO "B02"]
+[Opening "Alekhine Defense: Scandinavian Variation"]
+[Termination "Normal"]
+[Annotator "lichess.org"]
+
+1. e4 Nf6 2. Nc3 d5 { B02 Alekhine Defense: Scandinavian Variation } 3. e5 Nfd7 4. Nf3 c5 5. d3 Nc6 6. Nxd5 Ndxe5 7. Nc3 e6 8. Nxe5 Nxe5 9. g3 Bd7 10. Bg2 Bc6 11. O-O Be7 12. Ne4 O-O 13. Be3 Rc8 14. f4 Nd7 15. Qe2 b6 16. Rad1 Nf6 17. Nd2 Bxg2 18. Qxg2 Ng4 19. Qf3 Nxe3 20. Qxe3 Bf6 21. c3 Qd5 22. a3 g6 23. Nc4 Rfd8 24. Ne5 Qb3 25. Rd2 Rd5 26. c4 Rd4 27. Re1 Rcd8 28. Red1 R4d6 29. Kf1 Bxe5 30. fxe5 Rd4 31. Ke1 Qa4 32. h4 Qc6 33. Kf2 h5 34. Qf3 Qc7 35. Qe3 a6 36. b3 b5 37. Ke2 Qa5 38. Ra2 R8d7 39. a4 Kg7 40. Rdd2 Qc3 41. axb5 axb5 42. cxb5 Qxb3 43. Rab2 Qd5 44. b6 Rb7 45. Qg5 Qg2+ 46. Kd1 Qf3+ 47. Kc2 Qd5 48. Qf6+ Kg8 49. Qe7 Rxe7 { White resigns } 0-1
