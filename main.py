@@ -1,14 +1,28 @@
 import chess
 import chess.uci
 import chess.pgn
-from modules.puzzle.puzzle import puzzle
+import requests
+import sys
+from modules.puzzle.puzzle import puzzle, bcolors
+
+token = ''
+if len(sys.argv) > 1:
+	token = sys.argv[1]
 
 engine = chess.uci.popen_engine("Stockfish/stockfish-7-linux/Linux/stockfish 7 x64")
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
-pgn = open("Sample Data/Game 7.pgn")
+response = requests.get('http://en.stage.lichess.org/training/api/game.pgn?token=' + token)
+
+try:
+	from StringIO import StringIO
+except ImportError:
+	from io import StringIO
+
+pgn = StringIO(response.content)
+#pgn = open("Sample Data/Game 7.pgn")
 game = chess.pgn.read_game(pgn)
 pgn.close()
 
@@ -29,8 +43,10 @@ def compare_scores(a, b):
     else:
         return False
 
-print("Game Length: " + str(game.end().board().fullmove_number))
-print("Analysing Game...")
+print(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
+print("Analysing Game..." + bcolors.ENDC)
+
+game_id = game.headers["Site"].split('/')[-1:][0]
 
 while not node.is_end():
     next_node = node.variation(0)
@@ -38,12 +54,12 @@ while not node.is_end():
 
     engine.go(nodes=1500000)
     cur_score = info_handler.info["score"][1]
-    print(node.board().san(next_node.move))
-    print("   CP " + str(cur_score.cp))
-    print("   Mate: " + str(cur_score.mate))
+    print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
+    print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
+    print("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
     if compare_scores(prev_score, cur_score):
-        print("   Investigate")
-        puzzles.append(puzzle(node.board(), next_node.move))
+        print(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
+        puzzles.append(puzzle(node.board(), next_node.move, game_id))
 
     prev_score = cur_score
     node = next_node
@@ -53,4 +69,6 @@ for i in puzzles:
     i.generate()
     if i.is_complete():
         successful_puzzles.append(i)
-        print(i.to_json())
+        print(bcolors.OKBLUE + str(i.to_dict()) + bcolors.ENDC)
+        r = requests.post("http://en.stage.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
+        print(bcolors.WARNING + "Imported with ID " + r.content + bcolors.ENDC)
