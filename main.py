@@ -14,7 +14,7 @@ engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
-response = requests.get('http://en.stage.lichess.org/training/api/game.pgn?token=' + token)
+response = requests.get('https://en.stage.lichess.org/training/api/game.pgn?token=' + token)
 
 try:
 	from StringIO import StringIO
@@ -71,5 +71,5 @@ for i in puzzles:
     if i.is_complete():
         successful_puzzles.append(i)
         print(bcolors.OKBLUE + str(i.to_dict()) + bcolors.ENDC)
-        r = requests.post("http://en.stage.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
+        r = requests.post("https://en.stage.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
         print(bcolors.WARNING + "Imported with ID " + r.content + bcolors.ENDC)
