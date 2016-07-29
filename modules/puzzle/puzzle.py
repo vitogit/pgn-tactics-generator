@@ -1,9 +1,11 @@
 import chess
 import chess.uci
+from fishnet import stockfish_filename
 import json
+import os
 from operator import methodcaller
 
-engine = chess.uci.popen_engine("Stockfish/Linux/stockfish 7 x64")
+engine = chess.uci.popen_engine(os.path.join(".",stockfish_filename()))
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)

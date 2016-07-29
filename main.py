@@ -1,6 +1,8 @@
 import chess
 import chess.uci
 import chess.pgn
+from modules.puzzle.fishnet import stockfish_filename
+import os
 import requests
 import sys
 from modules.puzzle.puzzle import puzzle, bcolors
@@ -9,7 +11,7 @@ token = ''
 if len(sys.argv) > 1:
     token = sys.argv[1]
 
-engine = chess.uci.popen_engine("Stockfish/Linux/stockfish 7 x64")
+engine = chess.uci.popen_engine(os.path.join(".",stockfish_filename()))
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
