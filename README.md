@@ -18,7 +18,7 @@ This script requires the *Requests* and *Python-Chess* libraries to run, as well
 
 ### Setup
 
-Change line `17` of `main.py` and line `6` of `modules/puzzle/puzzle.py` to point to your local stockfish application.
+MacOS / Linux : `sh build-stockfish.sh` to obtain the current lichess Stockfish instance.
 
 ## Launching application
 
