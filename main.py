@@ -9,7 +9,7 @@ token = ''
 if len(sys.argv) > 1:
 	token = sys.argv[1]
 
-engine = chess.uci.popen_engine("Stockfish/stockfish-7-linux/Linux/stockfish 7 x64")
+engine = chess.uci.popen_engine("Stockfish/Linux/stockfish 7 x64")
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
@@ -21,8 +21,9 @@ try:
 except ImportError:
 	from io import StringIO
 
+print(response.content)
+
 pgn = StringIO(response.content)
-#pgn = open("Sample Data/Game 7.pgn")
 game = chess.pgn.read_game(pgn)
 pgn.close()
 

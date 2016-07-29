@@ -3,7 +3,7 @@ import chess.uci
 import json
 from operator import methodcaller
 
-engine = chess.uci.popen_engine("Stockfish/stockfish-7-linux/Linux/stockfish 7 x64")
+engine = chess.uci.popen_engine("Stockfish/Linux/stockfish 7 x64")
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
