@@ -1,6 +1,6 @@
 import chess
 import chess.uci
-from fishnet import stockfish_filename
+from modules.fishnet.fishnet import stockfish_filename
 import json
 import os
 from operator import methodcaller

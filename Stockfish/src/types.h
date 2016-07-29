@@ -60,13 +60,12 @@
 /// _WIN64             Building on Windows 64 bit
 
 #if defined(_WIN64) && defined(_MSC_VER) // No Makefile used
-#  include <intrin.h> // MSVC popcnt and bsfq instrinsics
+#  include <intrin.h> // Microsoft header for _BitScanForward64()
 #  define IS_64BIT
-#  define USE_BSFQ
 #endif
 
-#if defined(USE_POPCNT) && defined(__INTEL_COMPILER) && defined(_MSC_VER)
-#  include <nmmintrin.h> // Intel header for _mm_popcnt_u64() intrinsic
+#if defined(USE_POPCNT) && (defined(__INTEL_COMPILER) || defined(_MSC_VER))
+#  include <nmmintrin.h> // Intel and Microsoft header for _mm_popcnt_u64()
 #endif
 
 #if !defined(NO_PREFETCH) && (defined(__INTEL_COMPILER) || defined(_MSC_VER))
@@ -152,6 +151,12 @@ template<Color C, CastlingSide S> struct MakeCastling {
                      : S == QUEEN_SIDE ? BLACK_OOO : BLACK_OO;
 };
 
+#ifdef THREECHECK
+enum Checks {
+  CHECKS_0 = 0, CHECKS_1 = 1, CHECKS_2 = 2, CHECKS_3 = 3, CHECKS_NB = 4
+};
+#endif
+
 enum Phase {
   PHASE_ENDGAME,
   PHASE_MIDGAME = 128,
@@ -185,10 +190,10 @@ enum Value : int {
   VALUE_MATED_IN_MAX_PLY = -VALUE_MATE + 2 * MAX_PLY,
 
   PawnValueMg   = 198,   PawnValueEg   = 258,
-  KnightValueMg = 817,   KnightValueEg = 846,
-  BishopValueMg = 836,   BishopValueEg = 857,
-  RookValueMg   = 1270,  RookValueEg   = 1281,
-  QueenValueMg  = 2521,  QueenValueEg  = 2558,
+  KnightValueMg = 817,   KnightValueEg = 896,
+  BishopValueMg = 836,   BishopValueEg = 907,
+  RookValueMg   = 1270,  RookValueEg   = 1356,
+  QueenValueMg  = 2521,  QueenValueEg  = 2658,
 
   MidgameLimit  = 15581, EndgameLimit  = 3998
 };
@@ -300,6 +305,9 @@ ENABLE_FULL_OPERATORS_ON(Value)
 ENABLE_FULL_OPERATORS_ON(PieceType)
 ENABLE_FULL_OPERATORS_ON(Piece)
 ENABLE_FULL_OPERATORS_ON(Color)
+#ifdef THREECHECK
+ENABLE_FULL_OPERATORS_ON(Checks)
+#endif
 ENABLE_FULL_OPERATORS_ON(Depth)
 ENABLE_FULL_OPERATORS_ON(Square)
 ENABLE_FULL_OPERATORS_ON(File)
@@ -355,7 +363,7 @@ inline Piece make_piece(Color c, PieceType pt) {
   return Piece((c << 3) | pt);
 }
 
-inline PieceType type_of(Piece pc)  {
+inline PieceType type_of(Piece pc) {
   return PieceType(pc & 7);
 }
 

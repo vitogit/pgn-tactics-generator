@@ -144,10 +144,39 @@ void benchmark(const Position& current, istream& is) {
 
   uint64_t nodes = 0;
   TimePoint elapsed = now();
+  Position pos;
 
   for (size_t i = 0; i < fens.size(); ++i)
   {
-      Position pos(fens[i], Options["UCI_Chess960"], Threads.main());
+      int variant = STANDARD_VARIANT;
+      if (Options["UCI_Chess960"])
+          variant |= CHESS960_VARIANT;
+#ifdef ATOMIC
+      if (Options["UCI_Atomic"])
+          variant |= ATOMIC_VARIANT;
+#endif
+#ifdef HORDE
+      if (Options["UCI_Horde"])
+          variant |= HORDE_VARIANT;
+#endif
+#ifdef HOUSE
+      if (Options["UCI_House"])
+          variant |= HOUSE_VARIANT;
+#endif
+#ifdef KOTH
+      if (Options["UCI_KingOfTheHill"])
+          variant |= KOTH_VARIANT;
+#endif
+#ifdef RACE
+      if (Options["UCI_Race"])
+          variant |= RACE_VARIANT;
+#endif
+#ifdef THREECHECK
+      if (Options["UCI_3Check"])
+          variant |= THREECHECK_VARIANT;
+#endif
+      StateListPtr states(new std::deque<StateInfo>(1));
+      pos.set(fens[i], variant, &states->back(), Threads.main());
 
       cerr << "\nPosition: " << i + 1 << '/' << fens.size() << endl;
 
@@ -156,9 +185,8 @@ void benchmark(const Position& current, istream& is) {
 
       else
       {
-          Search::StateStackPtr st;
           limits.startTime = now();
-          Threads.start_thinking(pos, limits, st);
+          Threads.start_thinking(pos, states, limits);
           Threads.main()->wait_for_search_finished();
           nodes += Threads.nodes_searched();
       }
@@ -166,7 +194,7 @@ void benchmark(const Position& current, istream& is) {
 
   elapsed = now() - elapsed + 1; // Ensure positivity to avoid a 'divide by zero'
 
-  dbg_print(); // Just before to exit
+  dbg_print(); // Just before exiting
 
   cerr << "\n==========================="
        << "\nTotal time (ms) : " << elapsed

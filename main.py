@@ -1,7 +1,7 @@
 import chess
 import chess.uci
 import chess.pgn
-from modules.puzzle.fishnet import stockfish_filename
+from modules.fishnet.fishnet import stockfish_filename
 import os
 import requests
 import sys

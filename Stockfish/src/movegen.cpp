@@ -47,7 +47,13 @@ namespace {
 
     for (Square s = kto; s != kfrom; s += K)
         if (pos.attackers_to(s) & enemies)
+        {
+#ifdef ATOMIC
+            if (pos.is_atomic() && (pos.attacks_from<KING>(pos.square<KING>(~us)) & s))
+                continue;
+#endif
             return moveList;
+        }
 
     // Because we generate only legal castling moves we need to verify that
     // when moving the castling rook we do not discover some hidden checker.
@@ -100,6 +106,9 @@ namespace {
     const Color    Them     = (Us == WHITE ? BLACK    : WHITE);
     const Bitboard TRank8BB = (Us == WHITE ? Rank8BB  : Rank1BB);
     const Bitboard TRank7BB = (Us == WHITE ? Rank7BB  : Rank2BB);
+#ifdef HORDE
+    const Bitboard TRank2BB = (Us == WHITE ? Rank2BB  : Rank7BB);
+#endif
     const Bitboard TRank3BB = (Us == WHITE ? Rank3BB  : Rank6BB);
     const Square   Up       = (Us == WHITE ? DELTA_N  : DELTA_S);
     const Square   Right    = (Us == WHITE ? DELTA_NE : DELTA_SW);
@@ -120,6 +129,10 @@ namespace {
 
         Bitboard b1 = shift_bb<Up>(pawnsNotOn7)   & emptySquares;
         Bitboard b2 = shift_bb<Up>(b1 & TRank3BB) & emptySquares;
+#ifdef HORDE
+        if (pos.is_horde())
+            b2 = shift_bb<Up>(b1 & (TRank2BB | TRank3BB)) & emptySquares;
+#endif
 
         if (Type == EVASIONS) // Consider only blocking squares
         {
@@ -163,7 +176,14 @@ namespace {
     if (pawnsOn7 && (Type != EVASIONS || (target & TRank8BB)))
     {
         if (Type == CAPTURES)
+        {
             emptySquares = ~pos.pieces();
+#ifdef ATOMIC
+            // Promotes only if promotion wins or explodes checkers
+            if (pos.is_atomic() && pos.checkers())
+                emptySquares &= target;
+#endif
+        }
 
         if (Type == EVASIONS)
             emptySquares &= target;
@@ -239,7 +259,7 @@ namespace {
                 && !(PseudoAttacks[Pt][from] & target & ci->checkSquares[Pt]))
                 continue;
 
-            if (ci->dcCandidates && (ci->dcCandidates & from))
+            if (ci->dcCandidates & from)
                 continue;
         }
 
@@ -316,6 +336,10 @@ ExtMove* generate(const Position& pos, ExtMove* moveList) {
   Bitboard target =  Type == CAPTURES     ?  pos.pieces(~us)
                    : Type == QUIETS       ? ~pos.pieces()
                    : Type == NON_EVASIONS ? ~pos.pieces(us) : 0;
+#ifdef ATOMIC
+  if (pos.is_atomic() && Type == CAPTURES)
+      target &= ~pos.attacks_from<KING>(pos.square<KING>(us));
+#endif
 
   return us == WHITE ? generate_all<WHITE, Type>(pos, moveList, target)
                      : generate_all<BLACK, Type>(pos, moveList, target);
@@ -371,6 +395,27 @@ ExtMove* generate<EVASIONS>(const Position& pos, ExtMove* moveList) {
   Square ksq = pos.square<KING>(us);
   Bitboard sliderAttacks = 0;
   Bitboard sliders = pos.checkers() & ~pos.pieces(KNIGHT, PAWN);
+#ifdef ATOMIC
+  Bitboard kingAttacks = pos.is_atomic() ? pos.attacks_from<KING>(pos.square<KING>(~us)) : 0;
+#endif
+
+#ifdef ATOMIC
+  if (pos.is_atomic())
+  {
+      // Blasts that explode the opposing king or explode all checkers
+      // are counted among evasive moves.
+      Bitboard target = pos.pieces(~us), b = pos.checkers();
+      while (b)
+      {
+          Square s = pop_lsb(&b);
+          target &= pos.attacks_from<KING>(s) | s;
+      }
+      target |= kingAttacks;
+      target &= pos.pieces(~us) & ~pos.attacks_from<KING>(ksq);
+      moveList = (us == WHITE ? generate_all<WHITE, CAPTURES>(pos, moveList, target)
+                              : generate_all<BLACK, CAPTURES>(pos, moveList, target));
+  }
+#endif
 
   // Find all the squares attacked by slider checkers. We will remove them from
   // the king evasions in order to skip known illegal moves, which avoids any
@@ -382,7 +427,13 @@ ExtMove* generate<EVASIONS>(const Position& pos, ExtMove* moveList) {
   }
 
   // Generate evasions for king, capture and non capture moves
-  Bitboard b = pos.attacks_from<KING>(ksq) & ~pos.pieces(us) & ~sliderAttacks;
+  Bitboard b;
+#ifdef ATOMIC
+  if (pos.is_atomic()) // Generate evasions for king, non capture moves
+      b = pos.attacks_from<KING>(ksq) & ~pos.pieces() & ~(sliderAttacks & ~kingAttacks);
+  else
+#endif
+  b = pos.attacks_from<KING>(ksq) & ~pos.pieces(us) & ~sliderAttacks;
   while (b)
       *moveList++ = make_move(ksq, pop_lsb(&b));
 
@@ -391,7 +442,13 @@ ExtMove* generate<EVASIONS>(const Position& pos, ExtMove* moveList) {
 
   // Generate blocking evasions or captures of the checking piece
   Square checksq = lsb(pos.checkers());
-  Bitboard target = between_bb(checksq, ksq) | checksq;
+  Bitboard target;
+#ifdef ATOMIC
+  if (pos.is_atomic()) // Generate blocking evasions of the checking piece
+      target = between_bb(checksq, ksq);
+  else
+#endif
+  target = between_bb(checksq, ksq) | checksq;
 
   return us == WHITE ? generate_all<WHITE, EVASIONS>(pos, moveList, target)
                      : generate_all<BLACK, EVASIONS>(pos, moveList, target);
@@ -402,17 +459,44 @@ ExtMove* generate<EVASIONS>(const Position& pos, ExtMove* moveList) {
 
 template<>
 ExtMove* generate<LEGAL>(const Position& pos, ExtMove* moveList) {
+#ifdef ATOMIC
+  if (pos.is_atomic() && (pos.is_atomic_win() || pos.is_atomic_loss()))
+      return moveList;
+#endif
+#ifdef HORDE
+  if (pos.is_horde() && pos.is_horde_loss())
+      return moveList;
+#endif
+#ifdef KOTH
+  if (pos.is_koth() && (pos.is_koth_win() || pos.is_koth_loss()))
+      return moveList;
+#endif
+#ifdef RACE
+  if (pos.is_race() && (pos.is_race_draw() || pos.is_race_win() || pos.is_race_loss()))
+      return moveList;
+#endif
+#ifdef THREECHECK
+  if (pos.is_three_check() && (pos.is_three_check_win() || pos.is_three_check_loss()))
+      return moveList;
+#endif
 
   Bitboard pinned = pos.pinned_pieces(pos.side_to_move());
+  bool validate = pinned;
+#ifdef RACE
+  if (pos.is_race()) validate = true;
+#endif
   Square ksq = pos.square<KING>(pos.side_to_move());
   ExtMove* cur = moveList;
-
   moveList = pos.checkers() ? generate<EVASIONS    >(pos, moveList)
                             : generate<NON_EVASIONS>(pos, moveList);
   while (cur != moveList)
-      if (   (pinned || from_sq(*cur) == ksq || type_of(*cur) == ENPASSANT)
+      if (   (validate || from_sq(*cur) == ksq || type_of(*cur) == ENPASSANT)
           && !pos.legal(*cur, pinned))
           *cur = (--moveList)->move;
+#ifdef ATOMIC
+      else if (pos.is_atomic() && pos.capture(*cur) && !pos.legal(*cur, pinned))
+          *cur = (--moveList)->move;
+#endif
       else
           ++cur;
 

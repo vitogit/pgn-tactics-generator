@@ -36,13 +36,17 @@ extern void benchmark(const Position& pos, istream& is);
 
 namespace {
 
-  // FEN string of the initial position, normal chess
+  // FEN string of the initial position, normal variant
   const char* StartFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+#ifdef HORDE
+  // FEN string of the initial position, horde variant
+  const char* StartFENHorde = "rnbqkbnr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1";
+#endif
 
-  // Stack to keep track of the position states along the setup moves (from the
+  // A list to keep track of the position states along the setup moves (from the
   // start position to the position just before the search starts). Needed by
   // 'draw by repetition' detection.
-  Search::StateStackPtr SetupStates;
+  StateListPtr States(new std::deque<StateInfo>(1));
 
 
   // position() is called when engine receives the "position" UCI command.
@@ -55,11 +59,42 @@ namespace {
     Move m;
     string token, fen;
 
-    is >> token;
+    int variant = STANDARD_VARIANT;
+    if (Options["UCI_Chess960"])
+        variant |= CHESS960_VARIANT;
+#ifdef ATOMIC
+    if (Options["UCI_Atomic"])
+        variant |= ATOMIC_VARIANT;
+#endif
+#ifdef HORDE
+    if (Options["UCI_Horde"])
+        variant |= HORDE_VARIANT;
+#endif
+#ifdef HOUSE
+    if (Options["UCI_House"])
+        variant |= HOUSE_VARIANT;
+#endif
+#ifdef KOTH
+    if (Options["UCI_KingOfTheHill"])
+        variant |= KOTH_VARIANT;
+#endif
+#ifdef RACE
+    if (Options["UCI_Race"])
+        variant |= RACE_VARIANT;
+#endif
+#ifdef THREECHECK
+    if (Options["UCI_3Check"])
+        variant |= THREECHECK_VARIANT;
+#endif
 
+    is >> token;
     if (token == "startpos")
     {
+#ifdef HORDE
+        fen = (variant & HORDE_VARIANT) ? StartFENHorde : StartFEN;
+#else
         fen = StartFEN;
+#endif
         is >> token; // Consume "moves" token if any
     }
     else if (token == "fen")
@@ -68,14 +103,14 @@ namespace {
     else
         return;
 
-    pos.set(fen, Options["UCI_Chess960"], Threads.main());
-    SetupStates = Search::StateStackPtr(new std::stack<StateInfo>);
+    States = StateListPtr(new std::deque<StateInfo>(1));
+    pos.set(fen, variant, &States->back(), Threads.main());
 
     // Parse move list (if any)
     while (is >> token && (m = UCI::to_move(pos, token)) != MOVE_NONE)
     {
-        SetupStates->push(StateInfo());
-        pos.do_move(m, SetupStates->top(), pos.gives_check(m, CheckInfo(pos)));
+        States->push_back(StateInfo());
+        pos.do_move(m, States->back(), pos.gives_check(m, CheckInfo(pos)));
     }
   }
 
@@ -86,7 +121,6 @@ namespace {
   void setoption(istringstream& is) {
 
     string token, name, value;
-
     is >> token; // Consume "name" token
 
     // Read option name (can contain spaces)
@@ -108,7 +142,7 @@ namespace {
   // the thinking time and other parameters from the input string, then starts
   // the search.
 
-  void go(const Position& pos, istringstream& is) {
+  void go(Position& pos, istringstream& is) {
 
     Search::LimitsType limits;
     string token;
@@ -132,7 +166,7 @@ namespace {
         else if (token == "infinite")  limits.infinite = 1;
         else if (token == "ponder")    limits.ponder = 1;
 
-    Threads.start_thinking(pos, limits, SetupStates);
+    Threads.start_thinking(pos, States, limits);
   }
 
 } // namespace
@@ -146,8 +180,10 @@ namespace {
 
 void UCI::loop(int argc, char* argv[]) {
 
-  Position pos(StartFEN, false, Threads.main()); // The root position
+  Position pos;
   string token, cmd;
+
+  pos.set(StartFEN, false, &States->back(), Threads.main());
 
   for (int i = 1; i < argc; ++i)
       cmd += std::string(argv[i]) + " ";
