@@ -16,6 +16,18 @@ engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
+def compare_scores(a, b):
+    # determine if the difference between position A and B 
+    # is worth investigating for a puzzle.
+    if a.cp is not None and b.cp is not None:
+        if abs(a.cp) < 200 and abs(b.cp) > 200 and a.cp + b.cp > 200:
+            return True
+    elif a.cp is not None and b.mate is not None:
+        if abs(a.cp) < 200:
+            return True
+    else:
+        return False
+
 while True:
     print(bcolors.WARNING + "Getting new game..." + bcolors.ENDC)
     response = requests.get('https://en.stage.lichess.org/training/api/game.pgn?token=' + token)
@@ -36,18 +48,6 @@ while True:
 
     prev_score = chess.uci.Score(None, None, False, False)
     puzzles = []
-
-    def compare_scores(a, b):
-        # determine if the difference between position A and B 
-        # is worth investigating for a puzzle.
-        if a.cp is not None and b.cp is not None:
-            if abs(a.cp) < 200 and abs(b.cp) > 200 and a.cp + b.cp > 200:
-                return True
-        elif a.cp is not None and b.mate is not None:
-            if abs(a.cp) < 200:
-                return True
-        else:
-            return False
 
     print(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
     print("Analysing Game..." + bcolors.ENDC)
