@@ -72,18 +72,20 @@ class position_list:
                 " A " + str(self.ambiguous()) + 
                 " GO " + str(self.game_over()) + bcolors.ENDC)
 
-    def is_complete(self, category, color):
+    def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
-            return self.next_position.is_complete(category, color)
+            return self.next_position.is_complete(category, color, False, first_val)
         
         if category == 'Material':
             if color:
-                if self.board_value() > 2:
+                if self.board_value() > 2 and abs(self.board_value() - first_val) > 0.01 and first_val < 2:
+                    print(str(self.board_value()) + '-' + str(first_val))
                     return True
                 else:
                     return False
             else:
-                if self.board_value() < -2:
+                if self.board_value() < -2 and abs(self.board_value() - first_val) > 0.01 and first_val > -2:
+                    print(str(self.board_value()) + '-' + str(first_val))
                     return True
                 else:
                     return False
@@ -148,7 +150,7 @@ class position_list:
         elif len(self.analysed_legals) > 1:
             if self.analysed_legals[0].evaluation.cp is not None:
                 if self.analysed_legals[1].evaluation.cp is not None:
-                    if abs(self.analysed_legals[0].evaluation.cp - self.analysed_legals[1].evaluation.cp) < 250 or self.analysed_legals[1].evaluation.cp < -250:
+                    if abs(self.analysed_legals[0].evaluation.cp - self.analysed_legals[1].evaluation.cp) < 220 or self.analysed_legals[1].evaluation.cp < -250:
                         return True
                     else:
                         return False
@@ -186,7 +188,11 @@ class puzzle:
         return self.positions.position.turn
 
     def is_complete(self):
-        return self.positions.is_complete(self.positions.category(), self.color())
+        return self.positions.is_complete(
+            self.positions.category(), 
+            self.color(), 
+            True, 
+            self.positions.board_value()) and not self.positions.ambiguous()
 
     def generate(self):
         self.positions.generate()
