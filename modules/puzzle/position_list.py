@@ -4,6 +4,7 @@ import os
 from modules.puzzle.analysed import analysed
 from modules.fishnet.fishnet import stockfish_filename
 
+print(os.path.join(".",stockfish_filename()))
 engine = chess.uci.popen_engine(os.path.join(".",stockfish_filename()))
 engine.uci()
 info_handler = chess.uci.InfoHandler()
