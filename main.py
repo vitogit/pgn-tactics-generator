@@ -21,7 +21,7 @@ def compare_scores(a, b):
     # determine if the difference between position A and B 
     # is worth investigating for a puzzle.
     if a.cp is not None and b.cp is not None:
-        if abs(a.cp) < 200 and abs(b.cp) > 200 and a.cp + b.cp > 200:
+        if abs(a.cp) < 200 and abs(b.cp) > 250 and abs(b.cp) < 850 and a.cp + b.cp > 200:
             return True
     elif a.cp is not None and b.mate is not None:
         if abs(a.cp) < 200:
@@ -57,7 +57,7 @@ while True:
         next_node = node.variation(0)
         engine.position(next_node.board())
 
-        engine.go(nodes=1500000)
+        engine.go(nodes=3500000)
         cur_score = info_handler.info["score"][1]
         print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
         print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))

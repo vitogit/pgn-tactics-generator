@@ -58,18 +58,21 @@ class position_list:
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
-            return self.next_position.is_complete(category, color, False, first_val)
+            if category == 'Mate' or self.next_position.next_position is not None:
+                return self.next_position.is_complete(category, color, False, first_val)
         
         if category == 'Material':
             if color:
-                if self.board_value() > 2 and abs(self.board_value() - first_val) > 0.01 and first_val < 2:
-                    print(str(self.board_value()) + '-' + str(first_val))
+                if (self.board_value() > 2 
+                    and abs(self.board_value() - first_val) > 0.1 
+                    and first_val < 2):
                     return True
                 else:
                     return False
             else:
-                if self.board_value() < -2 and abs(self.board_value() - first_val) > 0.01 and first_val > -2:
-                    print(str(self.board_value()) + '-' + str(first_val))
+                if (self.board_value() < -2 
+                    and abs(self.board_value() - first_val) > 0.1
+                    and first_val > -2):
                     return True
                 else:
                     return False
@@ -79,7 +82,7 @@ class position_list:
             else:
                 return False
 
-    def evaluate_best(self, nodes=3500000):
+    def evaluate_best(self, nodes=4500000):
         print(bcolors.OKGREEN + "Evaluating Best Move...")
         engine.position(self.position)
         self.best_move = engine.go(nodes=nodes)
@@ -90,7 +93,7 @@ class position_list:
         print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
         print("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
 
-    def evaluate_legals(self, nodes=3500000):
+    def evaluate_legals(self, nodes=2500000):
         print(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
@@ -132,20 +135,22 @@ class position_list:
         if len(self.analysed_legals) <= 1:
             return False
         elif len(self.analysed_legals) > 1:
-            if self.analysed_legals[0].evaluation.cp is not None:
-                if self.analysed_legals[1].evaluation.cp is not None:
-                    if abs(self.analysed_legals[0].evaluation.cp - self.analysed_legals[1].evaluation.cp) < 220 or self.analysed_legals[1].evaluation.cp < -250:
-                        return True
-                    else:
-                        return False
+            if (self.analysed_legals[0].evaluation.cp is not None
+                and self.analysed_legals[1].evaluation.cp is not None):
+                if (abs(self.analysed_legals[0].evaluation.cp - self.analysed_legals[1].evaluation.cp) < 160
+                    or self.analysed_legals[1].evaluation.cp < -280):
+                    return True
                 else:
                     return False
-            if self.analysed_legals[0].evaluation.mate is not None:
-                if self.analysed_legals[1].evaluation.mate is not None:
-                    if self.analysed_legals[0].evaluation.mate < 0 and self.analysed_legals[1].evaluation.mate < 0:
-                        return True
-                    else:
-                        return False
+            else:
+                return False
+            if (self.analysed_legals[0].evaluation.mate is not None
+                and self.analysed_legals[1].evaluation.mate is not None):
+                if (self.analysed_legals[0].evaluation.mate < 0
+                    and self.analysed_legals[1].evaluation.mate < 0):
+                    return True
+                else:
+                    return False
         return False
 
     def game_over(self):
