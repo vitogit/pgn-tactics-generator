@@ -53,6 +53,8 @@ while True:
     print(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
     print("Analysing Game..." + bcolors.ENDC)
 
+    engine.ucinewgame()
+
     while not node.is_end():
         next_node = node.variation(0)
         engine.position(next_node.board())
