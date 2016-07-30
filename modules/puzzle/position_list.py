@@ -1,8 +1,10 @@
 import chess
 import chess.uci
 import os
+from modules.bcolors.bcolors import bcolors
 from modules.puzzle.analysed import analysed
 from modules.fishnet.fishnet import stockfish_filename
+from operator import methodcaller
 
 engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
 engine.uci()

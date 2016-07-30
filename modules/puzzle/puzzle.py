@@ -1,7 +1,7 @@
 from modules.puzzle.position_list import position_list
+from modules.bcolors.bcolors import bcolors
 import json
 import os
-from operator import methodcaller
 
 class puzzle:
     def __init__(self, last_pos, last_move, game_id):
@@ -39,13 +39,3 @@ class puzzle:
 
     def category(self):
         return self.positions.category()
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'

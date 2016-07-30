@@ -5,7 +5,8 @@ from modules.fishnet.fishnet import stockfish_filename
 import os
 import requests
 import sys
-from modules.puzzle.puzzle import puzzle, bcolors
+from modules.puzzle.puzzle import puzzle
+from modules.bcolors.bcolors import bcolors
 
 token = ''
 if len(sys.argv) > 1:
@@ -30,7 +31,7 @@ def compare_scores(a, b):
 
 while True:
     print(bcolors.WARNING + "Getting new game..." + bcolors.ENDC)
-    response = requests.get('https://en.stage.lichess.org/training/api/game.pgn?token=' + token)
+    response = requests.get('https://en.lichess.org/training/api/game.pgn?token=' + token)
 
     try:
         from StringIO import StringIO
