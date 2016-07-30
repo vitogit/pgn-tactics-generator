@@ -11,7 +11,7 @@ token = ''
 if len(sys.argv) > 1:
     token = sys.argv[1]
 
-engine = chess.uci.popen_engine(os.path.join(".",stockfish_filename()))
+engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
