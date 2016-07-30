@@ -822,11 +822,7 @@ def detect_cpu_capabilities():
     # Run cpuid in subprocess for robustness in case of segfaults
     cmd = []
     cmd.append(sys.executable)
-    if __package__ is not None:
-        cmd.append("-m")
-        cmd.append(os.path.splitext(os.path.basename(__file__))[0])
-    else:
-        cmd.append(__file__)
+    cmd.append(__file__)
     cmd.append("cpuid")
 
     process = open_process(cmd, shell=False)
