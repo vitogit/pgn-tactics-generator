@@ -66,7 +66,7 @@ while True:
         next_node = node.variation(0)
         engine.position(next_node.board())
 
-        engine.go(nodes=7000000)
+        engine.go(nodes=3500000)
         cur_score = info_handler.info["score"][1]
         print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
         print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
