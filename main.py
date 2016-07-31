@@ -12,6 +12,11 @@ token = ''
 if len(sys.argv) > 1:
     token = sys.argv[1]
 
+slack_key = None
+if os.path.isfile('slack_key.txt'):
+    f = open('slack_key.txt', 'r')
+    slack_key = f.read()
+
 engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
 engine.setoption({'Threads': 4})
 engine.uci()
@@ -78,4 +83,14 @@ while True:
         if i.is_complete():
             print(bcolors.OKBLUE + str(i.to_dict()) + bcolors.ENDC)
             r = requests.post("https://en.stage.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
-            print(bcolors.WARNING + "Imported with ID " + r.content + bcolors.ENDC)
+            urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', r.content)
+            if len(urls) > 0:
+                print(bcolors.WARNING + "Imported with ID " + urls[0] + bcolors.ENDC)
+                if slack_key is not None:
+                    message = {"channel": "#general",
+                        "username": "webhookbot",
+                        "text": "New puzzle added: " + urls[0],
+                        "icon_emoji": ":star:"}
+                    requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
+            else:
+                print(bcolors.FAIL + "Failed to import with response: " + r.content + bcolors.ENDC)

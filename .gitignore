@@ -2,3 +2,4 @@
 */*.py[cd]
 stockfish-*
 Stockfish
+slack_key.txt
