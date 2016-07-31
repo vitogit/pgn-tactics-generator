@@ -5,6 +5,7 @@ from modules.fishnet.fishnet import stockfish_filename
 import os
 import requests
 import sys
+import re
 from modules.puzzle.puzzle import puzzle
 from modules.bcolors.bcolors import bcolors
 
