@@ -7,7 +7,7 @@ from modules.fishnet.fishnet import stockfish_filename
 from operator import methodcaller
 
 engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
-engine.setoption({'Threads': 4})
+engine.setoption({'Threads': 4, 'Hash': 2048})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)

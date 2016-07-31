@@ -19,7 +19,7 @@ if os.path.isfile('slack_key.txt'):
     slack_key = f.read()
 
 engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
-engine.setoption({'Threads': 4})
+engine.setoption({'Threads': 4, 'Hash': 2048})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
