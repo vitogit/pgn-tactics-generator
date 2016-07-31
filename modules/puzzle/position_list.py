@@ -140,7 +140,7 @@ class position_list:
             if (self.analysed_legals[0].evaluation.cp is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
                 if (self.analysed_legals[0] > -200
-                    or self.analysed_legals[1].evaluation.cp < -110):
+                    or self.analysed_legals[1].evaluation.cp < -100):
                     return True
                 else:
                     return False
