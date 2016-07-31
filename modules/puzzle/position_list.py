@@ -86,7 +86,7 @@ class position_list:
             else:
                 return False
 
-    def evaluate_best(self, nodes=4500000):
+    def evaluate_best(self, nodes=7000000):
         print(bcolors.OKGREEN + "Evaluating Best Move...")
         engine.position(self.position)
         self.best_move = engine.go(nodes=nodes)
@@ -97,7 +97,7 @@ class position_list:
         print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
         print("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
 
-    def evaluate_legals(self, nodes=2500000):
+    def evaluate_legals(self, nodes=7000000):
         print(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
