@@ -147,8 +147,8 @@ class position_list:
                     return False
             if (self.analysed_legals[0].evaluation.mate is not None
                 and self.analysed_legals[1].evaluation.mate is not None):
-                if (self.analysed_legals[0].evaluation.mate < 0
-                    and self.analysed_legals[1].evaluation.mate < 0):
+                if (self.analysed_legals[0].evaluation.mate < 1
+                    and self.analysed_legals[1].evaluation.mate < 1):
                     return True
                 else:
                     return False
