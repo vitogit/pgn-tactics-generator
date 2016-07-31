@@ -65,14 +65,16 @@ class position_list:
             if color:
                 if (self.board_value() > 2 
                     and abs(self.board_value() - first_val) > 0.1 
-                    and first_val < 2):
+                    and first_val < 2
+                    and self.evaluation.mate is None):
                     return True
                 else:
                     return False
             else:
                 if (self.board_value() < -2 
                     and abs(self.board_value() - first_val) > 0.1
-                    and first_val > -2):
+                    and first_val > -2
+                    and self.evaluation.mate is None):
                     return True
                 else:
                     return False
@@ -138,12 +140,10 @@ class position_list:
             if (self.analysed_legals[0].evaluation.cp is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
                 if (abs(self.analysed_legals[0].evaluation.cp - self.analysed_legals[1].evaluation.cp) < 160
-                    or self.analysed_legals[1].evaluation.cp < -280):
+                    or self.analysed_legals[1].evaluation.cp < -200):
                     return True
                 else:
                     return False
-            else:
-                return False
             if (self.analysed_legals[0].evaluation.mate is not None
                 and self.analysed_legals[1].evaluation.mate is not None):
                 if (self.analysed_legals[0].evaluation.mate < 0
