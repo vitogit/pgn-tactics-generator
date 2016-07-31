@@ -21,7 +21,7 @@ def compare_scores(a, b):
     # determine if the difference between position A and B 
     # is worth investigating for a puzzle.
     if a.cp is not None and b.cp is not None:
-        if abs(a.cp) < 200 and abs(b.cp) > 250 and abs(b.cp) < 850 and a.cp + b.cp > 200:
+        if abs(a.cp) < 110 and abs(b.cp) > 200 and abs(b.cp) < 850:
             return True
     elif a.cp is not None and b.mate is not None:
         if abs(a.cp) < 200:
