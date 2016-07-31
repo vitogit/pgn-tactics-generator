@@ -24,11 +24,14 @@ class puzzle:
         return self.positions.position.turn
 
     def is_complete(self):
-        return self.positions.is_complete(
-            self.positions.category(), 
-            self.color(), 
-            True, 
-            self.positions.board_value()) and not self.positions.ambiguous()
+        return (self.positions.is_complete(
+                self.positions.category(), 
+                self.color(), 
+                True, 
+                self.positions.board_value()
+            )
+            and not self.positions.ambiguous()
+            and len(self.positions.move_list()) > 2)
 
     def generate(self):
         self.positions.generate()
