@@ -13,6 +13,6 @@ class analysed:
         if self.evaluation.cp is not None:
             return self.evaluation.cp
         elif self.evaluation.mate is not None:
-            return self.sign(self.evaluation.mate) * (abs(self.evaluation.mate) + 1) * 10000
+            return self.sign(self.evaluation.mate) * (abs(100 + self.evaluation.mate)) * 10000
         else:
             return 0

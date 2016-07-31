@@ -59,7 +59,8 @@ class position_list:
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
-            if category == 'Mate' or (category == 'Material' and self.next_position.next_position is not None):
+            if ((category == 'Mate' and not self.ambiguous()) 
+                or (category == 'Material' and self.next_position.next_position is not None)):
                 return self.next_position.is_complete(category, color, False, first_val)
         
         if category == 'Material':
