@@ -153,6 +153,12 @@ class position_list:
                     return True
                 else:
                     return False
+            if (self.analysed_legals[0].evaluation.mate is not None
+                and self.analysed_legals[1].evaluation.cp is not None):
+                if (self.analysed_legals[1].evaluation.cp < -100):
+                    return True
+                else:
+                    return False
         return False
 
     def game_over(self):
