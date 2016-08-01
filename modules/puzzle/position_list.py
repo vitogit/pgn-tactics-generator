@@ -52,7 +52,7 @@ class position_list:
             print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
             self.next_position.generate()
         else:
-            print(bcolors.FAIL + "Not Going Deeper:")
+            print(bcolors.WARNING + "Not Going Deeper:")
             print("   Ambiguous: " + str(self.ambiguous()))
             print("   Game Over: " + str(self.game_over()))
             print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
