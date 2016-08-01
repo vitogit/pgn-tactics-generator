@@ -141,7 +141,7 @@ class position_list:
         elif len(self.analysed_legals) > 1:
             if (self.analysed_legals[0].evaluation.cp is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
-                if (self.analysed_legals[0] > -200
+                if (self.analysed_legals[0].evaluation.cp > -200
                     or self.analysed_legals[1].evaluation.cp < -100):
                     return True
                 else:
