@@ -42,20 +42,20 @@ class position_list:
     def generate(self):
         print(bcolors.WARNING + str(self.position) + bcolors.ENDC)
         print(bcolors.OKBLUE + 'Material Value: ' + str(self.material_difference()) + bcolors.ENDC)
-        self.evaluate_best()      
+        has_best = self.evaluate_best()
         if self.player_turn:
             self.evaluate_legals()
-        if not self.player_turn or (not self.ambiguous() and not self.game_over()):
-            print(bcolors.OKGREEN + 
-                "Going Deeper: PT " + str(self.player_turn) + 
-                " A " + str(self.ambiguous()) + 
-                " GO " + str(self.game_over()) + bcolors.ENDC)
+        if has_best and not self.ambiguous() and not self.game_over():
+            print(bcolors.OKGREEN + "Going Deeper:")
+            print("   Ambiguous: " + str(self.ambiguous()))
+            print("   Game Over: " + str(self.game_over()))
+            print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
             self.next_position.generate()
         else:
-            print(bcolors.WARNING + 
-                "Not Going Deeper: PT " + str(self.player_turn) + 
-                " A " + str(self.ambiguous()) + 
-                " GO " + str(self.game_over()) + bcolors.ENDC)
+            print(bcolors.FAIL + "Not Going Deeper:")
+            print("   Ambiguous: " + str(self.ambiguous()))
+            print("   Game Over: " + str(self.game_over()))
+            print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
@@ -90,12 +90,17 @@ class position_list:
         print(bcolors.OKGREEN + "Evaluating Best Move...")
         engine.position(self.position)
         self.best_move = engine.go(nodes=nodes)
-        self.evaluation = info_handler.info["score"][1]
-        self.next_position = position_list(self.position.copy(), not self.player_turn)
-        self.next_position.position.push(self.best_move.bestmove)
-        print("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
-        print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
-        print("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
+        if self.best_move.bestmove is not None:
+            self.evaluation = info_handler.info["score"][1]
+            self.next_position = position_list(self.position.copy(), not self.player_turn)
+            self.next_position.position.push(self.best_move.bestmove)
+            print("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
+            print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
+            print("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
+            return True
+        else:
+            print(bcolors.FAIL + "No best move!" + bcolors.ENDC)
+            return False
 
     def evaluate_legals(self, nodes=6000000):
         print(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
