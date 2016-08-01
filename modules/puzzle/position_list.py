@@ -57,35 +57,6 @@ class position_list:
             print("   Game Over: " + str(self.game_over()))
             print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
 
-    def is_complete(self, category, color, first_node, first_val):
-        if self.next_position is not None:
-            if ((category == 'Mate' and not self.ambiguous()) 
-                or (category == 'Material' and self.next_position.next_position is not None)):
-                return self.next_position.is_complete(category, color, False, first_val)
-        
-        if category == 'Material':
-            if color:
-                if (self.material_difference() > 2 
-                    and abs(self.material_difference() - first_val) > 0.1 
-                    and first_val < 2
-                    and self.evaluation.mate is None):
-                    return True
-                else:
-                    return False
-            else:
-                if (self.material_difference() < -2 
-                    and abs(self.material_difference() - first_val) > 0.1
-                    and first_val > -2
-                    and self.evaluation.mate is None):
-                    return True
-                else:
-                    return False
-        else:
-            if self.position.is_game_over():
-                return True
-            else:
-                return False
-
     def evaluate_best(self, nodes=6000000):
         print(bcolors.OKGREEN + "Evaluating Best Move...")
         engine.position(self.position)
@@ -139,6 +110,35 @@ class position_list:
 
                 total += sign * base_val
         return total
+
+    def is_complete(self, category, color, first_node, first_val):
+        if self.next_position is not None:
+            if ((category == 'Mate' and not self.ambiguous()) 
+                or (category == 'Material' and self.next_position.next_position is not None)):
+                return self.next_position.is_complete(category, color, False, first_val)
+        
+        if category == 'Material':
+            if color:
+                if (self.material_difference() > 0.2 
+                    and abs(self.material_difference() - first_val) > 0.1 
+                    and first_val < 2
+                    and self.evaluation.mate is None):
+                    return True
+                else:
+                    return False
+            else:
+                if (self.material_difference() < -0.2 
+                    and abs(self.material_difference() - first_val) > 0.1
+                    and first_val > -2
+                    and self.evaluation.mate is None):
+                    return True
+                else:
+                    return False
+        else:
+            if self.position.is_game_over():
+                return True
+            else:
+                return False
 
     def ambiguous(self):
         if len(self.analysed_legals) <= 1:
