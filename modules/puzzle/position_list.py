@@ -41,7 +41,7 @@ class position_list:
 
     def generate(self):
         print(bcolors.WARNING + str(self.position) + bcolors.ENDC)
-        print(bcolors.OKBLUE + 'Material Value: ' + str(self.board_value()) + bcolors.ENDC)
+        print(bcolors.OKBLUE + 'Material Value: ' + str(self.material_difference()) + bcolors.ENDC)
         self.evaluate_best()      
         if self.player_turn:
             self.evaluate_legals()
@@ -65,16 +65,16 @@ class position_list:
         
         if category == 'Material':
             if color:
-                if (self.board_value() > 2 
-                    and abs(self.board_value() - first_val) > 0.1 
+                if (self.material_difference() > 2 
+                    and abs(self.material_difference() - first_val) > 0.1 
                     and first_val < 2
                     and self.evaluation.mate is None):
                     return True
                 else:
                     return False
             else:
-                if (self.board_value() < -2 
-                    and abs(self.board_value() - first_val) > 0.1
+                if (self.material_difference() < -2 
+                    and abs(self.material_difference() - first_val) > 0.1
                     and first_val > -2
                     and self.evaluation.mate is None):
                     return True
@@ -112,7 +112,7 @@ class position_list:
             print("   Mate: " + str(i.evaluation.mate))
         print("... and " + str(max(0, len(self.analysed_legals) - 3)) + " more moves" + bcolors.ENDC)
 
-    def board_value(self):
+    def material_difference(self):
         total = 0
         for i in chess.SQUARES:
             square = self.position.piece_at(i)

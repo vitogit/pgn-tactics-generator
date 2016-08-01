@@ -28,7 +28,7 @@ class puzzle:
                 self.positions.category(), 
                 self.color(), 
                 True, 
-                self.positions.board_value()
+                self.positions.material_difference()
             )
             and not self.positions.ambiguous()
             and len(self.positions.move_list()) > 2)

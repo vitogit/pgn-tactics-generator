@@ -8,6 +8,7 @@ import sys
 import re
 from modules.puzzle.puzzle import puzzle
 from modules.bcolors.bcolors import bcolors
+from modules.investigate.investigate import investigate
 
 token = ''
 if len(sys.argv) > 1:
@@ -23,18 +24,6 @@ engine.setoption({'Threads': 4, 'Hash': 2048})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
-
-def compare_scores(a, b):
-    # determine if the difference between position A and B 
-    # is worth investigating for a puzzle.
-    if a.cp is not None and b.cp is not None:
-        if abs(a.cp) < 110 and abs(b.cp) > 200 and abs(b.cp) < 850:
-            return True
-    elif a.cp is not None and b.mate is not None:
-        if abs(a.cp) < 200:
-            return True
-    else:
-        return False
 
 while True:
     print(bcolors.WARNING + "Getting new game..." + bcolors.ENDC)
@@ -71,7 +60,7 @@ while True:
         print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
         print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
         print("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
-        if compare_scores(prev_score, cur_score):
+        if investigate(prev_score, cur_score, node.board()):
             print(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
             puzzles.append(puzzle(node.board(), next_node.move, game_id))
 
