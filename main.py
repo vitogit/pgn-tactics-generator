@@ -78,7 +78,7 @@ while True:
                 print(bcolors.WARNING + "Imported with ID " + urls[0] + bcolors.ENDC)
                 if slack_key is not None:
                     message = {"channel": "#general",
-                        "username": "webhookbot",
+                        "username": "Puzzle Generator",
                         "text": "New puzzle added: " + urls[0],
                         "icon_emoji": ":star:"}
                     requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
