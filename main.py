@@ -75,11 +75,12 @@ while True:
             r = requests.post("https://en.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
             urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', r.content)
             if len(urls) > 0:
-                print(bcolors.WARNING + "Imported with ID " + urls[0] + bcolors.ENDC)
+                puzzle_id = urls[0].split('/')[-1:][0]
+                print(bcolors.WARNING + "Imported with ID " + puzzle_id + bcolors.ENDC)
                 if slack_key is not None:
                     message = {"channel": "#general",
                         "username": "Puzzle Generator",
-                        "text": "New puzzle added: " + urls[0],
+                        "text": "New puzzle added: https://en.lichess.org/training/" + puzzle_id,
                         "icon_emoji": ":star:"}
                     requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
             else:
