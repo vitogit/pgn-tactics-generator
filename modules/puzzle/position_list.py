@@ -6,15 +6,11 @@ from modules.puzzle.analysed import analysed
 from modules.fishnet.fishnet import stockfish_filename
 from operator import methodcaller
 
-engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
-engine.setoption({'Threads': 4, 'Hash': 2048})
-engine.uci()
-info_handler = chess.uci.InfoHandler()
-engine.info_handlers.append(info_handler)
-
 class position_list:
-    def __init__(self, position, player_turn=True, best_move=None, evaluation=None):
+    def __init__(self, position, engine, info_handler, player_turn=True, best_move=None, evaluation=None):
         self.position = position.copy()
+        self.engine = engine
+        self.info_handler = info_handler
         self.player_turn = player_turn
         self.best_move = best_move
         self.evaluation = evaluation
@@ -59,11 +55,14 @@ class position_list:
 
     def evaluate_best(self, nodes=6000000):
         print(bcolors.OKGREEN + "Evaluating Best Move...")
-        engine.position(self.position)
-        self.best_move = engine.go(nodes=nodes)
+        self.engine.position(self.position)
+        self.best_move = self.engine.go(nodes=nodes)
         if self.best_move.bestmove is not None:
-            self.evaluation = info_handler.info["score"][1]
-            self.next_position = position_list(self.position.copy(), not self.player_turn)
+            self.evaluation = self.info_handler.info["score"][1]
+            self.next_position = position_list(self.position.copy(),
+                self.engine,
+                self.info_handler,
+                not self.player_turn)
             self.next_position.position.push(self.best_move.bestmove)
             print("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
             print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
@@ -78,9 +77,9 @@ class position_list:
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
             position_copy.push(i)
-            engine.position(position_copy)
-            engine.go(nodes=nodes)
-            self.analysed_legals.append(analysed(i, info_handler.info["score"][1]))
+            self.engine.position(position_copy)
+            self.engine.go(nodes=nodes)
+            self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:
             print(bcolors.OKGREEN + "Move: " + str(i.move.uci()) + bcolors.ENDC)
@@ -113,7 +112,7 @@ class position_list:
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
-            if ((category == 'Mate' and not self.ambiguous()) 
+            if ((category == 'Mate' and not self.ambiguous())
                 or (category == 'Material' and self.next_position.next_position is not None)):
                 return self.next_position.is_complete(category, color, False, first_val)
         
@@ -141,29 +140,21 @@ class position_list:
                 return False
 
     def ambiguous(self):
-        if len(self.analysed_legals) <= 1:
-            return False
-        elif len(self.analysed_legals) > 1:
+        if len(self.analysed_legals) > 1:
             if (self.analysed_legals[0].evaluation.cp is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
                 if (self.analysed_legals[0].evaluation.cp > -200
                     or self.analysed_legals[1].evaluation.cp < -100):
                     return True
-                else:
-                    return False
             if (self.analysed_legals[0].evaluation.mate is not None
                 and self.analysed_legals[1].evaluation.mate is not None):
                 if (self.analysed_legals[0].evaluation.mate < 1
                     and self.analysed_legals[1].evaluation.mate < 1):
                     return True
-                else:
-                    return False
             if (self.analysed_legals[0].evaluation.mate is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
                 if (self.analysed_legals[1].evaluation.cp < -100):
                     return True
-                else:
-                    return False
         return False
 
     def game_over(self):

@@ -4,12 +4,12 @@ import json
 import os
 
 class puzzle:
-    def __init__(self, last_pos, last_move, game_id):
+    def __init__(self, last_pos, last_move, game_id, engine, info_handler):
         self.last_pos = last_pos.copy()
         self.last_move = last_move
         self.game_id = game_id
         last_pos.push(last_move)
-        self.positions = position_list(last_pos)
+        self.positions = position_list(last_pos, engine, info_handler)
 
     def to_dict(self):
         return {

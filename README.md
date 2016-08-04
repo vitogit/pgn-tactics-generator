@@ -2,7 +2,7 @@
 
 ## About
 
-This is a python library dedicated to creating chess puzzles for lichess.org. However it can easily be adapted to create puzzles from personal games.
+This is a python application dedicated to creating chess puzzles for lichess.org. However it can easily be adapted to create puzzles from personal games.
 
 ## Installation
 
@@ -20,6 +20,6 @@ This script requires the *Requests* and *Python-Chess* libraries to run, as well
 
 MacOS / Linux : `sh build-stockfish.sh` to obtain the current lichess Stockfish instance.
 
-## Launching application
+## Launching Application
 
-`python main.py <Secret API Token>`
+`python main.py <Secret API Token> <Instance Name> <#Threads>`
