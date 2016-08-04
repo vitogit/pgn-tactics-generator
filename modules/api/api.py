@@ -28,7 +28,7 @@ def get_pgn(token):
 
     return StringIO(response.content)
 
-def post_puzzle(token, puzzle, name):
+def post_puzzle(token, puzzle, slack_key, name):
     print(bcolors.OKBLUE + str(puzzle.to_dict()) + bcolors.ENDC)
     success = False
     while not success:

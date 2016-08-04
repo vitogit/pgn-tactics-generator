@@ -2,9 +2,7 @@ import chess
 import chess.uci
 import chess.pgn
 import os
-import requests
 import sys
-import re
 from modules.fishnet.fishnet import stockfish_filename
 from modules.puzzle.puzzle import puzzle
 from modules.bcolors.bcolors import bcolors
@@ -71,4 +69,4 @@ while True:
         print(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            post_puzzle(token, i, name)
+            post_puzzle(token, i, slack_key, name)
