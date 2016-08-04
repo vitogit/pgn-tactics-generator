@@ -47,6 +47,7 @@ def post_puzzle(token, puzzle, name):
     
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', r.content)
     if len(urls) > 0:
+        puzzle_id = urls[0].split('/')[-1:][0]
         print(bcolors.WARNING + "Imported with ID " + puzzle_id + bcolors.ENDC)
         if slack_key is not None:
             message = {"channel": "#puzzles",
