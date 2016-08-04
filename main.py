@@ -71,4 +71,4 @@ while True:
         print(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            push_puzzle(token, i, name)
+            post_puzzle(token, i, name)
