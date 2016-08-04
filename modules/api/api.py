@@ -29,11 +29,11 @@ def get_pgn(token):
     return StringIO(response.content)
 
 def post_puzzle(token, puzzle, name):
-    print(bcolors.OKBLUE + str(i.to_dict()) + bcolors.ENDC)
+    print(bcolors.OKBLUE + str(puzzle.to_dict()) + bcolors.ENDC)
     success = False
     while not success:
         try:
-            r = requests.post("https://en.lichess.org/training/api/puzzle?token=" + token, json=i.to_dict())
+            r = requests.post("https://en.lichess.org/training/api/puzzle?token=" + token, json=puzzle.to_dict())
             success = True
         except ConnectionError:
             print(bcolors.WARNING + "CONNECTION ERROR: Failed to post puzzle.")
