@@ -11,11 +11,11 @@ def get_pgn(token):
         try:
             response = requests.get('https://en.lichess.org/training/api/game.pgn?token=' + token)
             success = True
-        except ConnectionError:
+        except requests.ConnectionError:
             print(bcolors.WARNING + "CONNECTION ERROR: Failed to get new game.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)
-        except SSLError:
+        except requests.SSLError:
             print(bcolors.WARNING + "SSL ERROR: Failed to get new game.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)
@@ -35,11 +35,11 @@ def post_puzzle(token, puzzle, slack_key, name):
         try:
             r = requests.post("https://en.lichess.org/training/api/puzzle?token=" + token, json=puzzle.to_dict())
             success = True
-        except ConnectionError:
+        except requests.ConnectionError:
             print(bcolors.WARNING + "CONNECTION ERROR: Failed to post puzzle.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)
-        except SSLError:
+        except requests.SSLError:
             print(bcolors.WARNING + "SSL ERROR: Failed to post puzzle.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)
