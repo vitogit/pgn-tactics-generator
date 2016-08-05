@@ -22,4 +22,4 @@ MacOS / Linux : `sh build-stockfish.sh` to obtain the current lichess Stockfish 
 
 ## Launching Application
 
-`python main.py <Secret API Token> <Instance Name> <#Threads>`
+`python main.py <Secret API Token> <Instance Name> <#Threads> <Hash (Bytes)>`

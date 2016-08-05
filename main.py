@@ -12,7 +12,10 @@ from modules.api.api import get_pgn, post_puzzle
 token = ''
 name = ''
 threads = 4
+memory = 2048
 
+if len(sys.argv) > 4:
+    memory = int(sys.argv[4])
 if len(sys.argv) > 3:
     threads = int(sys.argv[3])
 if len(sys.argv) > 2:
@@ -26,7 +29,7 @@ if os.path.isfile('slack_key.txt'):
     slack_key = f.read()
 
 engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
-engine.setoption({'Threads': threads, 'Hash': 2048})
+engine.setoption({'Threads': threads, 'Hash': memory})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
