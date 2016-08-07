@@ -6,6 +6,7 @@ import argparse
 import chess
 import chess.uci
 import chess.pgn
+import logging
 import os
 import sys
 from modules.fishnet.fishnet import stockfish_command
@@ -23,7 +24,14 @@ parser.add_argument("threads", metavar="THREADS", nargs="?", type=int, default=4
                     help="number of engine threads")
 parser.add_argument("memory", metavar="MEMORY", nargs="?", type=int, default=2048,
                     help="memory in MB to use for engine hashtables")
+parser.add_argument("--quiet", dest="loglevel",
+                    default=logging.DEBUG, action="store_const", const=logging.INFO,
+                    help="substantially reduce the number of logged messages")
 settings = parser.parse_args()
+
+logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
+logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
+logging.getLogger("chess.uci").setLevel(logging.WARNING)
 
 slack_key = None
 if os.path.isfile('slack_key.txt'):
@@ -44,13 +52,13 @@ while True:
     node = game
 
     game_id = game.headers["Site"].split('/')[-1:][0]
-    print(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
+    logging.debug(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
 
     prev_score = chess.uci.Score(None, None, False, False)
     puzzles = []
 
-    print(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
-    print("Analysing Game..." + bcolors.ENDC)
+    logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
+    logging.debug("Analysing Game..." + bcolors.ENDC)
 
     engine.ucinewgame()
 
@@ -60,18 +68,18 @@ while True:
 
         engine.go(nodes=3500000)
         cur_score = info_handler.info["score"][1]
-        print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
-        print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
-        print("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
+        logging.debug(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
+        logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
+        logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
-            print(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
+            logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
             puzzles.append(puzzle(node.board(), next_node.move, game_id, engine, info_handler))
 
         prev_score = cur_score
         node = next_node
 
     for i in puzzles:
-        print(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
+        logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
             post_puzzle(settings.token, i, slack_key, settings.name)

@@ -1,6 +1,7 @@
 from modules.puzzle.position_list import position_list
 from modules.bcolors.bcolors import bcolors
 import json
+import logging
 import os
 
 class puzzle:
@@ -36,9 +37,9 @@ class puzzle:
     def generate(self):
         self.positions.generate()
         if self.is_complete():
-            print(bcolors.OKGREEN + "Puzzle is complete" + bcolors.ENDC)
+            logging.debug(bcolors.OKGREEN + "Puzzle is complete" + bcolors.ENDC)
         else:
-            print(bcolors.FAIL + "Puzzle incomplete" + bcolors.ENDC)
+            logging.debug(bcolors.FAIL + "Puzzle incomplete" + bcolors.ENDC)
 
     def category(self):
         return self.positions.category()

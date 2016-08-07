@@ -1,5 +1,6 @@
 import chess
 import chess.uci
+import logging
 import os
 from modules.bcolors.bcolors import bcolors
 from modules.puzzle.analysed import analysed
@@ -35,25 +36,25 @@ class position_list:
             return self.next_position.category()
 
     def generate(self):
-        print(bcolors.WARNING + str(self.position) + bcolors.ENDC)
-        print(bcolors.OKBLUE + 'Material Value: ' + str(self.material_difference()) + bcolors.ENDC)
+        logging.debug(bcolors.WARNING + str(self.position) + bcolors.ENDC)
+        logging.debug(bcolors.OKBLUE + 'Material Value: ' + str(self.material_difference()) + bcolors.ENDC)
         has_best = self.evaluate_best()
         if self.player_turn:
             self.evaluate_legals()
         if has_best and not self.ambiguous() and not self.game_over():
-            print(bcolors.OKGREEN + "Going Deeper:")
-            print("   Ambiguous: " + str(self.ambiguous()))
-            print("   Game Over: " + str(self.game_over()))
-            print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
+            logging.debug(bcolors.OKGREEN + "Going Deeper:")
+            logging.debug("   Ambiguous: " + str(self.ambiguous()))
+            logging.debug("   Game Over: " + str(self.game_over()))
+            logging.debug("   Has Best Move: " + str(has_best) + bcolors.ENDC)
             self.next_position.generate()
         else:
-            print(bcolors.WARNING + "Not Going Deeper:")
-            print("   Ambiguous: " + str(self.ambiguous()))
-            print("   Game Over: " + str(self.game_over()))
-            print("   Has Best Move: " + str(has_best) + bcolors.ENDC)
+            logging.debug(bcolors.WARNING + "Not Going Deeper:")
+            logging.debug("   Ambiguous: " + str(self.ambiguous()))
+            logging.debug("   Game Over: " + str(self.game_over()))
+            logging.debug("   Has Best Move: " + str(has_best) + bcolors.ENDC)
 
     def evaluate_best(self, nodes=6000000):
-        print(bcolors.OKGREEN + "Evaluating Best Move...")
+        logging.debug(bcolors.OKGREEN + "Evaluating Best Move...")
         self.engine.position(self.position)
         self.best_move = self.engine.go(nodes=nodes)
         if self.best_move.bestmove is not None:
@@ -63,16 +64,16 @@ class position_list:
                 self.info_handler,
                 not self.player_turn)
             self.next_position.position.push(self.best_move.bestmove)
-            print("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
-            print(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
-            print("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
+            logging.debug("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
+            logging.debug(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
+            logging.debug("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
             return True
         else:
-            print(bcolors.FAIL + "No best move!" + bcolors.ENDC)
+            logging.debug(bcolors.FAIL + "No best move!" + bcolors.ENDC)
             return False
 
     def evaluate_legals(self, nodes=6000000):
-        print(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
+        logging.debug(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
             position_copy.push(i)
@@ -81,10 +82,10 @@ class position_list:
             self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:
-            print(bcolors.OKGREEN + "Move: " + str(i.move.uci()) + bcolors.ENDC)
-            print(bcolors.OKBLUE + "   CP: " + str(i.evaluation.cp))
-            print("   Mate: " + str(i.evaluation.mate))
-        print("... and " + str(max(0, len(self.analysed_legals) - 3)) + " more moves" + bcolors.ENDC)
+            logging.debug(bcolors.OKGREEN + "Move: " + str(i.move.uci()) + bcolors.ENDC)
+            logging.debug(bcolors.OKBLUE + "   CP: " + str(i.evaluation.cp))
+            logging.debug("   Mate: " + str(i.evaluation.mate))
+        logging.debug("... and " + str(max(0, len(self.analysed_legals) - 3)) + " more moves" + bcolors.ENDC)
 
     def material_difference(self):
         return sum(v * (len(self.position.pieces(pt, True)) - len(self.position.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
