@@ -1,54 +1,74 @@
+#!/usr/bin/env python
+
+"""Creating chess puzzles for lichess.org"""
+
+import argparse
 import chess
 import chess.uci
 import chess.pgn
+import logging
 import os
 import sys
-from modules.fishnet.fishnet import stockfish_filename
+from modules.fishnet.fishnet import stockfish_command
 from modules.puzzle.puzzle import puzzle
 from modules.bcolors.bcolors import bcolors
 from modules.investigate.investigate import investigate
 from modules.api.api import get_pgn, post_puzzle
 
-token = ''
-name = ''
-threads = 4
-memory = 2048
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("token", metavar="TOKEN",
+                    help="secret token for the lichess api")
+parser.add_argument("name", metavar="NAME",
+                    help="pick a name for the generator instance")
+parser.add_argument("threads", metavar="THREADS", nargs="?", type=int, default=4,
+                    help="number of engine threads")
+parser.add_argument("memory", metavar="MEMORY", nargs="?", type=int, default=2048,
+                    help="memory in MB to use for engine hashtables")
+parser.add_argument("--quiet", dest="loglevel",
+                    default=logging.DEBUG, action="store_const", const=logging.INFO,
+                    help="substantially reduce the number of logged messages")
+settings = parser.parse_args()
 
-if len(sys.argv) > 4:
-    memory = int(sys.argv[4])
-if len(sys.argv) > 3:
-    threads = int(sys.argv[3])
-if len(sys.argv) > 2:
-    name = sys.argv[2]
-if len(sys.argv) > 1:
-    token = sys.argv[1]
+try:
+    # Optionally fix colors on Windows and in journals if the colorama module
+    # is available.
+    import colorama
+    wrapper = colorama.AnsiToWin32(sys.stdout)
+    if wrapper.should_wrap():
+        sys.stdout = wrapper.stream
+except ImportError:
+    pass
+
+logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
+logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
+logging.getLogger("chess.uci").setLevel(logging.WARNING)
 
 slack_key = None
 if os.path.isfile('slack_key.txt'):
     f = open('slack_key.txt', 'r')
     slack_key = f.read()
 
-engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
-engine.setoption({'Threads': threads, 'Hash': memory})
+engine = chess.uci.popen_engine(stockfish_command())
+engine.setoption({'Threads': settings.threads, 'Hash': settings.memory})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
 while True:
-    pgn = get_pgn(token)
+    pgn = get_pgn(settings.token)
     game = chess.pgn.read_game(pgn)
     pgn.close()
 
     node = game
 
     game_id = game.headers["Site"].split('/')[-1:][0]
-    print(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
+    logging.debug(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
 
     prev_score = chess.uci.Score(None, None, False, False)
     puzzles = []
 
-    print(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
-    print("Analysing Game..." + bcolors.ENDC)
+    logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
+    logging.debug("Analysing Game..." + bcolors.ENDC)
 
     engine.ucinewgame()
 
@@ -58,18 +78,18 @@ while True:
 
         engine.go(nodes=3500000)
         cur_score = info_handler.info["score"][1]
-        print(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
-        print(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
-        print("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
+        logging.debug(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
+        logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
+        logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
-            print(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
+            logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
             puzzles.append(puzzle(node.board(), next_node.move, game_id, engine, info_handler))
 
         prev_score = cur_score
         node = next_node
 
     for i in puzzles:
-        print(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
+        logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            post_puzzle(token, i, slack_key, name)
+            post_puzzle(settings.token, i, slack_key, settings.name)
