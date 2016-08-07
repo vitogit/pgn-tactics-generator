@@ -15,7 +15,7 @@ def get_pgn(token):
             print(bcolors.WARNING + "CONNECTION ERROR: Failed to get new game.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)
-        except requests.SSLError:
+        except requests.exceptions.SSLError:
             print(bcolors.WARNING + "SSL ERROR: Failed to get new game.")
             print("Trying again in 30 sec" + bcolors.ENDC)
             time.sleep(30)

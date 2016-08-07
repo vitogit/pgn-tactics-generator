@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+"""Creating chess puzzles for lichess.org"""
+
+import argparse
 import chess
 import chess.uci
 import chess.pgn
@@ -9,19 +14,16 @@ from modules.bcolors.bcolors import bcolors
 from modules.investigate.investigate import investigate
 from modules.api.api import get_pgn, post_puzzle
 
-token = ''
-name = ''
-threads = 4
-memory = 2048
-
-if len(sys.argv) > 4:
-    memory = int(sys.argv[4])
-if len(sys.argv) > 3:
-    threads = int(sys.argv[3])
-if len(sys.argv) > 2:
-    name = sys.argv[2]
-if len(sys.argv) > 1:
-    token = sys.argv[1]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("token", metavar="TOKEN",
+                    help="secret token for the lichess api")
+parser.add_argument("name", metavar="NAME",
+                    help="pick a name for the generator instance")
+parser.add_argument("threads", metavar="THREADS", nargs="?", type=int, default=4,
+                    help="number of engine threads")
+parser.add_argument("memory", metavar="MEMORY", nargs="?", type=int, default=2048,
+                    help="memory in MB to use for engine hashtables")
+settings = parser.parse_args()
 
 slack_key = None
 if os.path.isfile('slack_key.txt'):
@@ -29,13 +31,13 @@ if os.path.isfile('slack_key.txt'):
     slack_key = f.read()
 
 engine = chess.uci.popen_engine(stockfish_command())
-engine.setoption({'Threads': threads, 'Hash': memory})
+engine.setoption({'Threads': settings.threads, 'Hash': settings.memory})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
 while True:
-    pgn = get_pgn(token)
+    pgn = get_pgn(settings.token)
     game = chess.pgn.read_game(pgn)
     pgn.close()
 
@@ -72,4 +74,4 @@ while True:
         print(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            post_puzzle(token, i, slack_key, name)
+            post_puzzle(settings.token, i, slack_key, settings.name)
