@@ -3,7 +3,7 @@ import chess.uci
 import chess.pgn
 import os
 import sys
-from modules.fishnet.fishnet import stockfish_filename
+from modules.fishnet.fishnet import stockfish_command
 from modules.puzzle.puzzle import puzzle
 from modules.bcolors.bcolors import bcolors
 from modules.investigate.investigate import investigate
@@ -28,7 +28,7 @@ if os.path.isfile('slack_key.txt'):
     f = open('slack_key.txt', 'r')
     slack_key = f.read()
 
-engine = chess.uci.popen_engine(os.path.join(os.getcwd(),stockfish_filename()))
+engine = chess.uci.popen_engine(stockfish_command())
 engine.setoption({'Threads': threads, 'Hash': memory})
 engine.uci()
 info_handler = chess.uci.InfoHandler()
