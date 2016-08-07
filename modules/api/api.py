@@ -26,7 +26,7 @@ def get_pgn(token):
     except ImportError:
         from io import StringIO
 
-    return StringIO(response.content)
+    return StringIO(response.text)
 
 def post_puzzle(token, puzzle, slack_key, name):
     print(bcolors.OKBLUE + str(puzzle.to_dict()) + bcolors.ENDC)
@@ -45,7 +45,7 @@ def post_puzzle(token, puzzle, slack_key, name):
             time.sleep(30)
 
     
-    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', r.content)
+    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', r.text)
     if len(urls) > 0:
         puzzle_id = urls[0].split('/')[-1:][0]
         print(bcolors.WARNING + "Imported with ID " + puzzle_id + bcolors.ENDC)
@@ -56,4 +56,4 @@ def post_puzzle(token, puzzle, slack_key, name):
                 "icon_emoji": ":star:"}
             requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
     else:
-        print(bcolors.FAIL + "Failed to import with response: " + r.content + bcolors.ENDC)
+        print(bcolors.FAIL + "Failed to import with response: " + r.text + bcolors.ENDC)
