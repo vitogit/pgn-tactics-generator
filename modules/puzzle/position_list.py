@@ -87,27 +87,7 @@ class position_list:
         print("... and " + str(max(0, len(self.analysed_legals) - 3)) + " more moves" + bcolors.ENDC)
 
     def material_difference(self):
-        total = 0
-        for i in chess.SQUARES:
-            square = self.position.piece_at(i)
-            base_val = 0
-            if square is not None:
-                if square.piece_type == chess.KNIGHT:
-                    base_val = 3
-                elif square.piece_type == chess.BISHOP:
-                    base_val = 3
-                elif square.piece_type == chess.ROOK:
-                    base_val = 5.5
-                elif square.piece_type == chess.QUEEN:
-                    base_val = 9
-
-                if square.color:
-                    sign = 1
-                else:
-                    sign = -1
-
-                total += sign * base_val
-        return total
+        return sum(v * (len(self.position.pieces(pt, True)) - len(self.position.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:

@@ -9,19 +9,7 @@ def sign(a):
         return 0
 
 def material_value(board):
-    total = 0
-    for i in chess.SQUARES:
-        square = board.piece_at(i)
-        if square is not None:
-            if square.piece_type == chess.KNIGHT:
-                total += 3
-            elif square.piece_type == chess.BISHOP:
-                total += 3
-            elif square.piece_type == chess.ROOK:
-                total += 5.5
-            elif square.piece_type == chess.QUEEN:
-                total += 9
-    return total
+    return sum(v * len(board.pieces(pt, True)) + len(board.pieces(pt, False)) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
 def investigate(a, b, board):
     # determine if the difference between position A and B 
