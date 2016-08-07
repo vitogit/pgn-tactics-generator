@@ -29,6 +29,16 @@ parser.add_argument("--quiet", dest="loglevel",
                     help="substantially reduce the number of logged messages")
 settings = parser.parse_args()
 
+try:
+    # Optionally fix colors on Windows and in journals if the colorama module
+    # is available.
+    import colorama
+    wrapper = colorama.AnsiToWin32(sys.stdout)
+    if wrapper.should_wrap():
+        sys.stdout = wrapper.stream
+except ImportError:
+    pass
+
 logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
 logging.getLogger("chess.uci").setLevel(logging.WARNING)
