@@ -1,0 +1,2 @@
+python-chess==0.14.1
+requests==2.10.0
