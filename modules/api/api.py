@@ -55,6 +55,18 @@ def post_puzzle(token, puzzle, slack_key, name):
                 "username": "Puzzle Generator",
                 "text": name + " added puzzle " + urls[0],
                 "icon_emoji": ":star:"}
-            requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
+            success = False
+            while not success:
+                try:
+                    requests.post("https://hooks.slack.com/services/" + slack_key, json=message)
+                    success = True
+                except requests.ConnectionError:
+                    logging.warning(bcolors.WARNING + "CONNECTION ERROR: Failed to post to slack.")
+                    logging.debug("Trying again in 30 sec" + bcolors.ENDC)
+                    time.sleep(30)
+                except requests.SSLError:
+                    logging.warning(bcolors.WARNING + "SSL ERROR: Failed to post to slack.")
+                    logging.debug("Trying again in 30 sec" + bcolors.ENDC)
+                    time.sleep(30)
     else:
         logging.error(bcolors.FAIL + "Failed to import with response: " + r.text + bcolors.ENDC)
