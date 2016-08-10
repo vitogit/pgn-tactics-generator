@@ -23,3 +23,6 @@ MacOS / Linux : `sh build-stockfish.sh` to obtain the current lichess Stockfish 
 ## Launching Application
 
 `python main.py <Secret API Token> <Instance Name> <#Threads = 4> <Hash (Bytes) = 2048>`
+
+If your system has systemd, you can use the service file provided, it is tuned for a local virtualenv in a dedicated user account. If you run it as root with system-wide pip packages, use `ExecStart=/usr/bin/python main.py --quiet $key $instance $threads`
+
