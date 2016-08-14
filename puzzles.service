@@ -1,0 +1,14 @@
+[Unit]
+Description=Puzzles instance
+After=network.target
+
+[Service]
+User=puzzles
+Group=puzzles
+WorkingDirectory=/var/www/puzzles
+Environment=PATH=/var/www/puzzles/puzzles/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+ExecStart=/bin/bash -c 'source /var/www/puzzles/puzzles/bin/activate; cd /var/www/puzzles/Python-Puzzle-Creator ; python main.py --quiet $key $instance $threads'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
