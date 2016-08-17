@@ -64,7 +64,7 @@ while True:
     game_id = game.headers["Site"].split('/')[-1:][0]
     logging.debug(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
 
-    prev_score = chess.uci.Score(None, None, False, False)
+    prev_score = chess.uci.Score(None, None)
     puzzles = []
 
     logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
