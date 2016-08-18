@@ -43,11 +43,6 @@ logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.st
 logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
 logging.getLogger("chess.uci").setLevel(logging.WARNING)
 
-slack_key = None
-if os.path.isfile('slack_key.txt'):
-    f = open('slack_key.txt', 'r')
-    slack_key = f.read()
-
 engine = chess.uci.popen_engine(stockfish_command())
 engine.setoption({'Threads': settings.threads, 'Hash': settings.memory})
 engine.uci()
@@ -92,4 +87,4 @@ while True:
         logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            post_puzzle(settings.token, i, slack_key, settings.name)
+            post_puzzle(settings.token, i, settings.name)
