@@ -18,8 +18,6 @@ from modules.api.api import get_pgn, post_puzzle
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("token", metavar="TOKEN",
                     help="secret token for the lichess api")
-parser.add_argument("name", metavar="NAME",
-                    help="pick a name for the generator instance")
 parser.add_argument("threads", metavar="THREADS", nargs="?", type=int, default=4,
                     help="number of engine threads")
 parser.add_argument("memory", metavar="MEMORY", nargs="?", type=int, default=2048,
@@ -87,4 +85,4 @@ while True:
         logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate()
         if i.is_complete():
-            post_puzzle(settings.token, i, settings.name)
+            post_puzzle(settings.token, i)

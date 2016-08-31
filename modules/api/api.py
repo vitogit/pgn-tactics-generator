@@ -29,7 +29,7 @@ def get_pgn(token):
 
     return StringIO(response.text)
 
-def post_puzzle(token, puzzle, name):
+def post_puzzle(token, puzzle):
     logging.info(bcolors.OKBLUE + str(puzzle.to_dict()) + bcolors.ENDC)
     success = False
     while not success:
