@@ -105,7 +105,7 @@ class position_list:
                     and abs(self.material_difference() - first_val) > 0.1 
                     and first_val < 2
                     and self.evaluation.mate is None
-                    and material_count > 6):
+                    and self.material_count > 6):
                     return True
                 else:
                     return False
@@ -114,7 +114,7 @@ class position_list:
                     and abs(self.material_difference() - first_val) > 0.1
                     and first_val > -2
                     and self.evaluation.mate is None
-                    and material_count > 6):
+                    and self.material_count > 6):
                     return True
                 else:
                     return False
