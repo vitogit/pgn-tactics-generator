@@ -90,6 +90,9 @@ class position_list:
     def material_difference(self):
         return sum(v * (len(self.position.pieces(pt, True)) - len(self.position.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
+    def material_count(self):
+        return chess.pop_count(self.position.occupied)
+
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
             if ((category == 'Mate' and not self.ambiguous())
@@ -101,7 +104,8 @@ class position_list:
                 if (self.material_difference() > 0.2 
                     and abs(self.material_difference() - first_val) > 0.1 
                     and first_val < 2
-                    and self.evaluation.mate is None):
+                    and self.evaluation.mate is None
+                    and material_count > 6):
                     return True
                 else:
                     return False
@@ -109,7 +113,8 @@ class position_list:
                 if (self.material_difference() < -0.2 
                     and abs(self.material_difference() - first_val) > 0.1
                     and first_val > -2
-                    and self.evaluation.mate is None):
+                    and self.evaluation.mate is None
+                    and material_count > 6):
                     return True
                 else:
                     return False

@@ -11,8 +11,8 @@ def sign(a):
 def material_value(board):
     return sum(v * (len(board.pieces(pt, True)) + len(board.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
-def piece_count(board):
-    return sum(len(board.pieces(pt, True)) + len(board.pieces(pt, False)) for pt in chess.PIECE_TYPES)
+def material_count(board):
+    return chess.pop_count(board.occupied)
 
 def investigate(a, b, board):
     # determine if the difference between position A and B 
@@ -21,7 +21,7 @@ def investigate(a, b, board):
         if (((a.cp > -110 and a.cp < 850 and b.cp > 200 and b.cp < 850)
             or (a.cp > -850 and a.cp < 110 and b.cp < -200 and b.cp > -850))
             and material_value(board) > 3
-            and piece_count(board) > 6):
+            and material_count(board) > 6):
             return True
     elif (a.cp is not None
         and b.mate is not None
