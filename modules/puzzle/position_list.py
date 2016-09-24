@@ -119,7 +119,7 @@ class position_list:
                 else:
                     return False
         else:
-            if self.position.is_game_over():
+            if self.position.is_game_over() and self.material_count() > 6:
                 return True
             else:
                 return False
