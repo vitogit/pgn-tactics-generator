@@ -12,7 +12,7 @@ def material_value(board):
     return sum(v * (len(board.pieces(pt, True)) + len(board.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
 def material_count(board):
-    return chess.pop_count(board.occupied)
+    return chess.popcount(board.occupied)
 
 def investigate(a, b, board):
     # determine if the difference between position A and B 

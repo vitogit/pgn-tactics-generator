@@ -53,10 +53,10 @@ class position_list:
             logging.debug("   Game Over: " + str(self.game_over()))
             logging.debug("   Has Best Move: " + str(has_best) + bcolors.ENDC)
 
-    def evaluate_best(self, nodes=6000000):
+    def evaluate_best(self):
         logging.debug(bcolors.OKGREEN + "Evaluating Best Move...")
         self.engine.position(self.position)
-        self.best_move = self.engine.go(nodes=nodes)
+        self.best_move = self.engine.go(depth=6)
         if self.best_move.bestmove is not None:
             self.evaluation = self.info_handler.info["score"][1]
             self.next_position = position_list(self.position.copy(),
@@ -72,13 +72,13 @@ class position_list:
             logging.debug(bcolors.FAIL + "No best move!" + bcolors.ENDC)
             return False
 
-    def evaluate_legals(self, nodes=6000000):
+    def evaluate_legals(self):
         logging.debug(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
             position_copy.push(i)
             self.engine.position(position_copy)
-            self.engine.go(nodes=nodes)
+            self.engine.go(depth=6)
             self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:
@@ -91,7 +91,7 @@ class position_list:
         return sum(v * (len(self.position.pieces(pt, True)) - len(self.position.pieces(pt, False))) for v, pt in zip([0,3,3,5.5,9], chess.PIECE_TYPES))
 
     def material_count(self):
-        return chess.pop_count(self.position.occupied)
+        return chess.popcount(self.position.occupied)
 
     def is_complete(self, category, color, first_node, first_val):
         if self.next_position is not None:
