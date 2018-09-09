@@ -25,13 +25,21 @@ class puzzle:
 
     def to_pgn(self):
         fen = self.last_pos.fen()
-        game = chess.pgn.Game().from_board(chess.Board(fen))
+        board = chess.Board(fen)
+        game = chess.pgn.Game().from_board(board)
+        
+        # In the tactic the first to move is the one who lost
+        result = '1-0' # result of the tactic not the game
+        if board.turn: # turn return true if white
+            result = '0-1'
+
         node = game.add_variation(self.last_move)
         for m in self.positions.move_list():
             node = node.add_variation(chess.Move.from_uci(m))
 
         for h in self.game.headers:
             game.headers[h] = self.game.headers[h]
+        game.headers['Result'] = result
         return game
 
     def color(self):

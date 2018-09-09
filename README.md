@@ -13,6 +13,7 @@ Things that I changed:
 - Engine depth to 8 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param)
 - chess.pop_count to chess.popcount because it was failing
 
+
 ## Installation
 
 This script requires the *Requests* and *Python-Chess* libraries to run, as well as a copy of *Stockfish*
@@ -55,4 +56,4 @@ Like:
 
 ## Tactics output
 
-The file tactics.pgn can be loaded to a lichess study or to an app like ichess to practice.
+The resulting file will be a pgn file called tactics.pgn. Each tactic contains the headers from the source game. The result header it's the tactic result and not the game result. It can be loaded to a lichess study or to an app like ichess to practice tactics.
