@@ -35,28 +35,28 @@ class position_list:
         else:
             return self.next_position.category()
 
-    def generate(self):
+    def generate(self, depth):
         logging.debug(bcolors.WARNING + str(self.position) + bcolors.ENDC)
         logging.debug(bcolors.OKBLUE + 'Material Value: ' + str(self.material_difference()) + bcolors.ENDC)
-        has_best = self.evaluate_best()
+        has_best = self.evaluate_best(depth)
         if self.player_turn:
-            self.evaluate_legals()
+            self.evaluate_legals(depth)
         if has_best and not self.ambiguous() and not self.game_over():
             logging.debug(bcolors.OKGREEN + "Going Deeper:")
             logging.debug("   Ambiguous: " + str(self.ambiguous()))
             logging.debug("   Game Over: " + str(self.game_over()))
             logging.debug("   Has Best Move: " + str(has_best) + bcolors.ENDC)
-            self.next_position.generate()
+            self.next_position.generate(depth)
         else:
             logging.debug(bcolors.WARNING + "Not Going Deeper:")
             logging.debug("   Ambiguous: " + str(self.ambiguous()))
             logging.debug("   Game Over: " + str(self.game_over()))
             logging.debug("   Has Best Move: " + str(has_best) + bcolors.ENDC)
 
-    def evaluate_best(self):
+    def evaluate_best(self, depth):
         logging.debug(bcolors.OKGREEN + "Evaluating Best Move...")
         self.engine.position(self.position)
-        self.best_move = self.engine.go(depth=8)
+        self.best_move = self.engine.go(depth=depth)
         if self.best_move.bestmove is not None:
             self.evaluation = self.info_handler.info["score"][1]
             self.next_position = position_list(self.position.copy(),
@@ -72,13 +72,13 @@ class position_list:
             logging.debug(bcolors.FAIL + "No best move!" + bcolors.ENDC)
             return False
 
-    def evaluate_legals(self):
+    def evaluate_legals(self, depth):
         logging.debug(bcolors.OKGREEN + "Evaluating Legal Moves..." + bcolors.ENDC)
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
             position_copy.push(i)
             self.engine.position(position_copy)
-            self.engine.go(depth=8)
+            self.engine.go(depth=depth)
             self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:

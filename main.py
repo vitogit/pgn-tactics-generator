@@ -21,6 +21,8 @@ parser.add_argument("threads", metavar="THREADS", nargs="?", type=int, default=4
                     help="number of engine threads")
 parser.add_argument("memory", metavar="MEMORY", nargs="?", type=int, default=2048,
                     help="memory in MB to use for engine hashtables")
+parser.add_argument("--depth", metavar="DEPTH", nargs="?", type=int, default=8,
+                    help="depth for stockfish analysis")
 parser.add_argument("--quiet", dest="loglevel",
                     default=logging.DEBUG, action="store_const", const=logging.INFO,
                     help="substantially reduce the number of logged messages")
@@ -70,7 +72,7 @@ while True:
         next_node = node.variation(0)
         engine.position(next_node.board())
     
-        engine.go(depth=8)
+        engine.go(depth=settings.depth)
         cur_score = info_handler.info["score"][1]
         logging.debug(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
         logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
@@ -84,7 +86,7 @@ while True:
     
     for i in puzzles:
         logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
-        i.generate()
+        i.generate(settings.depth)
         if i.is_complete():
             puzzle_pgn = post_puzzle(i)
             tactics_file.write(puzzle_pgn)

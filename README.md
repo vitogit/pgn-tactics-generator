@@ -10,7 +10,7 @@ It's based on the great  (https://github.com/clarkerubber/Python-Puzzle-Creator)
 Things that I changed:
 - Use a local pgn file with games as a source.
 - Write results to a file called tactics.pgn
-- Engine depth to 8 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param)
+- Default Engine depth to 8 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param). You can change it using the depth param
 - chess.pop_count to chess.popcount because it was failing
 
 
@@ -42,7 +42,10 @@ This will download the last 60 games from blitz,rapid and classical. You can add
 
 Then execute the generator (it will look for a file called lichess_games.pgn) the params are optional
 
-`python main.py <#Threads = 4> <Hash (MBytes) = 2048>`
+`python main.py --quiet --depth=18 <#Threads = 4> <Hash (MBytes) = 2048>`
+
+You can use --quiet to reduce the screen output.
+Use the depth param to select the stockfish depth analysis. Default is `depth=8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
 
 ## Python 3
 

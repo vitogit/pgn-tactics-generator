@@ -55,8 +55,8 @@ class puzzle:
             and not self.positions.ambiguous()
             and len(self.positions.move_list()) > 2)
 
-    def generate(self):
-        self.positions.generate()
+    def generate(self, depth):
+        self.positions.generate(depth)
         if self.is_complete():
             logging.debug(bcolors.OKGREEN + "Puzzle is complete" + bcolors.ENDC)
         else:
