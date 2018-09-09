@@ -8,9 +8,9 @@ Also it can download your games from lichess.org and use that file.
 It's based on the great  (https://github.com/clarkerubber/Python-Puzzle-Creator)[https://github.com/clarkerubber/Python-Puzzle-Creator] by @clarkerubber
 
 Things that I changed:
-- Use a local pgn file 
-- Write results to a file called tactics.json
-- Engine depth to 6 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param)
+- Use a local pgn file with games as a source.
+- Write results to a file called tactics.pgn
+- Engine depth to 8 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param)
 - chess.pop_count to chess.popcount because it was failing
 
 ## Installation
@@ -34,7 +34,7 @@ First you can download your games from lichess with
 
 `python download_games.py <lichess username>`
 
-This will download the last 60 games. You can add some params like max number of games and the lichess api token that make downloading faster. https://lichess.org/api#operation/apiGamesUser
+This will download the last 60 games from blitz,rapid and classical. You can add some params like max number of games and the lichess api token that make the download faster. https://lichess.org/api#operation/apiGamesUser
 
 `python download_games.py <lichess username> --max 100 --token 123456789`
 
@@ -52,3 +52,7 @@ Like:
 `python3 download_games.py <lichess username> <Secret API Token>`
 
 `python3 main.py <Secret API Token> <#Threads = 4> <Hash (MBytes) = 2048>`
+
+## Tactics output
+
+The file tactics.pgn can be loaded to a lichess study or to an app like ichess to practice.

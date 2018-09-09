@@ -26,9 +26,9 @@ parser.add_argument("--max", metavar="MAX",default="60",
 settings = parser.parse_args()
 logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 
-logging.debug("Downloading all games from: "+settings.username)
+logging.debug("Downloading games from: "+settings.username)
 
-response = requests.get('https://lichess.org/api/games/user/'+settings.username+'?max='+settings.max+'&token=' + settings.token)
+response = requests.get('https://lichess.org/api/games/user/'+settings.username+'?max='+settings.max+'&token=' + settings.token+'&perfType=blitz,rapid,classical')
 pgn = str(response.text)
 all_games = open("lichess_games.pgn", "w")
 all_games.write(pgn)

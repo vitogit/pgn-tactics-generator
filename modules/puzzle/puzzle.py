@@ -3,14 +3,16 @@ from modules.bcolors.bcolors import bcolors
 import json
 import logging
 import os
-
+import chess
+import chess.pgn
 class puzzle:
-    def __init__(self, last_pos, last_move, game_id, engine, info_handler):
+    def __init__(self, last_pos, last_move, game_id, engine, info_handler, game):
         self.last_pos = last_pos.copy()
         self.last_move = last_move
         self.game_id = game_id
         last_pos.push(last_move)
         self.positions = position_list(last_pos, engine, info_handler)
+        self.game = game
 
     def to_dict(self):
         return {
@@ -20,6 +22,17 @@ class puzzle:
             'last_move': self.last_move.uci(),
             'move_list': self.positions.move_list()
             }
+
+    def to_pgn(self):
+        fen = self.last_pos.fen()
+        game = chess.pgn.Game().from_board(chess.Board(fen))
+        node = game.add_variation(self.last_move)
+        for m in self.positions.move_list():
+            node = node.add_variation(chess.Move.from_uci(m))
+
+        for h in self.game.headers:
+            game.headers[h] = self.game.headers[h]
+        return game
 
     def color(self):
         return self.positions.position.turn

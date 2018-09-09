@@ -4,3 +4,4 @@ stockfish-*
 Stockfish
 slack_key.txt
 venv
+*pgn

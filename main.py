@@ -47,7 +47,7 @@ info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
 all_games = open("lichess_games.pgn", "r")
-tactics_file = open("tactics.json", "w")
+tactics_file = open("tactics.pgn", "w")
 
 while True:
     game = chess.pgn.read_game(all_games)
@@ -70,14 +70,14 @@ while True:
         next_node = node.variation(0)
         engine.position(next_node.board())
     
-        engine.go(depth=6)
+        engine.go(depth=8)
         cur_score = info_handler.info["score"][1]
         logging.debug(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
         logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.cp))
         logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
             logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, game_id, engine, info_handler))
+            puzzles.append(puzzle(node.board(), next_node.move, game_id, engine, info_handler, game))
     
         prev_score = cur_score
         node = next_node
@@ -88,6 +88,6 @@ while True:
         if i.is_complete():
             puzzle_pgn = post_puzzle(i)
             tactics_file.write(puzzle_pgn)
-            tactics_file.write("\n")
+            tactics_file.write("\n\n")
 
 tactics_file.close()

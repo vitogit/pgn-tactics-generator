@@ -56,7 +56,7 @@ class position_list:
     def evaluate_best(self):
         logging.debug(bcolors.OKGREEN + "Evaluating Best Move...")
         self.engine.position(self.position)
-        self.best_move = self.engine.go(depth=6)
+        self.best_move = self.engine.go(depth=8)
         if self.best_move.bestmove is not None:
             self.evaluation = self.info_handler.info["score"][1]
             self.next_position = position_list(self.position.copy(),
@@ -78,7 +78,7 @@ class position_list:
             position_copy = self.position.copy()
             position_copy.push(i)
             self.engine.position(position_copy)
-            self.engine.go(depth=6)
+            self.engine.go(depth=8)
             self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:
