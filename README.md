@@ -10,7 +10,8 @@ It's based on the great  (https://github.com/clarkerubber/Python-Puzzle-Creator)
 Things that I changed:
 - Use a local pgn file with games as a source.
 - Write results to a file called tactics.pgn
-- Default Engine depth to 8 (from nodes=3500000), because it took a lot of time to analyze. (probably this could be a param). You can change it using the depth param
+- Default engine depth to 8 so it's faster. Before it was nodes=3500000 this is a depth around 20. So it took several minutes to analyze a game. With depth 8 it takes seconds.
+- You can use a param to change the depth if you want more precision.
 - chess.pop_count to chess.popcount because it was failing
 
 
