@@ -14,6 +14,11 @@ Things that I changed:
 - You can use a param to change the depth if you want more precision.
 - chess.pop_count to chess.popcount because it was failing
 
+### This is too complex, give something easy.
+There is another option if you don't want to install and manage python scripts
+I created a more user friendly tactics generator and it's online http://chesstacticsgenerator.vitomd.com
+It uses a different approach to create tactics, so probably it will generate a different set of tactics.
+
 
 ## Installation
 
@@ -48,8 +53,16 @@ Then execute the generator (it will look for a file called lichess_games.pgn) th
 You can use --quiet to reduce the screen output.
 Use the depth param to select the stockfish depth analysis. Default is `depth=8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
 
-## Python 3
+## Tactics output
 
+The resulting file will be a pgn file called tactics.pgn. Each tactic contains the headers from the source game. The result header it's the tactic result and not the game result. It can be loaded to a lichess study or to an app like ichess to practice tactics.
+
+## Problems?
+
+#### Python 2.7
+- For Python 2.7 install futures `pip install futures`
+
+#### Python 3
 If you have problems with pip maybe it's because your system use a separate version like pip3.
 Or maybe you should execute the scripts with python3 instead of python if you have that installed. 
 Like:
@@ -58,6 +71,5 @@ Like:
 
 `python3 main.py <Secret API Token> <#Threads = 4> <Hash (MBytes) = 2048>`
 
-## Tactics output
-
-The resulting file will be a pgn file called tactics.pgn. Each tactic contains the headers from the source game. The result header it's the tactic result and not the game result. It can be loaded to a lichess study or to an app like ichess to practice tactics.
+#### Stockfish errors
+- If you have problems building stockfish try downloading stockfish directly https://stockfishchess.org/download/
