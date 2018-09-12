@@ -73,3 +73,8 @@ Like:
 
 #### Stockfish errors
 - If you have problems building stockfish try downloading stockfish directly https://stockfishchess.org/download/
+
+
+## Want to see all my chess related projects? 
+Check [My projects](http://vitomd.com/blog/projects/) for a full detailed list.
+
