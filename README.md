@@ -46,7 +46,7 @@ This will download the last 60 games from blitz,rapid and classical. You can add
 `python download_games.py <lichess username> --max 100 --token 123456789`
 
 
-Then execute the generator (it will look for a file called lichess_games.pgn) the params are optional
+Then execute the generator (it will look for a file called games.pgn) the params are optional
 
 `python main.py --quiet --depth=18 <#Threads = 4> <Hash (MBytes) = 2048>`
 

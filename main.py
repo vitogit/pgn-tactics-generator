@@ -48,7 +48,7 @@ engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
-all_games = open("lichess_games.pgn", "r")
+all_games = open("games.pgn", "r")
 tactics_file = open("tactics.pgn", "w")
 
 while True:
