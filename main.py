@@ -26,8 +26,9 @@ parser.add_argument("--depth", metavar="DEPTH", nargs="?", type=int, default=8,
 parser.add_argument("--quiet", dest="loglevel",
                     default=logging.DEBUG, action="store_const", const=logging.INFO,
                     help="substantially reduce the number of logged messages")
+parser.add_argument("--games", metavar="GAMES", default="games.pgn",
+                    help="A specific pgn with games")
 settings = parser.parse_args()
-
 try:
     # Optionally fix colors on Windows and in journals if the colorama module
     # is available.
@@ -48,7 +49,7 @@ engine.uci()
 info_handler = chess.uci.InfoHandler()
 engine.info_handlers.append(info_handler)
 
-all_games = open("games.pgn", "r")
+all_games = open(settings.games, "r")
 tactics_file = open("tactics.pgn", "w")
 
 while True:

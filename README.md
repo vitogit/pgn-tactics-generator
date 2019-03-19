@@ -46,9 +46,9 @@ This will download the last 60 games from blitz,rapid and classical. You can add
 `python download_games.py <lichess username> --max 100 --token 123456789`
 
 
-Then execute the generator (it will look for a file called games.pgn) the params are optional
+Then execute the generator (it will look for a file called games.pgn if the games option is not specified) the params are optional
 
-`python main.py --quiet --depth=18 <#Threads = 4> <Hash (MBytes) = 2048>`
+`python main.py --quiet --depth=18 --games=ruy_lopez.pgn <#Threads = 4> <Hash (MBytes) = 2048>`
 
 You can use --quiet to reduce the screen output.
 Use the depth param to select the stockfish depth analysis. Default is `depth=8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
