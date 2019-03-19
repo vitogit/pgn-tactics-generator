@@ -60,6 +60,7 @@ while True:
 
     game_id = game_id + 1 
     logging.debug(bcolors.WARNING + "Game ID: " + str(game_id) + bcolors.ENDC)
+    logging.debug(bcolors.WARNING + "Game headers: " + str(game)  + bcolors.ENDC)
     
     prev_score = chess.uci.Score(None, None)
     puzzles = []
