@@ -5,7 +5,7 @@
 This is a python application dedicated to creating chess puzzles/tactics from a pgn file.
 Also it can download your games from lichess.org and use that file. 
 
-It's based on the great  (https://github.com/clarkerubber/Python-Puzzle-Creator)[https://github.com/clarkerubber/Python-Puzzle-Creator] by @clarkerubber
+It's based on the great  [https://github.com/clarkerubber/Python-Puzzle-Creator](https://github.com/clarkerubber/Python-Puzzle-Creator) by @clarkerubber
 
 Things that I changed:
 - Use a local pgn file with games as a source.
