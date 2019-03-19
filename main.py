@@ -51,15 +51,15 @@ engine.info_handlers.append(info_handler)
 
 all_games = open(settings.games, "r")
 tactics_file = open("tactics.pgn", "w")
-
+game_id = 0
 while True:
     game = chess.pgn.read_game(all_games)
     if game == None:
         break
     node = game
 
-    game_id = game.headers["Site"].split('/')[-1:][0]
-    logging.debug(bcolors.WARNING + "Game ID: " + game_id + bcolors.ENDC)
+    game_id = game_id + 1 
+    logging.debug(bcolors.WARNING + "Game ID: " + str(game_id) + bcolors.ENDC)
     
     prev_score = chess.uci.Score(None, None)
     puzzles = []
@@ -80,7 +80,7 @@ while True:
         logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
             logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, game_id, engine, info_handler, game))
+            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info_handler, game))
     
         prev_score = cur_score
         node = next_node
