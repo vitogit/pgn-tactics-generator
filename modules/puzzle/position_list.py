@@ -7,7 +7,7 @@ from modules.puzzle.analysed import analysed
 from operator import methodcaller
 
 class position_list:
-    def __init__(self, position, engine, info_handler, player_turn=True, best_move=None, evaluation=None):
+    def __init__(self, position, engine, info_handler, player_turn=True, best_move=None, evaluation=None, strict = True):
         self.position = position.copy()
         self.engine = engine
         self.info_handler = info_handler
@@ -16,6 +16,7 @@ class position_list:
         self.evaluation = evaluation
         self.next_position = None
         self.analysed_legals = []
+        self.strict = strict
 
     def move_list(self):
         if self.next_position is None or self.next_position.ambiguous() or self.next_position.position.is_game_over():
@@ -62,7 +63,8 @@ class position_list:
             self.next_position = position_list(self.position.copy(),
                 self.engine,
                 self.info_handler,
-                not self.player_turn)
+                not self.player_turn,
+                strict = self.strict)
             self.next_position.position.push(self.best_move.bestmove)
             logging.debug("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
             logging.debug(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
@@ -125,11 +127,13 @@ class position_list:
                 return False
 
     def ambiguous(self):
+        # If strict == False then it will generate more tactics but  more ambiguous
+        move_number = 1 if self.strict == True else 2
         if len(self.analysed_legals) > 1:
             if (self.analysed_legals[0].evaluation.cp is not None
                 and self.analysed_legals[1].evaluation.cp is not None):
                 if (self.analysed_legals[0].evaluation.cp > -210
-                    or self.analysed_legals[1].evaluation.cp < -90):
+                    or self.analysed_legals[move_number].evaluation.cp < -90):
                     return True
             if (self.analysed_legals[0].evaluation.mate is not None
                 and self.analysed_legals[1].evaluation.mate is not None):

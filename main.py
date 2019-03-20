@@ -28,6 +28,8 @@ parser.add_argument("--quiet", dest="loglevel",
                     help="substantially reduce the number of logged messages")
 parser.add_argument("--games", metavar="GAMES", default="games.pgn",
                     help="A specific pgn with games")
+parser.add_argument("--strict", metavar="STRICT", default=True,
+                    help="If False then it will be generate more tactics but maybe a little ambiguous")
 settings = parser.parse_args()
 try:
     # Optionally fix colors on Windows and in journals if the colorama module
@@ -81,7 +83,7 @@ while True:
         logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
             logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info_handler, game))
+            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info_handler, game, settings.strict))
     
         prev_score = cur_score
         node = next_node

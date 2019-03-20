@@ -6,12 +6,12 @@ import os
 import chess
 import chess.pgn
 class puzzle:
-    def __init__(self, last_pos, last_move, game_id, engine, info_handler, game):
+    def __init__(self, last_pos, last_move, game_id, engine, info_handler, game, strict):
         self.last_pos = last_pos.copy()
         self.last_move = last_move
         self.game_id = game_id
         last_pos.push(last_move)
-        self.positions = position_list(last_pos, engine, info_handler)
+        self.positions = position_list(last_pos, engine, info_handler, strict = strict)
         self.game = game
 
     def to_dict(self):
