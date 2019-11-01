@@ -28,7 +28,7 @@ logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.st
 
 logging.debug("Downloading games from: "+settings.username)
 
-response = requests.get('https://lichess.org/api/games/user/'+settings.username+'?max='+settings.max+'&token=' + settings.token+'&perfType=blitz,rapid,classical')
+response = requests.get('https://lichess.org/api/games/user/'+settings.username+'?max='+settings.max+'&token=' + settings.token+'&perfType=blitz,rapid,classical&opening=true')
 pgn = str(response.text)
 all_games = open("games.pgn", "w")
 all_games.write(pgn)
