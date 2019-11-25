@@ -20,7 +20,7 @@ class position_list:
 
     def move_list(self):
         if self.next_position is None or self.next_position.ambiguous() or self.next_position.position.is_game_over():
-            if self.best_move is not None:
+            if self.player_turn and self.best_move is not None:
                 return [self.best_move.bestmove.uci()]
             else:
                 return []
