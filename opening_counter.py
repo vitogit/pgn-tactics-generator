@@ -1,19 +1,11 @@
 #!/usr/bin/env python
 
 """Creating chess puzzles for lichess.org"""
-import collections
 import argparse
-import chess
-import chess.uci
-import chess.pgn
+import collections
 import logging
-import os
-import sys
-from modules.fishnet.fishnet import stockfish_command
-from modules.puzzle.puzzle import puzzle
-from modules.bcolors.bcolors import bcolors
-from modules.investigate.investigate import investigate
-from modules.api.api import post_puzzle
+
+import chess.pgn
 
 parser = argparse.ArgumentParser(description=__doc__)
 
@@ -38,12 +30,12 @@ ecos_black = []
 game_id = 0
 while True:
     game = chess.pgn.read_game(all_games)
-    if game == None:
+    if game is None:
         break
-    if (game.headers["White"] == "engendrio"):
-        ecos_white.append(game.headers["ECO"]+'-'+game.headers["Opening"])
+    if game.headers["White"] == "engendrio":
+        ecos_white.append(game.headers["ECO"] + '-' + game.headers["Opening"])
     else:
-        ecos_black.append(game.headers["ECO"]+'-'+game.headers["Opening"])
+        ecos_black.append(game.headers["ECO"] + '-' + game.headers["Opening"])
 
 print("WHITE_____")
 print(collections.Counter(ecos_white))

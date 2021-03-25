@@ -5,3 +5,6 @@ Stockfish
 slack_key.txt
 venv
 *pgn
+.idea/
+.venv
+.DS_Store

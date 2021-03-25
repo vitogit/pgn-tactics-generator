@@ -3,17 +3,17 @@
 """Creating chess puzzles for lichess.org"""
 
 import argparse
-import chess
-import chess.uci
-import chess.pgn
 import logging
-import os
 import sys
-from modules.fishnet.fishnet import stockfish_command
-from modules.puzzle.puzzle import puzzle
-from modules.bcolors.bcolors import bcolors
-from modules.investigate.investigate import investigate
+
+import chess.pgn
+import chess.uci
+
 from modules.api.api import post_puzzle
+from modules.bcolors.bcolors import bcolors
+from modules.fishnet.fishnet import stockfish_command
+from modules.investigate.investigate import investigate
+from modules.puzzle.puzzle import puzzle
 
 parser = argparse.ArgumentParser(description=__doc__)
 
@@ -35,6 +35,7 @@ try:
     # Optionally fix colors on Windows and in journals if the colorama module
     # is available.
     import colorama
+
     wrapper = colorama.AnsiToWin32(sys.stdout)
     if wrapper.should_wrap():
         sys.stdout = wrapper.stream
@@ -56,26 +57,26 @@ tactics_file = open("tactics.pgn", "w")
 game_id = 0
 while True:
     game = chess.pgn.read_game(all_games)
-    if game == None:
+    if game is None:
         break
     node = game
 
-    game_id = game_id + 1 
+    game_id = game_id + 1
     logging.debug(bcolors.WARNING + "Game ID: " + str(game_id) + bcolors.ENDC)
-    logging.debug(bcolors.WARNING + "Game headers: " + str(game)  + bcolors.ENDC)
-    
+    logging.debug(bcolors.WARNING + "Game headers: " + str(game) + bcolors.ENDC)
+
     prev_score = chess.uci.Score(None, None)
     puzzles = []
-    
+
     logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
     logging.debug("Analysing Game..." + bcolors.ENDC)
-    
+
     engine.ucinewgame()
-    
+
     while not node.is_end():
         next_node = node.variation(0)
         engine.position(next_node.board())
-    
+
         engine.go(depth=settings.depth)
         cur_score = info_handler.info["score"][1]
         logging.debug(bcolors.OKGREEN + node.board().san(next_node.move) + bcolors.ENDC)
@@ -83,11 +84,12 @@ while True:
         logging.debug("   Mate: " + str(cur_score.mate) + bcolors.ENDC)
         if investigate(prev_score, cur_score, node.board()):
             logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info_handler, game, settings.strict))
-    
+            puzzles.append(
+                puzzle(node.board(), next_node.move, str(game_id), engine, info_handler, game, settings.strict))
+
         prev_score = cur_score
         node = next_node
-    
+
     for i in puzzles:
         logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate(settings.depth)
