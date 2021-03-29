@@ -59,8 +59,7 @@ def stockfish_filename():
 def update_stockfish(filename):
     print("Looking up %s ..." % filename)
 
-    headers = {}
-    headers["User-Agent"] = "Python-Puzzle-Generator"
+    headers = {"User-Agent": "Python-Puzzle-Generator"}
 
     # Only update to newer versions
     try:
