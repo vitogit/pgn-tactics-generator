@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
 
-import json
-import time
 import contextlib
-import sys
-import os
-import stat
-import platform
 import ctypes
+import json
+import os
+import platform
+import stat
+import sys
+import time
 
 try:
     import httplib
@@ -258,6 +258,11 @@ def detect_cpu_capabilities():
         pass
 
     return modern, bmi2
+
+
+class ConfigError(Exception):
+    """Error in configuration."""
+    pass
 
 
 class HttpError(Exception):
