@@ -3,25 +3,23 @@
 """Downloading chess puzzles for lichess.org"""
 
 import logging
+import sys
 
 import requests
 
 # tourments
-tourment_ids = ['25MtoToy',
-                'E14kHVwX',
-                'tdntXNhy',
-                'sj5GoEdS',
-                'C4zdQLax',
-                'wobqi6QP',
-                'T4RW1ux2',
-                'nzw7OKBq']
+tourment_ids = sys.argv[1:]
 
 all_games = open("games.pgn", "w")
 pgn = ""
 for id in tourment_ids:
-    print('https://lichess.org/api/tournament/' + id + '/games')
-    response = requests.get('https://lichess.org/api/tournament/' + id + '/games')
-    pgn = pgn + '\n' + str(response.text)
+    url = 'https://lichess.org/api/tournament/' + id + '/games'
+    print(url)
+    response = requests.get(url)
+    if response.status_code == requests.codes.ok:
+        pgn = pgn + '\n' + str(response.text)
+    elif response.status_code==404:
+        print(id + ' not found')
 
 all_games.write(pgn)
 all_games.close()
