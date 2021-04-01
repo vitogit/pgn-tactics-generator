@@ -19,8 +19,8 @@ with open('games.pgn','w') as file:
         response = requests.get(url)
         if(response.status_code != 404):
             file.write(str(response.text) + '\n')
-            print('\r' + f'Downloading complete for {id_number}...',end = '')
+            print('\r' + f'Downloading complete for {id_number}......')
         else:
-            print('\r' + f'{id_number} Not Found..!')
+            print('\r' + f'Failed..! Tournament for {id_number} not found...')
 
 logging.debug("Finished... Pgn is in games.pgn")
