@@ -57,6 +57,22 @@ You can also use parameters
 Example:
 `python3 main.py --quiet --depth=18 --games=ruy_lopez.pgn --strict=True <#Threads = 4> <Hash (MBytes) = 2048>`
 
+### Working with command line arguments
+
+We can use the `sys` module from the standard `Python` library.
+This module provides access to some objects used or maintained by the interpreter and to functions that interact strongly with the interpreter.
+To access the command line arguments we use the `argv` object from the `sys` module as `sys.argv`.<br/>
+This is what python documentation says about the `argv` object:<br/>
+**`argv -- command line arguments; argv[0] is the script pathname if known`**<br/>
+Let's look at an example:<br/>
+If we run a python script as `python script.py moderate interporability` then to access the command line arguments within our script, we firstly need to use the<br/> `sys` module we must import it as `import sys`:<br/>
+```import sys
+first_argument = sys.argv[0] # returns first argument that is the script name 'script.py'
+second_argument = sys.argv[1] # returns second arguments that is 'moderate'
+third_argument = sys.argv[2] # returns 'interporability
+```
+
+
 ## Tactics output
 
 The resulting file will be a pgn file called tactics.pgn. Each tactic contains the headers from the source game. The result header it's the tactic result and not the game result. It can be loaded to a Lichess study or to an app like iChess to practice tactics.
