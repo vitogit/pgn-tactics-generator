@@ -2,27 +2,25 @@
 
 """Downloading chess puzzles for lichess.org"""
 
+# import sys to handle command line arguments
+import sys
+
 import logging
 
 import requests
 
-# tourments
-tourment_ids = ['25MtoToy',
-                'E14kHVwX',
-                'tdntXNhy',
-                'sj5GoEdS',
-                'C4zdQLax',
-                'wobqi6QP',
-                'T4RW1ux2',
-                'nzw7OKBq']
+# tournaments
+tournament_ids = sys.argv[1:]
 
-all_games = open("games.pgn", "w")
-pgn = ""
-for id in tourment_ids:
-    print('https://lichess.org/api/tournament/' + id + '/games')
-    response = requests.get('https://lichess.org/api/tournament/' + id + '/games')
-    pgn = pgn + '\n' + str(response.text)
+with open('games.pgn','w') as file:
+    for id_number in tournament_ids:  # using id_number instead of id as a name cause id is a built-in python function
+        url = f'https://lichess.org/api/tournament/{id_number}/games'
+        print('\r' + f'Downloading tournament for {id_number}...',end = '')
+        response = requests.get(url)
+        if(response.status_code != 404):
+            file.write(str(response.text) + '\n')
+            print('\r' + f'Downloading complete for {id_number}......')
+        else:
+            print('\r' + f'Failed..! Tournament for {id_number} not found...')
 
-all_games.write(pgn)
-all_games.close()
-logging.debug("Finished. Pgn is in games.pgn ")
+logging.debug("Finished... Pgn is in games.pgn")
