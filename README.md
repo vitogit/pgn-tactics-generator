@@ -10,9 +10,9 @@ It's based on the great  [https://github.com/clarkerubber/Python-Puzzle-Creator]
 Things that I changed:
 - Use a local pgn file with games as a source.
 - Write results to a file called tactics.pgn
-- Default engine depth to 8 so it's faster. Before it was nodes=3500000 this is a depth around 20. So it took several minutes to analyze a game. With depth 8 it takes seconds.
+- Default engine depth to 8, so it's faster. Before it was nodes=3500000 this is a depth around 20. So it took several minutes to analyze a game. With depth 8 it takes seconds.
 - You can use the `depth` argument to change the depth if you want more precision.
-- chess.pop_count to chess.popcount because it was failing
+- chess.pop_count to chess.popcount, because it was failing
 
 ### This is too complex, give something easy.
 There is another option if you don't want to install and manage python scripts
@@ -39,7 +39,7 @@ You can download games from a specific user using this command:
 `python3 download_games.py <lichess username>`
 
 
-By default it will download the last 60 games from blitz, rapid and classical.
+By default, it will download the last 60 games from blitz, rapid and classical.
 
 **Arguments**
 
@@ -73,7 +73,7 @@ To execute the generator execute this command. By default it will look for the `
 **Arguments**
 
 - `--quiet` to reduce the screen output.
-- `--depth=8` select the stockfish depth analysis. Default is `8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
+- `--depth=8` select the Stockfish depth analysis. Default is `8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
 - `--games=ruy_lopez.pgn` to select a specific pgn file. Default is `games.pgn`
 - `--strict=False` Use `False` to generate more tactics but a little more ambiguous. Default is `True`
 - `--threads=4` Stockfish argument, number of engine threads, default `4`
@@ -93,7 +93,7 @@ The `result header` is the tactic result and not the game result. It can be load
 ## Problems?
 
 #### Stockfish errors
-- If you have problems building stockfish try downloading stockfish directly https://stockfishchess.org/download/
+- If you have problems building Stockfish try downloading Stockfish directly https://stockfishchess.org/download/
 
 ## Want to see all my chess related projects?
 Check [My projects](http://vitomd.com/blog/projects/) for a full detailed list.
