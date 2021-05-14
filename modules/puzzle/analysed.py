@@ -4,10 +4,7 @@ class analysed:
         self.evaluation = evaluation
 
     def sign(self, val):
-        if val <= 0:
-            return -1
-        else:
-            return 1
+        return -1 if val <= 0 else 1
 
     def sort_val(self):
         if self.evaluation.cp is not None:
