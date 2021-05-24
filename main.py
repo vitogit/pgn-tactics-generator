@@ -15,22 +15,42 @@ from modules.fishnet.fishnet import stockfish_command
 from modules.investigate.investigate import investigate
 from modules.puzzle.puzzle import puzzle
 
-parser = argparse.ArgumentParser(description=__doc__)
 
-parser.add_argument("--threads", metavar="THREADS", nargs="?", type=int, default=4,
-                    help="number of engine threads")
-parser.add_argument("--memory", metavar="MEMORY", nargs="?", type=int, default=2048,
-                    help="memory in MB to use for engine hashtables")
-parser.add_argument("--depth", metavar="DEPTH", nargs="?", type=int, default=8,
-                    help="depth for stockfish analysis")
-parser.add_argument("--quiet", dest="loglevel",
-                    default=logging.DEBUG, action="store_const", const=logging.INFO,
-                    help="substantially reduce the number of logged messages")
-parser.add_argument("--games", metavar="GAMES", default="games.pgn",
-                    help="A specific pgn with games")
-parser.add_argument("--strict", metavar="STRICT", default=True,
-                    help="If False then it will be generate more tactics but maybe a little ambiguous")
-settings = parser.parse_args()
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
+def prepare_settings():
+    parser = argparse.ArgumentParser(description=__doc__)
+
+    parser.add_argument("--threads", metavar="THREADS", nargs="?", type=int, default=4,
+                        help="number of engine threads")
+    parser.add_argument("--memory", metavar="MEMORY", nargs="?", type=int, default=2048,
+                        help="memory in MB to use for engine hashtables")
+    parser.add_argument("--depth", metavar="DEPTH", nargs="?", type=int, default=8,
+                        help="depth for stockfish analysis")
+    parser.add_argument("--quiet", dest="loglevel",
+                        default=logging.DEBUG, action="store_const", const=logging.INFO,
+                        help="substantially reduce the number of logged messages")
+    parser.add_argument("--games", metavar="GAMES", default="games.pgn",
+                        help="A specific pgn with games")
+    parser.add_argument("--strict", metavar="STRICT", default=True,
+                        help="If False then it will be generate more tactics but maybe a little ambiguous")
+    parser.add_argument("--includeBlunder", metavar="INCLUDE_BLUNDER", default=True,
+                        type=str2bool, const=True, dest="include_blunder", nargs="?",
+                        help="If False then generated puzzles won't include initial blunder move")
+
+    return parser.parse_args()
+
+
+settings = prepare_settings()
 try:
     # Optionally fix colors on Windows and in journals if the colorama module
     # is available.
@@ -45,6 +65,8 @@ except ImportError:
 logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
 logging.getLogger("chess.uci").setLevel(logging.WARNING)
+logging.getLogger("chess.engine").setLevel(logging.WARNING)
+logging.getLogger("chess._engine").setLevel(logging.WARNING)
 
 engine = chess.uci.popen_engine(stockfish_command())
 engine.setoption({'Threads': settings.threads, 'Hash': settings.memory})
@@ -94,7 +116,7 @@ while True:
         logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate(settings.depth)
         if i.is_complete():
-            puzzle_pgn = post_puzzle(i)
+            puzzle_pgn = post_puzzle(i, settings.include_blunder)
             tactics_file.write(puzzle_pgn)
             tactics_file.write("\n\n")
 

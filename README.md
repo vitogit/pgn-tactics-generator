@@ -75,9 +75,10 @@ To execute the generator execute this command. By default it will look for the `
 - `--quiet` to reduce the screen output.
 - `--depth=8` select the stockfish depth analysis. Default is `8` and will take some seconds to analyze a game, with `--depth=18` will take around 6 minutes.
 - `--games=ruy_lopez.pgn` to select a specific pgn file. Default is `games.pgn`
-- `strict=False` Use `False` to generate more tactics but a little more ambiguous. Default is `True`
+- `--strict=False` Use `False` to generate more tactics but a little more ambiguous. Default is `True`
 - `--threads=4` Stockfish argument, number of engine threads, default `4`
 - `--memory=2048` Stockfish argument, memory in MB to use for engine hashtables, default `2048`
+- `--includeBlunder=False` If False then generated puzzles won't include initial blunder move, default is `True`
 
 Example:
 `python3 main.py --quiet --depth=12 --games=ruy_lopez.pgn --strict=True --threads=2 --memory=1024`
