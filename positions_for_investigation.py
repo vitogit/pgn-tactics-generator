@@ -100,7 +100,7 @@ while True:
 
             # save the data for investigate() testing
             investigate_test_data.append(
-                {'score_a': prev_score, 'score_b': cur_score, 'board': board_to_dict(node.board()), 'result': result})
+                {'score_a': prev_score, 'score_b': cur_score, 'board': board_to_dict(node.board(), True), 'result': result})
 
         prev_score = cur_score
         node = next_node
@@ -117,4 +117,4 @@ while True:
 
 # dump the test data to files
 write_test_data('investigate.json', json.dumps(investigate_test_data, indent=2))
-write_test_data('is_complete.json', json.dumps(complete_test_data))
+write_test_data('is_complete.json', json.dumps(complete_test_data, indent=2))

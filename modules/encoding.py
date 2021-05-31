@@ -15,16 +15,26 @@ def bestmove_to_dict(bm: BestMove) -> dict:
     } if bm else None
 
 
-def board_to_dict(b: Board) -> dict:
-    return {
-        'fen': b.fen(),
-        'aliases': b.aliases,
-        'fullmove_number': b.fullmove_number,
-        'move_stack': [m.uci() for m in b.move_stack],
-        'uci_variant': b.uci_variant
-    } if b else None
+def board_to_dict(b: Board, position_only: bool = False) -> dict:
+    if not b:
+        return None
+    else:
+        result = {
+            'fen': b.fen()
+        }
+        if not position_only:
+            result.update({
+                'aliases': b.aliases,
+                'fullmove_number': b.fullmove_number,
+                'move_stack': [m.uci() for m in b.move_stack],
+                'uci_variant': b.uci_variant,
+                'piece_map': piecemap_to_dict(b.piece_map())
+            })
+        return result
 
-    # return json.loads(json.dumps(b, default=lambda o: o.__dict__))
+
+def piecemap_to_dict(pm) -> dict:
+    return {key: val.symbol() for key, val in pm.items()}
 
 
 def score_to_dict(score: Score):
