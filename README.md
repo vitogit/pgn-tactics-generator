@@ -79,6 +79,8 @@ To execute the generator execute this command. By default it will look for the `
 - `--threads=4` Stockfish argument, number of engine threads, default `4`
 - `--memory=2048` Stockfish argument, memory in MB to use for engine hashtables, default `2048`
 - `--includeBlunder=False` If False then generated puzzles won't include initial blunder move, default is `True`
+- `--stockfish=./stockfish-x86_64-bmi2` Path to Stockfish binary. 
+  Optional. If ommited, the program will try to locate Stockfish in current directory or download it from the net
 
 Example:
 `python3 main.py --quiet --depth=12 --games=ruy_lopez.pgn --strict=True --threads=2 --memory=1024`
