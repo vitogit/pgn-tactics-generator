@@ -29,7 +29,6 @@ if [ -f /proc/cpuinfo ]; then
 else
     # check for apple silicon
     arch_name="$(uname -m)"
-    echo $arch_name
     if [ "${arch_name}" = "arm64" ]; then
         echo "Running on ARM"
         ARCH=apple-silicon

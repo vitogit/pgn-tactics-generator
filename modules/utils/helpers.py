@@ -16,8 +16,8 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def get_stockfish_command(overriden_command: str):
-    return overriden_command if overriden_command else stockfish_command()
+def get_stockfish_command(path: str):
+    return path if path else stockfish_command()
 
 
 def configure_logging(loglevel):
