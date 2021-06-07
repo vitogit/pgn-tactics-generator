@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+"""
+This utility allows for generating some data that can be usesd in tests.
+The data include:
+  * arguments and result for investigate() function
+  * puzzle definitions and result of .is_complete() and .positions.ambiguous() methods for that puzzles
+"""
 import argparse
 import json
 import logging
@@ -8,8 +14,7 @@ import chess.engine
 import chess.pgn
 
 from modules.bcolors.bcolors import bcolors
-from modules.encoding import puzzle_to_dict, board_to_dict, score_to_dict
-from modules.fishnet.fishnet import stockfish_command
+from modules.utils.encoding import puzzle_to_dict, board_to_dict, score_to_dict
 from modules.investigate.investigate import investigate
 from modules.puzzle.puzzle import puzzle
 from modules.utils.helpers import str2bool, get_stockfish_command, configure_logging, prepare_terminal

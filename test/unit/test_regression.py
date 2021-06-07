@@ -3,7 +3,7 @@ import logging
 import os
 import unittest
 
-from modules.decoding import score_from_dict, board_from_dict, puzzle_from_dict
+from modules.utils.decoding import score_from_dict, board_from_dict, puzzle_from_dict
 from modules.investigate.investigate import investigate
 from modules.utils.helpers import configure_logging
 
@@ -38,6 +38,8 @@ class TestRegression(unittest.TestCase):
             score_a, score_b = score_from_dict(definition["score_a"]), score_from_dict(definition["score_b"])
             expected_result = definition["result"]
             board = board_from_dict(definition["board"])
+            print(score_a)
+            print(score_b)
             logging.debug(f"Testing position {board.fen()} with scores {score_a} and {score_b}")
 
             result = investigate(score_a, score_b, board)

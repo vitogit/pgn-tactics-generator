@@ -1,4 +1,18 @@
 [
+    {
+    "score_a": [
+      0,
+      null
+    ],
+    "score_b": [
+      265,
+      null
+    ],
+    "board": {
+      "fen": "2kr2r1/2p2p1p/pp4q1/3P1p2/8/5QP1/P4P1P/1RR3K1 b - - 0 24"
+    },
+    "result": true
+  },
   {
     "score_a": [
       180,

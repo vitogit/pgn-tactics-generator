@@ -1,17 +1,18 @@
+from typing import Optional
+
 import chess
 from chess import Move, Board
-from chess.engine import Cp, Mate, BestMove
-from chess.uci import Score
+from chess.engine import Cp, Mate, BestMove, Score
 
 from modules.puzzle.analysed import analysed
 from modules.puzzle.position_list import position_list
 from modules.puzzle.puzzle import puzzle
 
 
-def score_from_dict(d) -> Score:
+def score_from_dict(d) -> Optional[Score]:
     if not d:
         return None
-    if d[0]:
+    if d[0] is not None:
         return Cp(d[0])
     else:
         return Mate(d[1])

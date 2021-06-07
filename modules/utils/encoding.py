@@ -1,10 +1,12 @@
+from typing import Optional
+
 from chess import Move, Board
-from chess.uci import BestMove, Score
+from chess.engine import BestMove, Score
 
 from modules.puzzle import position_list, puzzle
 
 
-def move_to_dict(m: Move) -> dict:
+def move_to_dict(m: Move) -> Optional[str]:
     return m.uci() if m else None
 
 
@@ -15,7 +17,7 @@ def bestmove_to_dict(bm: BestMove) -> dict:
     } if bm else None
 
 
-def board_to_dict(b: Board, position_only: bool = False) -> dict:
+def board_to_dict(b: Board, position_only: bool = False) -> Optional[dict]:
     if not b:
         return None
     else:
