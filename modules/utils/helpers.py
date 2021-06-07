@@ -25,7 +25,6 @@ def configure_logging(loglevel):
     logging.getLogger("requests.packages.urllib3").setLevel(logging.WARNING)
     logging.getLogger("chess.uci").setLevel(logging.WARNING)
     logging.getLogger("chess.engine").setLevel(logging.WARNING)
-    logging.getLogger("chess._engine").setLevel(logging.WARNING)
 
 
 def prepare_terminal():

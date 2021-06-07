@@ -3,7 +3,6 @@
 import argparse
 import json
 import logging
-import sys
 
 import chess.engine
 import chess.pgn
@@ -13,17 +12,7 @@ from modules.encoding import puzzle_to_dict, board_to_dict, score_to_dict
 from modules.fishnet.fishnet import stockfish_command
 from modules.investigate.investigate import investigate
 from modules.puzzle.puzzle import puzzle
-
-
-def str2bool(v):
-    if isinstance(v, bool):
-        return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+from modules.utils.helpers import str2bool, get_stockfish_command, configure_logging, prepare_terminal
 
 
 def prepare_settings():
@@ -45,26 +34,20 @@ def prepare_settings():
     parser.add_argument("--includeBlunder", metavar="INCLUDE_BLUNDER", default=True,
                         type=str2bool, const=True, dest="include_blunder", nargs="?",
                         help="If False then generated puzzles won't include initial blunder move")
+    parser.add_argument("--stockfish", metavar="STOCKFISH", default=None, help="Path to Stockfish binary")
 
     return parser.parse_args()
 
 
 settings = prepare_settings()
-try:
-    # Optionally fix colors on Windows and in journals if the colorama module
-    # is available.
-    import colorama
 
-    wrapper = colorama.AnsiToWin32(sys.stdout)
-    if wrapper.should_wrap():
-        sys.stdout = wrapper.stream
-except ImportError:
-    pass
+prepare_terminal()
 
-logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
-logging.getLogger("chess.engine").setLevel(logging.WARNING)
+configure_logging(settings.loglevel)
 
-engine = chess.engine.SimpleEngine.popen_uci(stockfish_command())
+stockfish_command = get_stockfish_command(settings.stockfish)
+logging.debug(f'Using {stockfish_command} to run Stockfish.')
+engine = chess.engine.SimpleEngine.popen_uci(stockfish_command)
 engine.configure({'Threads': settings.threads, 'Hash': settings.memory})
 
 all_games = open(settings.games, "r")

@@ -1,24 +1,17 @@
 import json
 import logging
 import os
-import sys
 import unittest
 
 from modules.decoding import score_from_dict, board_from_dict, puzzle_from_dict
 from modules.investigate.investigate import investigate
+from modules.utils.helpers import configure_logging
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 INVESTIGATE_FILE = f'{TEST_DIR}/../data/investigate.json'
 IS_COMPLETE_FILE = f'{TEST_DIR}/../data/is_complete.json'
 
-
-def configure_logger():
-    logging.basicConfig(format="%(message)s", level="DEBUG", stream=sys.stdout)
-    logging.getLogger("chess.uci").setLevel(logging.WARNING)
-    logging.getLogger("chess._engine").setLevel(logging.WARNING)
-
-
-configure_logger()
+configure_logging(logging.DEBUG)
 
 
 class TestRegression(unittest.TestCase):
@@ -51,9 +44,9 @@ class TestRegression(unittest.TestCase):
 
             self.assertEqual(expected_result, result)
 
-    def test_mambigos(self):
+    def test_ambiguous(self):
         """
-        Go through known ambigous() arguments (position_list class)
+        Go through known ambiguous() arguments (position_list class)
         and results and see if the actual result is the same.
         :return:
         """
@@ -85,10 +78,6 @@ class TestRegression(unittest.TestCase):
 
             logging.debug(f'{expected_result} vs {result}')
             self.assertEqual(expected_result, result)
-            # KZL XXX TODO:
-            # the following move_list() returns ['c3e4', 'c6e4', 'd3e4', 'd7d5', 'e4d3']
-            # while 'original' values are       ['c3e4', 'c6e4', 'd3e4', 'd7d5']
-            # verify if is_game_over() is returned properly; or ambigous
 
     def test_is_complete(self):
         """
@@ -105,6 +94,7 @@ class TestRegression(unittest.TestCase):
 
             logging.debug(f'{expected_result} vs {result}')
             self.assertEqual(expected_result, result)
+
 
 if __name__ == '__main__':
     unittest.main()

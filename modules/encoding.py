@@ -57,7 +57,7 @@ def positionlist_to_dict(pl: position_list) -> dict:
 def analyzed_to_dict(a):
     return {
         'move': move_to_dict(a.move),
-        'evaluation': a.evaluation
+        'evaluation': score_to_dict(a.evaluation)
     }
 
 

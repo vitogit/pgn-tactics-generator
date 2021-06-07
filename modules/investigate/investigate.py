@@ -1,4 +1,6 @@
 import chess
+from chess import Board
+from chess.engine import Score
 
 
 def sign(a):
@@ -14,7 +16,7 @@ def material_count(board):
     return chess.popcount(board.occupied)
 
 
-def investigate(a, b, board):
+def investigate(a: Score, b: Score, board: Board):
     """
     determine if the difference between position A and B
     is worth investigating for a puzzle.
@@ -30,6 +32,7 @@ def investigate(a, b, board):
             return True
     elif a_cp is not None and b_mate is not None and material_value(board) > 3:
         if (a_cp < 110 and sign(b_mate) == -1) or (a_cp > -110 and sign(b_mate) == 1):
+            # from an even position, walking int a checkmate
             return True
     elif a_mate is not None and b_mate is not None:
         if sign(a_mate) == sign(b_mate):  # actually means that they're opposite

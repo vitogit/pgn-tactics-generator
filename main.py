@@ -4,14 +4,12 @@
 
 import argparse
 import logging
-import sys
 
-import chess.pgn
 import chess.engine
+import chess.pgn
 
 from modules.api.api import post_puzzle
 from modules.bcolors.bcolors import bcolors
-from modules.fishnet.fishnet import stockfish_command
 from modules.investigate.investigate import investigate
 from modules.puzzle.puzzle import puzzle
 from modules.utils.helpers import str2bool, get_stockfish_command, configure_logging, prepare_terminal
@@ -49,7 +47,7 @@ configure_logging(settings.loglevel)
 
 stockfish_command = get_stockfish_command(settings.stockfish)
 logging.debug(f'Using {stockfish_command} to run Stockfish.')
-engine = chess.engine.SimpleEngine.popen_uci(stockfish_command())
+engine = chess.engine.SimpleEngine.popen_uci(stockfish_command)
 engine.configure({'Threads': settings.threads, 'Hash': settings.memory})
 
 all_games = open(settings.games, "r")
