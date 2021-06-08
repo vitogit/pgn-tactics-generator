@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-This utility allows for generating some data that can be usesd in tests.
+This utility allows for generating some data that can be used in tests.
 The data include:
   * arguments and result for investigate() function
   * puzzle definitions and result of .is_complete() and .positions.ambiguous() methods for that puzzles

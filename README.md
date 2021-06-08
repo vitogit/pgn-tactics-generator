@@ -24,6 +24,8 @@ It uses a different approach to create tactics, so probably it will generate a d
 This script requires the *Requests* and *Python-Chess* libraries to run, as well as a copy of *Stockfish*
 Is recommended that you use Python 3 and pip3. But it could work with Python 2.7 and pip (probably you will need to install futures `pip install futures` )
 
+Please, take a look at [development doc](DEVELOPMENT.md) for details.
+
 ### Install requirements
 
 `pip3 install -r requirements.txt --user`
@@ -80,7 +82,7 @@ To execute the generator execute this command. By default it will look for the `
 - `--memory=2048` Stockfish argument, memory in MB to use for engine hashtables, default `2048`
 - `--includeBlunder=False` If False then generated puzzles won't include initial blunder move, default is `True`
 - `--stockfish=./stockfish-x86_64-bmi2` Path to Stockfish binary. 
-  Optional. If ommited, the program will try to locate Stockfish in current directory or download it from the net
+  Optional. If omitted, the program will try to locate Stockfish in current directory or download it from the net
 
 Example:
 `python3 main.py --quiet --depth=12 --games=ruy_lopez.pgn --strict=True --threads=2 --memory=1024`
