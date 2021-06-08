@@ -31,6 +31,7 @@ def prepare_settings():
     parser.add_argument("--games", metavar="GAMES", default="games.pgn",
                         help="A specific pgn with games")
     parser.add_argument("--strict", metavar="STRICT", default=True,
+                        type=str2bool, const=True, nargs="?",
                         help="If False then it will be generate more tactics but maybe a little ambiguous")
     parser.add_argument("--includeBlunder", metavar="INCLUDE_BLUNDER", default=True,
                         type=str2bool, const=True, dest="include_blunder", nargs="?",

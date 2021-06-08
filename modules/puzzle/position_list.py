@@ -130,13 +130,14 @@ class position_list:
                 return False
 
     def ambiguous(self):
-        # If strict == False then it will generate more tactics but  more ambiguous
+        # If strict == False then it will generate more tactics but more ambiguous
         move_number = 1 if self.strict else 2
         if len(self.analysed_legals) > 1:
             if (self.analysed_legals[0].evaluation.cp is not None
                     and self.analysed_legals[1].evaluation.cp is not None):
                 if (self.analysed_legals[0].evaluation.cp > -210
-                        or self.analysed_legals[move_number].evaluation.cp < -90):
+                        or (len(self.analysed_legals) >= move_number
+                            and self.analysed_legals[move_number].evaluation.cp < -90)):
                     return True
             if (self.analysed_legals[0].evaluation.mate is not None
                     and self.analysed_legals[1].evaluation.mate is not None):
