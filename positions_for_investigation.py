@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 
-"""Creating chess puzzles for lichess.org"""
-
+"""
+This utility allows for generating some data that can be used in tests.
+The data include:
+  * arguments and result for investigate() function
+  * puzzle definitions and result of .is_complete() and .positions.ambiguous() methods for that puzzles
+"""
 import argparse
+import json
 import logging
 
 import chess.engine
 import chess.pgn
 
-from modules.api.api import post_puzzle
 from modules.bcolors.bcolors import bcolors
+from modules.utils.encoding import puzzle_to_dict, board_to_dict, score_to_dict
 from modules.investigate.investigate import investigate
 from modules.puzzle.puzzle import puzzle
 from modules.utils.helpers import str2bool, get_stockfish_command, configure_logging, prepare_terminal
@@ -51,7 +56,17 @@ engine = chess.engine.SimpleEngine.popen_uci(stockfish_command)
 engine.configure({'Threads': settings.threads, 'Hash': settings.memory})
 
 all_games = open(settings.games, "r")
-tactics_file = open("tactics.pgn", "w")
+
+
+def write_test_data(filename: str, payload: str):
+    with open(filename, "w") as f:
+        f.write(payload)
+
+
+# data collection for testing investigate function
+investigate_test_data = []
+complete_test_data = []
+
 game_id = 0
 while True:
     game = chess.pgn.read_game(all_games)
@@ -66,12 +81,11 @@ while True:
     prev_score = chess.engine.Cp(0)
     puzzles = []
 
-    logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
     logging.debug("Analysing Game..." + bcolors.ENDC)
 
+    # find candidates (positions)
     while not node.is_end():
         next_node = node.variation(0)
-
         info = engine.analyse(next_node.board(), chess.engine.Limit(depth=settings.depth))
 
         cur_score = info["score"].relative
@@ -79,21 +93,34 @@ while True:
         logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.score()))
         logging.debug("   Mate: " + str(cur_score.mate()) + bcolors.ENDC)
 
-        if investigate(prev_score, cur_score, node.board()):
+        result = investigate(prev_score, cur_score, node.board())
+
+        if result:
             logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info, game, settings.strict))
+            puzzles.append(
+                puzzle(node.board(), next_node.move, str(game_id), engine, None, game, settings.strict))
+
+            # save the data for investigate() testing
+            investigate_test_data.append(
+                {'score_a': score_to_dict(prev_score), 'score_b': score_to_dict(cur_score),
+                 'board': board_to_dict(node.board(), True), 'result': result})
 
         prev_score = cur_score
         node = next_node
 
+    # check puzzle completeness
     for i in puzzles:
-        logging.debug(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
+        logging.info(bcolors.WARNING + "Generating new puzzle..." + bcolors.ENDC)
         i.generate(settings.depth)
-        if i.is_complete():
-            puzzle_pgn = post_puzzle(i, settings.include_blunder)
-            tactics_file.write(puzzle_pgn)
-            tactics_file.write("\n\n")
 
-tactics_file.close()
+        is_complete = i.is_complete()
+        is_ambiguous = i.positions.ambiguous()
+        logging.info(f'{i.last_pos.fen()} -- {is_complete}, {is_ambiguous}')
+        if is_complete:
+            complete_test_data.append({'puzzle': puzzle_to_dict(i), 'is_complete': is_complete})
+
+# dump the test data to files
+write_test_data('investigate.json', json.dumps(investigate_test_data, indent=2))
+write_test_data('is_complete.json', json.dumps(complete_test_data, indent=2))
 
 engine.quit()

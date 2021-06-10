@@ -1,0 +1,2522 @@
+[
+  {
+    "puzzle": {
+      "game_id": "2",
+      "category": "Material",
+      "last_pos": {
+        "fen": "r3r1k1/p1pq1ppp/2pp4/4b3/N3P3/6P1/PPP2P1P/1R1QR1K1 b - - 4 15",
+        "aliases": [
+          "Standard",
+          "Chess",
+          "Classical",
+          "Normal",
+          "Illegal",
+          "From Position"
+        ],
+        "fullmove_number": 15,
+        "move_stack": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "b8c6",
+          "f1b5",
+          "c8d7",
+          "b5c6",
+          "d7c6",
+          "b1c3",
+          "g8f6",
+          "c1g5",
+          "f8e7",
+          "g5f6",
+          "e7f6",
+          "d4c6",
+          "b7c6",
+          "e1g1",
+          "e8g8",
+          "f1e1",
+          "f6e5",
+          "g2g3",
+          "d8d7",
+          "a1b1",
+          "f8e8",
+          "c3a4"
+        ],
+        "uci_variant": "chess",
+        "piece_map": {
+          "62": "k",
+          "60": "r",
+          "56": "r",
+          "55": "p",
+          "54": "p",
+          "53": "p",
+          "51": "q",
+          "50": "p",
+          "48": "p",
+          "43": "p",
+          "42": "p",
+          "36": "b",
+          "28": "P",
+          "24": "N",
+          "22": "P",
+          "15": "P",
+          "13": "P",
+          "10": "P",
+          "9": "P",
+          "8": "P",
+          "6": "K",
+          "4": "R",
+          "3": "Q",
+          "1": "R"
+        }
+      },
+      "last_move": "e8e6",
+      "move_list": [
+        "a4c5",
+        "d7e7",
+        "c5e6",
+        "e7e6"
+      ],
+      "positions": {
+        "position": {
+          "fen": "r5k1/p1pq1ppp/2ppr3/4b3/N3P3/6P1/PPP2P1P/1R1QR1K1 w - - 5 16",
+          "aliases": [
+            "Standard",
+            "Chess",
+            "Classical",
+            "Normal",
+            "Illegal",
+            "From Position"
+          ],
+          "fullmove_number": 16,
+          "move_stack": [
+            "e2e4",
+            "e7e5",
+            "g1f3",
+            "d7d6",
+            "d2d4",
+            "e5d4",
+            "f3d4",
+            "b8c6",
+            "f1b5",
+            "c8d7",
+            "b5c6",
+            "d7c6",
+            "b1c3",
+            "g8f6",
+            "c1g5",
+            "f8e7",
+            "g5f6",
+            "e7f6",
+            "d4c6",
+            "b7c6",
+            "e1g1",
+            "e8g8",
+            "f1e1",
+            "f6e5",
+            "g2g3",
+            "d8d7",
+            "a1b1",
+            "f8e8",
+            "c3a4",
+            "e8e6"
+          ],
+          "uci_variant": "chess",
+          "piece_map": {
+            "62": "k",
+            "56": "r",
+            "55": "p",
+            "54": "p",
+            "53": "p",
+            "51": "q",
+            "50": "p",
+            "48": "p",
+            "44": "r",
+            "43": "p",
+            "42": "p",
+            "36": "b",
+            "28": "P",
+            "24": "N",
+            "22": "P",
+            "15": "P",
+            "13": "P",
+            "10": "P",
+            "9": "P",
+            "8": "P",
+            "6": "K",
+            "4": "R",
+            "3": "Q",
+            "1": "R"
+          }
+        },
+        "player_turn": true,
+        "best_move": {
+          "move": "a4c5",
+          "ponder": "d7e7"
+        },
+        "evaluation": [
+          382,
+          null
+        ],
+        "next_position": {
+          "position": {
+            "fen": "r5k1/p1pq1ppp/2ppr3/2N1b3/4P3/6P1/PPP2P1P/1R1QR1K1 b - - 6 16",
+            "aliases": [
+              "Standard",
+              "Chess",
+              "Classical",
+              "Normal",
+              "Illegal",
+              "From Position"
+            ],
+            "fullmove_number": 16,
+            "move_stack": [
+              "e2e4",
+              "e7e5",
+              "g1f3",
+              "d7d6",
+              "d2d4",
+              "e5d4",
+              "f3d4",
+              "b8c6",
+              "f1b5",
+              "c8d7",
+              "b5c6",
+              "d7c6",
+              "b1c3",
+              "g8f6",
+              "c1g5",
+              "f8e7",
+              "g5f6",
+              "e7f6",
+              "d4c6",
+              "b7c6",
+              "e1g1",
+              "e8g8",
+              "f1e1",
+              "f6e5",
+              "g2g3",
+              "d8d7",
+              "a1b1",
+              "f8e8",
+              "c3a4",
+              "e8e6",
+              "a4c5"
+            ],
+            "uci_variant": "chess",
+            "piece_map": {
+              "62": "k",
+              "56": "r",
+              "55": "p",
+              "54": "p",
+              "53": "p",
+              "51": "q",
+              "50": "p",
+              "48": "p",
+              "44": "r",
+              "43": "p",
+              "42": "p",
+              "36": "b",
+              "34": "N",
+              "28": "P",
+              "22": "P",
+              "15": "P",
+              "13": "P",
+              "10": "P",
+              "9": "P",
+              "8": "P",
+              "6": "K",
+              "4": "R",
+              "3": "Q",
+              "1": "R"
+            }
+          },
+          "player_turn": false,
+          "best_move": {
+            "move": "d7e7",
+            "ponder": "c5e6"
+          },
+          "evaluation": [
+            -375,
+            null
+          ],
+          "next_position": {
+            "position": {
+              "fen": "r5k1/p1p1qppp/2ppr3/2N1b3/4P3/6P1/PPP2P1P/1R1QR1K1 w - - 7 17",
+              "aliases": [
+                "Standard",
+                "Chess",
+                "Classical",
+                "Normal",
+                "Illegal",
+                "From Position"
+              ],
+              "fullmove_number": 17,
+              "move_stack": [
+                "e2e4",
+                "e7e5",
+                "g1f3",
+                "d7d6",
+                "d2d4",
+                "e5d4",
+                "f3d4",
+                "b8c6",
+                "f1b5",
+                "c8d7",
+                "b5c6",
+                "d7c6",
+                "b1c3",
+                "g8f6",
+                "c1g5",
+                "f8e7",
+                "g5f6",
+                "e7f6",
+                "d4c6",
+                "b7c6",
+                "e1g1",
+                "e8g8",
+                "f1e1",
+                "f6e5",
+                "g2g3",
+                "d8d7",
+                "a1b1",
+                "f8e8",
+                "c3a4",
+                "e8e6",
+                "a4c5",
+                "d7e7"
+              ],
+              "uci_variant": "chess",
+              "piece_map": {
+                "62": "k",
+                "56": "r",
+                "55": "p",
+                "54": "p",
+                "53": "p",
+                "52": "q",
+                "50": "p",
+                "48": "p",
+                "44": "r",
+                "43": "p",
+                "42": "p",
+                "36": "b",
+                "34": "N",
+                "28": "P",
+                "22": "P",
+                "15": "P",
+                "13": "P",
+                "10": "P",
+                "9": "P",
+                "8": "P",
+                "6": "K",
+                "4": "R",
+                "3": "Q",
+                "1": "R"
+              }
+            },
+            "player_turn": true,
+            "best_move": {
+              "move": "c5e6",
+              "ponder": "e7e6"
+            },
+            "evaluation": [
+              373,
+              null
+            ],
+            "next_position": {
+              "position": {
+                "fen": "r5k1/p1p1qppp/2ppN3/4b3/4P3/6P1/PPP2P1P/1R1QR1K1 b - - 0 17",
+                "aliases": [
+                  "Standard",
+                  "Chess",
+                  "Classical",
+                  "Normal",
+                  "Illegal",
+                  "From Position"
+                ],
+                "fullmove_number": 17,
+                "move_stack": [
+                  "e2e4",
+                  "e7e5",
+                  "g1f3",
+                  "d7d6",
+                  "d2d4",
+                  "e5d4",
+                  "f3d4",
+                  "b8c6",
+                  "f1b5",
+                  "c8d7",
+                  "b5c6",
+                  "d7c6",
+                  "b1c3",
+                  "g8f6",
+                  "c1g5",
+                  "f8e7",
+                  "g5f6",
+                  "e7f6",
+                  "d4c6",
+                  "b7c6",
+                  "e1g1",
+                  "e8g8",
+                  "f1e1",
+                  "f6e5",
+                  "g2g3",
+                  "d8d7",
+                  "a1b1",
+                  "f8e8",
+                  "c3a4",
+                  "e8e6",
+                  "a4c5",
+                  "d7e7",
+                  "c5e6"
+                ],
+                "uci_variant": "chess",
+                "piece_map": {
+                  "62": "k",
+                  "56": "r",
+                  "55": "p",
+                  "54": "p",
+                  "53": "p",
+                  "52": "q",
+                  "50": "p",
+                  "48": "p",
+                  "44": "N",
+                  "43": "p",
+                  "42": "p",
+                  "36": "b",
+                  "28": "P",
+                  "22": "P",
+                  "15": "P",
+                  "13": "P",
+                  "10": "P",
+                  "9": "P",
+                  "8": "P",
+                  "6": "K",
+                  "4": "R",
+                  "3": "Q",
+                  "1": "R"
+                }
+              },
+              "player_turn": false,
+              "best_move": {
+                "move": "e7e6",
+                "ponder": "b2b3"
+              },
+              "evaluation": [
+                -379,
+                null
+              ],
+              "next_position": {
+                "position": {
+                  "fen": "r5k1/p1p2ppp/2ppq3/4b3/4P3/6P1/PPP2P1P/1R1QR1K1 w - - 0 18",
+                  "aliases": [
+                    "Standard",
+                    "Chess",
+                    "Classical",
+                    "Normal",
+                    "Illegal",
+                    "From Position"
+                  ],
+                  "fullmove_number": 18,
+                  "move_stack": [
+                    "e2e4",
+                    "e7e5",
+                    "g1f3",
+                    "d7d6",
+                    "d2d4",
+                    "e5d4",
+                    "f3d4",
+                    "b8c6",
+                    "f1b5",
+                    "c8d7",
+                    "b5c6",
+                    "d7c6",
+                    "b1c3",
+                    "g8f6",
+                    "c1g5",
+                    "f8e7",
+                    "g5f6",
+                    "e7f6",
+                    "d4c6",
+                    "b7c6",
+                    "e1g1",
+                    "e8g8",
+                    "f1e1",
+                    "f6e5",
+                    "g2g3",
+                    "d8d7",
+                    "a1b1",
+                    "f8e8",
+                    "c3a4",
+                    "e8e6",
+                    "a4c5",
+                    "d7e7",
+                    "c5e6",
+                    "e7e6"
+                  ],
+                  "uci_variant": "chess",
+                  "piece_map": {
+                    "62": "k",
+                    "56": "r",
+                    "55": "p",
+                    "54": "p",
+                    "53": "p",
+                    "50": "p",
+                    "48": "p",
+                    "44": "q",
+                    "43": "p",
+                    "42": "p",
+                    "36": "b",
+                    "28": "P",
+                    "22": "P",
+                    "15": "P",
+                    "13": "P",
+                    "10": "P",
+                    "9": "P",
+                    "8": "P",
+                    "6": "K",
+                    "4": "R",
+                    "3": "Q",
+                    "1": "R"
+                  }
+                },
+                "player_turn": true,
+                "best_move": {
+                  "move": "b2b3",
+                  "ponder": "a7a5"
+                },
+                "evaluation": [
+                  380,
+                  null
+                ],
+                "next_position": {
+                  "position": {
+                    "fen": "r5k1/p1p2ppp/2ppq3/4b3/4P3/1P4P1/P1P2P1P/1R1QR1K1 b - - 0 18",
+                    "aliases": [
+                      "Standard",
+                      "Chess",
+                      "Classical",
+                      "Normal",
+                      "Illegal",
+                      "From Position"
+                    ],
+                    "fullmove_number": 18,
+                    "move_stack": [
+                      "e2e4",
+                      "e7e5",
+                      "g1f3",
+                      "d7d6",
+                      "d2d4",
+                      "e5d4",
+                      "f3d4",
+                      "b8c6",
+                      "f1b5",
+                      "c8d7",
+                      "b5c6",
+                      "d7c6",
+                      "b1c3",
+                      "g8f6",
+                      "c1g5",
+                      "f8e7",
+                      "g5f6",
+                      "e7f6",
+                      "d4c6",
+                      "b7c6",
+                      "e1g1",
+                      "e8g8",
+                      "f1e1",
+                      "f6e5",
+                      "g2g3",
+                      "d8d7",
+                      "a1b1",
+                      "f8e8",
+                      "c3a4",
+                      "e8e6",
+                      "a4c5",
+                      "d7e7",
+                      "c5e6",
+                      "e7e6",
+                      "b2b3"
+                    ],
+                    "uci_variant": "chess",
+                    "piece_map": {
+                      "62": "k",
+                      "56": "r",
+                      "55": "p",
+                      "54": "p",
+                      "53": "p",
+                      "50": "p",
+                      "48": "p",
+                      "44": "q",
+                      "43": "p",
+                      "42": "p",
+                      "36": "b",
+                      "28": "P",
+                      "22": "P",
+                      "17": "P",
+                      "15": "P",
+                      "13": "P",
+                      "10": "P",
+                      "8": "P",
+                      "6": "K",
+                      "4": "R",
+                      "3": "Q",
+                      "1": "R"
+                    }
+                  },
+                  "player_turn": false,
+                  "best_move": null,
+                  "evaluation": null,
+                  "next_position": null,
+                  "analysed_legals": [],
+                  "strict": true,
+                  "is_ambiguous": false
+                },
+                "analysed_legals": [
+                  {
+                    "move": "b2b3",
+                    "evaluation": [
+                      -380,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "f2f4",
+                    "evaluation": [
+                      -373,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "a2a3",
+                    "evaluation": [
+                      -365,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "a2a4",
+                    "evaluation": [
+                      -357,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1e2",
+                    "evaluation": [
+                      -287,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "c2c3",
+                    "evaluation": [
+                      -265,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g1g2",
+                    "evaluation": [
+                      -264,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e1e3",
+                    "evaluation": [
+                      -243,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1d3",
+                    "evaluation": [
+                      -233,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1d2",
+                    "evaluation": [
+                      -228,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g1h1",
+                    "evaluation": [
+                      -224,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g1f1",
+                    "evaluation": [
+                      -219,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e1e2",
+                    "evaluation": [
+                      -219,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "c2c4",
+                    "evaluation": [
+                      -212,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "h2h4",
+                    "evaluation": [
+                      -208,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "b2b4",
+                    "evaluation": [
+                      -202,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e1f1",
+                    "evaluation": [
+                      -199,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1c1",
+                    "evaluation": [
+                      -194,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "f2f3",
+                    "evaluation": [
+                      -193,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1h5",
+                    "evaluation": [
+                      -162,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1f3",
+                    "evaluation": [
+                      -138,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "b1a1",
+                    "evaluation": [
+                      -133,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "h2h3",
+                    "evaluation": [
+                      -77,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "b1c1",
+                    "evaluation": [
+                      15,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g3g4",
+                    "evaluation": [
+                      25,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1d6",
+                    "evaluation": [
+                      746,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1d5",
+                    "evaluation": [
+                      815,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1d4",
+                    "evaluation": [
+                      823,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d1g4",
+                    "evaluation": [
+                      838,
+                      null
+                    ]
+                  }
+                ],
+                "strict": true,
+                "is_ambiguous": true
+              },
+              "analysed_legals": [],
+              "strict": true,
+              "is_ambiguous": false
+            },
+            "analysed_legals": [
+              {
+                "move": "c5e6",
+                "evaluation": [
+                  -372,
+                  null
+                ]
+              },
+              {
+                "move": "c5d3",
+                "evaluation": [
+                  36,
+                  null
+                ]
+              },
+              {
+                "move": "c5a6",
+                "evaluation": [
+                  49,
+                  null
+                ]
+              },
+              {
+                "move": "c5b7",
+                "evaluation": [
+                  86,
+                  null
+                ]
+              },
+              {
+                "move": "c5b3",
+                "evaluation": [
+                  101,
+                  null
+                ]
+              },
+              {
+                "move": "c5a4",
+                "evaluation": [
+                  137,
+                  null
+                ]
+              },
+              {
+                "move": "f2f4",
+                "evaluation": [
+                  212,
+                  null
+                ]
+              },
+              {
+                "move": "g1f1",
+                "evaluation": [
+                  294,
+                  null
+                ]
+              },
+              {
+                "move": "d1e2",
+                "evaluation": [
+                  430,
+                  null
+                ]
+              },
+              {
+                "move": "g1g2",
+                "evaluation": [
+                  451,
+                  null
+                ]
+              },
+              {
+                "move": "c2c3",
+                "evaluation": [
+                  488,
+                  null
+                ]
+              },
+              {
+                "move": "g1h1",
+                "evaluation": [
+                  496,
+                  null
+                ]
+              },
+              {
+                "move": "d1d3",
+                "evaluation": [
+                  530,
+                  null
+                ]
+              },
+              {
+                "move": "b1a1",
+                "evaluation": [
+                  538,
+                  null
+                ]
+              },
+              {
+                "move": "f2f3",
+                "evaluation": [
+                  563,
+                  null
+                ]
+              },
+              {
+                "move": "d1d2",
+                "evaluation": [
+                  569,
+                  null
+                ]
+              },
+              {
+                "move": "e1f1",
+                "evaluation": [
+                  571,
+                  null
+                ]
+              },
+              {
+                "move": "d1g4",
+                "evaluation": [
+                  585,
+                  null
+                ]
+              },
+              {
+                "move": "h2h3",
+                "evaluation": [
+                  604,
+                  null
+                ]
+              },
+              {
+                "move": "h2h4",
+                "evaluation": [
+                  608,
+                  null
+                ]
+              },
+              {
+                "move": "d1c1",
+                "evaluation": [
+                  623,
+                  null
+                ]
+              },
+              {
+                "move": "c5d7",
+                "evaluation": [
+                  625,
+                  null
+                ]
+              },
+              {
+                "move": "d1f3",
+                "evaluation": [
+                  631,
+                  null
+                ]
+              },
+              {
+                "move": "b2b3",
+                "evaluation": [
+                  636,
+                  null
+                ]
+              },
+              {
+                "move": "a2a3",
+                "evaluation": [
+                  639,
+                  null
+                ]
+              },
+              {
+                "move": "d1h5",
+                "evaluation": [
+                  641,
+                  null
+                ]
+              },
+              {
+                "move": "e1e2",
+                "evaluation": [
+                  646,
+                  null
+                ]
+              },
+              {
+                "move": "a2a4",
+                "evaluation": [
+                  653,
+                  null
+                ]
+              },
+              {
+                "move": "e1e3",
+                "evaluation": [
+                  659,
+                  null
+                ]
+              },
+              {
+                "move": "c2c4",
+                "evaluation": [
+                  661,
+                  null
+                ]
+              },
+              {
+                "move": "b1c1",
+                "evaluation": [
+                  676,
+                  null
+                ]
+              },
+              {
+                "move": "b2b4",
+                "evaluation": [
+                  685,
+                  null
+                ]
+              },
+              {
+                "move": "d1d5",
+                "evaluation": [
+                  823,
+                  null
+                ]
+              },
+              {
+                "move": "d1d4",
+                "evaluation": [
+                  823,
+                  null
+                ]
+              },
+              {
+                "move": "g3g4",
+                "evaluation": [
+                  874,
+                  null
+                ]
+              },
+              {
+                "move": "d1d6",
+                "evaluation": [
+                  930,
+                  null
+                ]
+              }
+            ],
+            "strict": true,
+            "is_ambiguous": false
+          },
+          "analysed_legals": [],
+          "strict": true,
+          "is_ambiguous": false
+        },
+        "analysed_legals": [
+          {
+            "move": "a4c5",
+            "evaluation": [
+              -375,
+              null
+            ]
+          },
+          {
+            "move": "f2f4",
+            "evaluation": [
+              7,
+              null
+            ]
+          },
+          {
+            "move": "d1d2",
+            "evaluation": [
+              50,
+              null
+            ]
+          },
+          {
+            "move": "g1h1",
+            "evaluation": [
+              51,
+              null
+            ]
+          },
+          {
+            "move": "a4c3",
+            "evaluation": [
+              52,
+              null
+            ]
+          },
+          {
+            "move": "d1d3",
+            "evaluation": [
+              60,
+              null
+            ]
+          },
+          {
+            "move": "d1e2",
+            "evaluation": [
+              66,
+              null
+            ]
+          },
+          {
+            "move": "e1e2",
+            "evaluation": [
+              72,
+              null
+            ]
+          },
+          {
+            "move": "a2a3",
+            "evaluation": [
+              78,
+              null
+            ]
+          },
+          {
+            "move": "h2h3",
+            "evaluation": [
+              92,
+              null
+            ]
+          },
+          {
+            "move": "c2c3",
+            "evaluation": [
+              95,
+              null
+            ]
+          },
+          {
+            "move": "f2f3",
+            "evaluation": [
+              96,
+              null
+            ]
+          },
+          {
+            "move": "h2h4",
+            "evaluation": [
+              100,
+              null
+            ]
+          },
+          {
+            "move": "d1g4",
+            "evaluation": [
+              104,
+              null
+            ]
+          },
+          {
+            "move": "c2c4",
+            "evaluation": [
+              113,
+              null
+            ]
+          },
+          {
+            "move": "d1f3",
+            "evaluation": [
+              123,
+              null
+            ]
+          },
+          {
+            "move": "e1f1",
+            "evaluation": [
+              127,
+              null
+            ]
+          },
+          {
+            "move": "d1h5",
+            "evaluation": [
+              128,
+              null
+            ]
+          },
+          {
+            "move": "e1e3",
+            "evaluation": [
+              138,
+              null
+            ]
+          },
+          {
+            "move": "b2b4",
+            "evaluation": [
+              140,
+              null
+            ]
+          },
+          {
+            "move": "g1g2",
+            "evaluation": [
+              149,
+              null
+            ]
+          },
+          {
+            "move": "b2b3",
+            "evaluation": [
+              151,
+              null
+            ]
+          },
+          {
+            "move": "b1c1",
+            "evaluation": [
+              252,
+              null
+            ]
+          },
+          {
+            "move": "b1a1",
+            "evaluation": [
+              286,
+              null
+            ]
+          },
+          {
+            "move": "d1c1",
+            "evaluation": [
+              386,
+              null
+            ]
+          },
+          {
+            "move": "g1f1",
+            "evaluation": [
+              461,
+              null
+            ]
+          },
+          {
+            "move": "g3g4",
+            "evaluation": [
+              590,
+              null
+            ]
+          },
+          {
+            "move": "a4b6",
+            "evaluation": [
+              623,
+              null
+            ]
+          },
+          {
+            "move": "d1d6",
+            "evaluation": [
+              984,
+              null
+            ]
+          },
+          {
+            "move": "d1d5",
+            "evaluation": [
+              1015,
+              null
+            ]
+          },
+          {
+            "move": "d1d4",
+            "evaluation": [
+              1035,
+              null
+            ]
+          }
+        ],
+        "strict": true,
+        "is_ambiguous": false
+      }
+    },
+    "is_complete": true
+  },
+  {
+    "puzzle": {
+      "game_id": "2",
+      "category": "Material",
+      "last_pos": {
+        "fen": "4r1k1/p1p2ppp/1b1p4/2p5/4P3/1P3QPq/2P1RP1P/R5K1 w - - 2 24",
+        "aliases": [
+          "Standard",
+          "Chess",
+          "Classical",
+          "Normal",
+          "Illegal",
+          "From Position"
+        ],
+        "fullmove_number": 24,
+        "move_stack": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "e5d4",
+          "f3d4",
+          "b8c6",
+          "f1b5",
+          "c8d7",
+          "b5c6",
+          "d7c6",
+          "b1c3",
+          "g8f6",
+          "c1g5",
+          "f8e7",
+          "g5f6",
+          "e7f6",
+          "d4c6",
+          "b7c6",
+          "e1g1",
+          "e8g8",
+          "f1e1",
+          "f6e5",
+          "g2g3",
+          "d8d7",
+          "a1b1",
+          "f8e8",
+          "c3a4",
+          "e8e6",
+          "a4c5",
+          "d7e7",
+          "c5e6",
+          "e7e6",
+          "b2b3",
+          "e6h3",
+          "d1f3",
+          "a8e8",
+          "a2a4",
+          "c6c5",
+          "a4a5",
+          "e5c3",
+          "e1e2",
+          "c3a5",
+          "b1a1",
+          "a5b6"
+        ],
+        "uci_variant": "chess",
+        "piece_map": {
+          "62": "k",
+          "60": "r",
+          "55": "p",
+          "54": "p",
+          "53": "p",
+          "50": "p",
+          "48": "p",
+          "43": "p",
+          "41": "b",
+          "34": "p",
+          "28": "P",
+          "23": "q",
+          "22": "P",
+          "21": "Q",
+          "17": "P",
+          "15": "P",
+          "13": "P",
+          "12": "R",
+          "10": "P",
+          "6": "K",
+          "0": "R"
+        }
+      },
+      "last_move": "f3f5",
+      "move_list": [
+        "h3f5",
+        "e4f5",
+        "e8e2",
+        "c2c4"
+      ],
+      "positions": {
+        "position": {
+          "fen": "4r1k1/p1p2ppp/1b1p4/2p2Q2/4P3/1P4Pq/2P1RP1P/R5K1 b - - 3 24",
+          "aliases": [
+            "Standard",
+            "Chess",
+            "Classical",
+            "Normal",
+            "Illegal",
+            "From Position"
+          ],
+          "fullmove_number": 24,
+          "move_stack": [
+            "e2e4",
+            "e7e5",
+            "g1f3",
+            "d7d6",
+            "d2d4",
+            "e5d4",
+            "f3d4",
+            "b8c6",
+            "f1b5",
+            "c8d7",
+            "b5c6",
+            "d7c6",
+            "b1c3",
+            "g8f6",
+            "c1g5",
+            "f8e7",
+            "g5f6",
+            "e7f6",
+            "d4c6",
+            "b7c6",
+            "e1g1",
+            "e8g8",
+            "f1e1",
+            "f6e5",
+            "g2g3",
+            "d8d7",
+            "a1b1",
+            "f8e8",
+            "c3a4",
+            "e8e6",
+            "a4c5",
+            "d7e7",
+            "c5e6",
+            "e7e6",
+            "b2b3",
+            "e6h3",
+            "d1f3",
+            "a8e8",
+            "a2a4",
+            "c6c5",
+            "a4a5",
+            "e5c3",
+            "e1e2",
+            "c3a5",
+            "b1a1",
+            "a5b6",
+            "f3f5"
+          ],
+          "uci_variant": "chess",
+          "piece_map": {
+            "62": "k",
+            "60": "r",
+            "55": "p",
+            "54": "p",
+            "53": "p",
+            "50": "p",
+            "48": "p",
+            "43": "p",
+            "41": "b",
+            "37": "Q",
+            "34": "p",
+            "28": "P",
+            "23": "q",
+            "22": "P",
+            "17": "P",
+            "15": "P",
+            "13": "P",
+            "12": "R",
+            "10": "P",
+            "6": "K",
+            "0": "R"
+          }
+        },
+        "player_turn": true,
+        "best_move": {
+          "move": "h3f5",
+          "ponder": "e4f5"
+        },
+        "evaluation": [
+          646,
+          null
+        ],
+        "next_position": {
+          "position": {
+            "fen": "4r1k1/p1p2ppp/1b1p4/2p2q2/4P3/1P4P1/2P1RP1P/R5K1 w - - 0 25",
+            "aliases": [
+              "Standard",
+              "Chess",
+              "Classical",
+              "Normal",
+              "Illegal",
+              "From Position"
+            ],
+            "fullmove_number": 25,
+            "move_stack": [
+              "e2e4",
+              "e7e5",
+              "g1f3",
+              "d7d6",
+              "d2d4",
+              "e5d4",
+              "f3d4",
+              "b8c6",
+              "f1b5",
+              "c8d7",
+              "b5c6",
+              "d7c6",
+              "b1c3",
+              "g8f6",
+              "c1g5",
+              "f8e7",
+              "g5f6",
+              "e7f6",
+              "d4c6",
+              "b7c6",
+              "e1g1",
+              "e8g8",
+              "f1e1",
+              "f6e5",
+              "g2g3",
+              "d8d7",
+              "a1b1",
+              "f8e8",
+              "c3a4",
+              "e8e6",
+              "a4c5",
+              "d7e7",
+              "c5e6",
+              "e7e6",
+              "b2b3",
+              "e6h3",
+              "d1f3",
+              "a8e8",
+              "a2a4",
+              "c6c5",
+              "a4a5",
+              "e5c3",
+              "e1e2",
+              "c3a5",
+              "b1a1",
+              "a5b6",
+              "f3f5",
+              "h3f5"
+            ],
+            "uci_variant": "chess",
+            "piece_map": {
+              "62": "k",
+              "60": "r",
+              "55": "p",
+              "54": "p",
+              "53": "p",
+              "50": "p",
+              "48": "p",
+              "43": "p",
+              "41": "b",
+              "37": "q",
+              "34": "p",
+              "28": "P",
+              "22": "P",
+              "17": "P",
+              "15": "P",
+              "13": "P",
+              "12": "R",
+              "10": "P",
+              "6": "K",
+              "0": "R"
+            }
+          },
+          "player_turn": false,
+          "best_move": {
+            "move": "e4f5",
+            "ponder": "e8e2"
+          },
+          "evaluation": [
+            -668,
+            null
+          ],
+          "next_position": {
+            "position": {
+              "fen": "4r1k1/p1p2ppp/1b1p4/2p2P2/8/1P4P1/2P1RP1P/R5K1 b - - 0 25",
+              "aliases": [
+                "Standard",
+                "Chess",
+                "Classical",
+                "Normal",
+                "Illegal",
+                "From Position"
+              ],
+              "fullmove_number": 25,
+              "move_stack": [
+                "e2e4",
+                "e7e5",
+                "g1f3",
+                "d7d6",
+                "d2d4",
+                "e5d4",
+                "f3d4",
+                "b8c6",
+                "f1b5",
+                "c8d7",
+                "b5c6",
+                "d7c6",
+                "b1c3",
+                "g8f6",
+                "c1g5",
+                "f8e7",
+                "g5f6",
+                "e7f6",
+                "d4c6",
+                "b7c6",
+                "e1g1",
+                "e8g8",
+                "f1e1",
+                "f6e5",
+                "g2g3",
+                "d8d7",
+                "a1b1",
+                "f8e8",
+                "c3a4",
+                "e8e6",
+                "a4c5",
+                "d7e7",
+                "c5e6",
+                "e7e6",
+                "b2b3",
+                "e6h3",
+                "d1f3",
+                "a8e8",
+                "a2a4",
+                "c6c5",
+                "a4a5",
+                "e5c3",
+                "e1e2",
+                "c3a5",
+                "b1a1",
+                "a5b6",
+                "f3f5",
+                "h3f5",
+                "e4f5"
+              ],
+              "uci_variant": "chess",
+              "piece_map": {
+                "62": "k",
+                "60": "r",
+                "55": "p",
+                "54": "p",
+                "53": "p",
+                "50": "p",
+                "48": "p",
+                "43": "p",
+                "41": "b",
+                "37": "P",
+                "34": "p",
+                "22": "P",
+                "17": "P",
+                "15": "P",
+                "13": "P",
+                "12": "R",
+                "10": "P",
+                "6": "K",
+                "0": "R"
+              }
+            },
+            "player_turn": true,
+            "best_move": {
+              "move": "e8e2",
+              "ponder": "c2c4"
+            },
+            "evaluation": [
+              624,
+              null
+            ],
+            "next_position": {
+              "position": {
+                "fen": "6k1/p1p2ppp/1b1p4/2p2P2/8/1P4P1/2P1rP1P/R5K1 w - - 0 26",
+                "aliases": [
+                  "Standard",
+                  "Chess",
+                  "Classical",
+                  "Normal",
+                  "Illegal",
+                  "From Position"
+                ],
+                "fullmove_number": 26,
+                "move_stack": [
+                  "e2e4",
+                  "e7e5",
+                  "g1f3",
+                  "d7d6",
+                  "d2d4",
+                  "e5d4",
+                  "f3d4",
+                  "b8c6",
+                  "f1b5",
+                  "c8d7",
+                  "b5c6",
+                  "d7c6",
+                  "b1c3",
+                  "g8f6",
+                  "c1g5",
+                  "f8e7",
+                  "g5f6",
+                  "e7f6",
+                  "d4c6",
+                  "b7c6",
+                  "e1g1",
+                  "e8g8",
+                  "f1e1",
+                  "f6e5",
+                  "g2g3",
+                  "d8d7",
+                  "a1b1",
+                  "f8e8",
+                  "c3a4",
+                  "e8e6",
+                  "a4c5",
+                  "d7e7",
+                  "c5e6",
+                  "e7e6",
+                  "b2b3",
+                  "e6h3",
+                  "d1f3",
+                  "a8e8",
+                  "a2a4",
+                  "c6c5",
+                  "a4a5",
+                  "e5c3",
+                  "e1e2",
+                  "c3a5",
+                  "b1a1",
+                  "a5b6",
+                  "f3f5",
+                  "h3f5",
+                  "e4f5",
+                  "e8e2"
+                ],
+                "uci_variant": "chess",
+                "piece_map": {
+                  "62": "k",
+                  "55": "p",
+                  "54": "p",
+                  "53": "p",
+                  "50": "p",
+                  "48": "p",
+                  "43": "p",
+                  "41": "b",
+                  "37": "P",
+                  "34": "p",
+                  "22": "P",
+                  "17": "P",
+                  "15": "P",
+                  "13": "P",
+                  "12": "r",
+                  "10": "P",
+                  "6": "K",
+                  "0": "R"
+                }
+              },
+              "player_turn": false,
+              "best_move": {
+                "move": "c2c4",
+                "ponder": "e2b2"
+              },
+              "evaluation": [
+                -653,
+                null
+              ],
+              "next_position": {
+                "position": {
+                  "fen": "6k1/p1p2ppp/1b1p4/2p2P2/2P5/1P4P1/4rP1P/R5K1 b - - 0 26",
+                  "aliases": [
+                    "Standard",
+                    "Chess",
+                    "Classical",
+                    "Normal",
+                    "Illegal",
+                    "From Position"
+                  ],
+                  "fullmove_number": 26,
+                  "move_stack": [
+                    "e2e4",
+                    "e7e5",
+                    "g1f3",
+                    "d7d6",
+                    "d2d4",
+                    "e5d4",
+                    "f3d4",
+                    "b8c6",
+                    "f1b5",
+                    "c8d7",
+                    "b5c6",
+                    "d7c6",
+                    "b1c3",
+                    "g8f6",
+                    "c1g5",
+                    "f8e7",
+                    "g5f6",
+                    "e7f6",
+                    "d4c6",
+                    "b7c6",
+                    "e1g1",
+                    "e8g8",
+                    "f1e1",
+                    "f6e5",
+                    "g2g3",
+                    "d8d7",
+                    "a1b1",
+                    "f8e8",
+                    "c3a4",
+                    "e8e6",
+                    "a4c5",
+                    "d7e7",
+                    "c5e6",
+                    "e7e6",
+                    "b2b3",
+                    "e6h3",
+                    "d1f3",
+                    "a8e8",
+                    "a2a4",
+                    "c6c5",
+                    "a4a5",
+                    "e5c3",
+                    "e1e2",
+                    "c3a5",
+                    "b1a1",
+                    "a5b6",
+                    "f3f5",
+                    "h3f5",
+                    "e4f5",
+                    "e8e2",
+                    "c2c4"
+                  ],
+                  "uci_variant": "chess",
+                  "piece_map": {
+                    "62": "k",
+                    "55": "p",
+                    "54": "p",
+                    "53": "p",
+                    "50": "p",
+                    "48": "p",
+                    "43": "p",
+                    "41": "b",
+                    "37": "P",
+                    "34": "p",
+                    "26": "P",
+                    "22": "P",
+                    "17": "P",
+                    "15": "P",
+                    "13": "P",
+                    "12": "r",
+                    "6": "K",
+                    "0": "R"
+                  }
+                },
+                "player_turn": true,
+                "best_move": {
+                  "move": "e2b2",
+                  "ponder": "a1a3"
+                },
+                "evaluation": [
+                  683,
+                  null
+                ],
+                "next_position": {
+                  "position": {
+                    "fen": "6k1/p1p2ppp/1b1p4/2p2P2/2P5/1P4P1/1r3P1P/R5K1 w - - 1 27",
+                    "aliases": [
+                      "Standard",
+                      "Chess",
+                      "Classical",
+                      "Normal",
+                      "Illegal",
+                      "From Position"
+                    ],
+                    "fullmove_number": 27,
+                    "move_stack": [
+                      "e2e4",
+                      "e7e5",
+                      "g1f3",
+                      "d7d6",
+                      "d2d4",
+                      "e5d4",
+                      "f3d4",
+                      "b8c6",
+                      "f1b5",
+                      "c8d7",
+                      "b5c6",
+                      "d7c6",
+                      "b1c3",
+                      "g8f6",
+                      "c1g5",
+                      "f8e7",
+                      "g5f6",
+                      "e7f6",
+                      "d4c6",
+                      "b7c6",
+                      "e1g1",
+                      "e8g8",
+                      "f1e1",
+                      "f6e5",
+                      "g2g3",
+                      "d8d7",
+                      "a1b1",
+                      "f8e8",
+                      "c3a4",
+                      "e8e6",
+                      "a4c5",
+                      "d7e7",
+                      "c5e6",
+                      "e7e6",
+                      "b2b3",
+                      "e6h3",
+                      "d1f3",
+                      "a8e8",
+                      "a2a4",
+                      "c6c5",
+                      "a4a5",
+                      "e5c3",
+                      "e1e2",
+                      "c3a5",
+                      "b1a1",
+                      "a5b6",
+                      "f3f5",
+                      "h3f5",
+                      "e4f5",
+                      "e8e2",
+                      "c2c4",
+                      "e2b2"
+                    ],
+                    "uci_variant": "chess",
+                    "piece_map": {
+                      "62": "k",
+                      "55": "p",
+                      "54": "p",
+                      "53": "p",
+                      "50": "p",
+                      "48": "p",
+                      "43": "p",
+                      "41": "b",
+                      "37": "P",
+                      "34": "p",
+                      "26": "P",
+                      "22": "P",
+                      "17": "P",
+                      "15": "P",
+                      "13": "P",
+                      "9": "r",
+                      "6": "K",
+                      "0": "R"
+                    }
+                  },
+                  "player_turn": false,
+                  "best_move": null,
+                  "evaluation": null,
+                  "next_position": null,
+                  "analysed_legals": [],
+                  "strict": true,
+                  "is_ambiguous": false
+                },
+                "analysed_legals": [
+                  {
+                    "move": "e2b2",
+                    "evaluation": [
+                      -653,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g7g5",
+                    "evaluation": [
+                      -620,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "h7h6",
+                    "evaluation": [
+                      -619,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2c2",
+                    "evaluation": [
+                      -616,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2d2",
+                    "evaluation": [
+                      -615,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "a7a5",
+                    "evaluation": [
+                      -605,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "d6d5",
+                    "evaluation": [
+                      -600,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "h7h5",
+                    "evaluation": [
+                      -593,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "f7f6",
+                    "evaluation": [
+                      -592,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g8f8",
+                    "evaluation": [
+                      -586,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e4",
+                    "evaluation": [
+                      -569,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "c7c6",
+                    "evaluation": [
+                      -569,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g7g6",
+                    "evaluation": [
+                      -566,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "a7a6",
+                    "evaluation": [
+                      -563,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e5",
+                    "evaluation": [
+                      -557,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e8",
+                    "evaluation": [
+                      -553,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e7",
+                    "evaluation": [
+                      -546,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "g8h8",
+                    "evaluation": [
+                      -533,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "b6a5",
+                    "evaluation": [
+                      -12,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e6",
+                    "evaluation": [
+                      94,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2f2",
+                    "evaluation": [
+                      185,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2a2",
+                    "evaluation": [
+                      335,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e3",
+                    "evaluation": [
+                      346,
+                      null
+                    ]
+                  },
+                  {
+                    "move": "e2e1",
+                    "evaluation": [
+                      364,
+                      null
+                    ]
+                  }
+                ],
+                "strict": true,
+                "is_ambiguous": true
+              },
+              "analysed_legals": [],
+              "strict": true,
+              "is_ambiguous": false
+            },
+            "analysed_legals": [
+              {
+                "move": "e8e2",
+                "evaluation": [
+                  -650,
+                  null
+                ]
+              },
+              {
+                "move": "e8d8",
+                "evaluation": [
+                  305,
+                  null
+                ]
+              },
+              {
+                "move": "e8b8",
+                "evaluation": [
+                  314,
+                  null
+                ]
+              },
+              {
+                "move": "e8a8",
+                "evaluation": [
+                  320,
+                  null
+                ]
+              },
+              {
+                "move": "g8f8",
+                "evaluation": [
+                  321,
+                  null
+                ]
+              },
+              {
+                "move": "e8c8",
+                "evaluation": [
+                  326,
+                  null
+                ]
+              },
+              {
+                "move": "e8f8",
+                "evaluation": [
+                  336,
+                  null
+                ]
+              },
+              {
+                "move": "e8e5",
+                "evaluation": [
+                  475,
+                  null
+                ]
+              },
+              {
+                "move": "e8e6",
+                "evaluation": [
+                  846,
+                  null
+                ]
+              },
+              {
+                "move": "g7g6",
+                "evaluation": [
+                  880,
+                  null
+                ]
+              },
+              {
+                "move": "g7g5",
+                "evaluation": [
+                  896,
+                  null
+                ]
+              },
+              {
+                "move": "h7h5",
+                "evaluation": [
+                  926,
+                  null
+                ]
+              },
+              {
+                "move": "e8e3",
+                "evaluation": [
+                  928,
+                  null
+                ]
+              },
+              {
+                "move": "e8e7",
+                "evaluation": [
+                  953,
+                  null
+                ]
+              },
+              {
+                "move": "e8e4",
+                "evaluation": [
+                  961,
+                  null
+                ]
+              },
+              {
+                "move": "h7h6",
+                "evaluation": [
+                  974,
+                  null
+                ]
+              },
+              {
+                "move": "g8h8",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "b6a5",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "c7c6",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "a7a6",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "d6d5",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "c5c4",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "a7a5",
+                "evaluation": [
+                  null,
+                  1
+                ]
+              },
+              {
+                "move": "f7f6",
+                "evaluation": [
+                  null,
+                  3
+                ]
+              }
+            ],
+            "strict": true,
+            "is_ambiguous": false
+          },
+          "analysed_legals": [],
+          "strict": true,
+          "is_ambiguous": false
+        },
+        "analysed_legals": [
+          {
+            "move": "h3f5",
+            "evaluation": [
+              -638,
+              null
+            ]
+          },
+          {
+            "move": "h3h6",
+            "evaluation": [
+              285,
+              null
+            ]
+          },
+          {
+            "move": "d6d5",
+            "evaluation": [
+              930,
+              null
+            ]
+          },
+          {
+            "move": "h3g3",
+            "evaluation": [
+              936,
+              null
+            ]
+          },
+          {
+            "move": "h3h2",
+            "evaluation": [
+              944,
+              null
+            ]
+          },
+          {
+            "move": "c5c4",
+            "evaluation": [
+              982,
+              null
+            ]
+          },
+          {
+            "move": "h3h4",
+            "evaluation": [
+              984,
+              null
+            ]
+          },
+          {
+            "move": "g7g6",
+            "evaluation": [
+              1015,
+              null
+            ]
+          },
+          {
+            "move": "e8e7",
+            "evaluation": [
+              1020,
+              null
+            ]
+          },
+          {
+            "move": "e8e6",
+            "evaluation": [
+              1020,
+              null
+            ]
+          },
+          {
+            "move": "h3g4",
+            "evaluation": [
+              1020,
+              null
+            ]
+          },
+          {
+            "move": "a7a5",
+            "evaluation": [
+              1020,
+              null
+            ]
+          },
+          {
+            "move": "h3h5",
+            "evaluation": [
+              1023,
+              null
+            ]
+          },
+          {
+            "move": "h3f1",
+            "evaluation": [
+              1023,
+              null
+            ]
+          },
+          {
+            "move": "h7h6",
+            "evaluation": [
+              1023,
+              null
+            ]
+          },
+          {
+            "move": "c7c6",
+            "evaluation": [
+              1023,
+              null
+            ]
+          },
+          {
+            "move": "g7g5",
+            "evaluation": [
+              1023,
+              null
+            ]
+          },
+          {
+            "move": "h3g2",
+            "evaluation": [
+              1027,
+              null
+            ]
+          },
+          {
+            "move": "f7f6",
+            "evaluation": [
+              1027,
+              null
+            ]
+          },
+          {
+            "move": "g8h8",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "g8f8",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "e8f8",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "e8d8",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "e8a8",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "e8e5",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "b6a5",
+            "evaluation": [
+              1030,
+              null
+            ]
+          },
+          {
+            "move": "e8b8",
+            "evaluation": [
+              1038,
+              null
+            ]
+          },
+          {
+            "move": "h7h5",
+            "evaluation": [
+              1058,
+              null
+            ]
+          },
+          {
+            "move": "a7a6",
+            "evaluation": [
+              1126,
+              null
+            ]
+          },
+          {
+            "move": "e8e4",
+            "evaluation": [
+              1323,
+              null
+            ]
+          },
+          {
+            "move": "e8c8",
+            "evaluation": [
+              1438,
+              null
+            ]
+          }
+        ],
+        "strict": true,
+        "is_ambiguous": false
+      }
+    },
+    "is_complete": true
+  }
+]

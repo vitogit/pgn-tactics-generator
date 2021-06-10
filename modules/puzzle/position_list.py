@@ -2,7 +2,7 @@ import logging
 from operator import methodcaller
 
 import chess
-import chess.uci
+import chess.engine
 
 from modules.bcolors.bcolors import bcolors
 from modules.puzzle.analysed import analysed
@@ -23,11 +23,11 @@ class position_list:
     def move_list(self):
         if self.next_position is None or self.next_position.ambiguous() or self.next_position.position.is_game_over():
             if self.best_move is not None:
-                return [self.best_move.bestmove.uci()]
+                return [self.best_move.move.uci()]
             else:
                 return []
         else:
-            return [self.best_move.bestmove.uci()] + self.next_position.move_list()
+            return [self.best_move.move.uci()] + self.next_position.move_list()
 
     def category(self):
         if self.next_position is None:
@@ -58,19 +58,20 @@ class position_list:
 
     def evaluate_best(self, depth):
         logging.debug(bcolors.OKGREEN + "Evaluating Best Move...")
-        self.engine.position(self.position)
-        self.best_move = self.engine.go(depth=depth)
-        if self.best_move.bestmove is not None:
-            self.evaluation = self.info_handler.info["score"][1]
+
+        self.best_move = self.engine.play(self.position, chess.engine.Limit(depth=depth), info=chess.engine.INFO_ALL)
+
+        if self.best_move.move is not None:
+            self.evaluation = self.best_move.info['score'].relative
             self.next_position = position_list(self.position.copy(),
                                                self.engine,
                                                self.info_handler,
                                                not self.player_turn,
                                                strict=self.strict)
-            self.next_position.position.push(self.best_move.bestmove)
-            logging.debug("Best Move: " + self.best_move.bestmove.uci() + bcolors.ENDC)
-            logging.debug(bcolors.OKBLUE + "   CP: " + str(self.evaluation.cp))
-            logging.debug("   Mate: " + str(self.evaluation.mate) + bcolors.ENDC)
+            self.next_position.position.push(self.best_move.move)
+            logging.debug("Best Move: " + self.best_move.move.uci() + bcolors.ENDC)
+            logging.debug(bcolors.OKBLUE + "   CP: " + str(self.evaluation.score()))
+            logging.debug("   Mate: " + str(self.evaluation.mate()) + bcolors.ENDC)
             return True
         else:
             logging.debug(bcolors.FAIL + "No best move!" + bcolors.ENDC)
@@ -81,14 +82,15 @@ class position_list:
         for i in self.position.legal_moves:
             position_copy = self.position.copy()
             position_copy.push(i)
-            self.engine.position(position_copy)
-            self.engine.go(depth=depth)
-            self.analysed_legals.append(analysed(i, self.info_handler.info["score"][1]))
+
+            info = self.engine.analyse(position_copy, chess.engine.Limit(depth=depth))
+            self.analysed_legals.append(analysed(i, info["score"].relative))
+
         self.analysed_legals = sorted(self.analysed_legals, key=methodcaller('sort_val'))
         for i in self.analysed_legals[:3]:
             logging.debug(bcolors.OKGREEN + "Move: " + str(i.move.uci()) + bcolors.ENDC)
-            logging.debug(bcolors.OKBLUE + "   CP: " + str(i.evaluation.cp))
-            logging.debug("   Mate: " + str(i.evaluation.mate))
+            logging.debug(bcolors.OKBLUE + "   CP: " + str(i.evaluation.score()))
+            logging.debug("   Mate: " + str(i.evaluation.mate()))
         logging.debug("... and " + str(max(0, len(self.analysed_legals) - 3)) + " more moves" + bcolors.ENDC)
 
     def material_difference(self):
@@ -109,7 +111,7 @@ class position_list:
                 if (self.material_difference() > 0.2
                         and abs(self.material_difference() - first_val) > 0.1
                         and first_val < 2
-                        and self.evaluation.mate is None
+                        and self.evaluation.mate() is None
                         and self.material_count() > 6):
                     return True
                 else:
@@ -118,7 +120,7 @@ class position_list:
                 if (self.material_difference() < -0.2
                         and abs(self.material_difference() - first_val) > 0.1
                         and first_val > -2
-                        and self.evaluation.mate is None
+                        and self.evaluation.mate() is None
                         and self.material_count() > 6):
                     return True
                 else:
@@ -133,19 +135,18 @@ class position_list:
         # If strict == False then it will generate more tactics but  more ambiguous
         move_number = 1 if self.strict else 2
         if len(self.analysed_legals) > 1:
-            if (self.analysed_legals[0].evaluation.cp is not None
-                    and self.analysed_legals[1].evaluation.cp is not None):
-                if (self.analysed_legals[0].evaluation.cp > -210
-                        or self.analysed_legals[move_number].evaluation.cp < -90):
+            if (self.analysed_legals[0].evaluation.score() is not None
+                    and self.analysed_legals[1].evaluation.score() is not None):
+                if (self.analysed_legals[0].evaluation.score() > -210
+                        or self.analysed_legals[move_number].evaluation.score() < -90):
                     return True
-            if (self.analysed_legals[0].evaluation.mate is not None
-                    and self.analysed_legals[1].evaluation.mate is not None):
-                if (self.analysed_legals[0].evaluation.mate < 1
-                        and self.analysed_legals[1].evaluation.mate < 1):
+            if (self.analysed_legals[0].evaluation.mate() is not None
+                    and self.analysed_legals[1].evaluation.mate() is not None):
+                if (self.analysed_legals[0].evaluation.mate() < 1
+                        and self.analysed_legals[1].evaluation.mate() < 1):
                     return True
-            if (self.analysed_legals[0].evaluation.mate is not None
-                    and self.analysed_legals[1].evaluation.cp is not None):
-                if self.analysed_legals[1].evaluation.cp < -200:
+            if self.analysed_legals[0].evaluation.is_mate() and not self.analysed_legals[1].evaluation.is_mate():
+                if self.analysed_legals[1].evaluation.score() < -200:
                     return True
         return False
 
