@@ -55,7 +55,6 @@ elif settings.site == "chessdotcom":
     new_file.close()
     logging.debug("Finished. Pgn is in games.pgn ")
 else:
-    # print("ERROR: invalid site ")
     logging.debug("Invalid argument for site: only arguments allowed are lichess and chessdotcom")
 
 
