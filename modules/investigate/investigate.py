@@ -46,8 +46,6 @@ def filter_game(opening: pgn, game_pgn: pgn):
     moveIndex = 0
 
     for (move, game_move) in zip(opening.mainline_moves(), game_pgn.mainline_moves()):
-        print("OPENINGMOVE: " + str(move))
-        print("GAMEMOVE: " + str(game_move))
         if game_move is None or game_move != move:
             return False
 
