@@ -83,6 +83,11 @@ To execute the generator execute this command. By default it will look for the `
 - `--includeBlunder=False` If False then generated puzzles won't include initial blunder move, default is `True`
 - `--stockfish=./stockfish-x86_64-bmi2` Path to Stockfish binary. 
   Optional. If omitted, the program will try to locate Stockfish in current directory or download it from the net
+- `--color=WHITE` Generate puzzles only for preferred color. `WHITE`/`W`, `BLACK`/`B`, or default `NONE` 
+- `--opening= '1. e4 e5 2. f4` Generate puzzles stemming from opening. Default is `NONE`
+- `--forcedMate=TRUE` Only generate puzzles with a forced checkmate. Default is `False`
+- `--minTurn=10` Generate puzzles from turns >= minTurn. Default is `0` 
+- `--maxTurn=50` Generate puzzles from turns <= maxTurn. Default is `999`
 
 Example:
 `python3 main.py --quiet --depth=12 --games=ruy_lopez.pgn --strict=True --threads=2 --memory=1024`
