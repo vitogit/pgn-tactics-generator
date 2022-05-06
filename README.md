@@ -2,10 +2,10 @@
 
 ## About
 
-This is a python application dedicated to creating chess puzzles/tactics from a pgn file.
-Also it can download your games from lichess.org and use that file.
+This is a Python application dedicated to creating chess puzzles/tactics from a pgn file.
+Also, it can download your games from Lichess.org or Chess.com and use that file to create the chess puzzles/tactics.
 
-It's based on the great  [https://github.com/clarkerubber/Python-Puzzle-Creator](https://github.com/clarkerubber/Python-Puzzle-Creator) by @clarkerubber
+It is based on the great  [https://github.com/clarkerubber/Python-Puzzle-Creator](https://github.com/clarkerubber/Python-Puzzle-Creator) by @clarkerubber
 
 Things that I changed:
 - Use a local pgn file with games as a source.
@@ -21,14 +21,14 @@ It uses a different approach to create tactics, so probably it will generate a d
 
 ## Installation
 
-This script requires the *Requests* and *Python-Chess* libraries to run, as well as a copy of *Stockfish*
-Is recommended that you use Python 3 and pip3. But it could work with Python 2.7 and pip (probably you will need to install futures `pip install futures` )
+This script requires a copy of `Stockfish` and the `Requests`, `Python-Chess`, and `Lichess` libraries to run.
+Is recommended that you use Python 3 and pip3, but it could also work with Python 2.7 and pip (you will likely need to install futures `pip install futures`).
 
 Please, take a look at [development doc](DEVELOPMENT.md) for details.
 
 ### Install requirements
 
-`pip3 install -r requirements.txt --user`
+`pip3 install -r requirements.txt`
 
 ### Setup
 
@@ -37,22 +37,27 @@ MacOS / Linux : `sh build-stockfish.sh` to obtain the current lichess Stockfish 
 ## Launching Application
 
 ### Downloading games for a specific user
-You can download games from a specific user using this command:
-`python3 download_games.py <lichess username>`
+You can download games from a specific user from either Lichess.org or Chess.com.
 
+For a Chess.com user:
+- `python3 download_games.py <chessdotcom username> --site chessdotcom`
 
-By default, it will download the last 60 games from blitz, rapid and classical.
+<br>
+
+For a Lichess user:
+- `python3 download_games.py <lichess username> --site lichess` 
+
+or 
+
+- `python3 download_games.py <lichess username>` 
+
+<br>
 
 **Arguments**
 
-You can use the `max` argument to get more games and use the lichess api token with the `token` argument to make the download faster. https://lichess.org/api#operation/apiGamesUser
+You can use the `max` argument to adjust the amount of games to query for Lichess.org (by default the max is 60 games)
 
-It will save the games in the `games.pgn` file
-
-
-**Example to get 100 games using the token**
-
-`python3 download_games.py <lichess username> --max 100 --token 123456789`
+`python3 download_games.py <lichess username> --max 150`
 
 ### Downloading games from tournaments
 You can download games from multiple tournaments using this command:
@@ -94,8 +99,25 @@ The `result header` is the tactic result and not the game result. It can be load
 
 ## Problems?
 
-#### Stockfish errors
+### Stockfish errors
 - If you have problems building Stockfish try downloading Stockfish directly https://stockfishchess.org/download/
 
+### ssl.SSLCertVerificationError
+If you receive the following error:
+```
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate
+verify failed: unable to get local issuer certificate
+```
+**MacOS Solution**
+1. Check which Python version you're using
+`$ python3 --version`
+2. Go to the current Python version's directory like so:
+
+"Macintosh HD" >> "Applications" >> folder of Python version from last step
+
+(If you are having trouble finding the Macintosh HD directory read [this](https://discussions.apple.com/thread/5207145))
+3. Double click on `Install Certificates.command` file
+
+
 ## Want to see all my chess related projects?
-Check [My projects](http://vitomd.com/blog/projects/) for a full detailed list.
+Check [my projects](http://vitomd.com/blog/projects/) for a full detailed list.
