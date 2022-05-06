@@ -42,7 +42,7 @@ class TestRegression(unittest.TestCase):
             print(score_b)
             logging.debug(f"Testing position {board.fen()} with scores {score_a} and {score_b}")
 
-            result = investigate(score_a, score_b, board)
+            result = investigate(score_a, score_b, board, False)
 
             self.assertEqual(expected_result, result)
 
@@ -96,7 +96,6 @@ class TestRegression(unittest.TestCase):
 
             logging.debug(f'{expected_result} vs {result}')
             self.assertEqual(expected_result, result)
-
 
 if __name__ == '__main__':
     unittest.main()

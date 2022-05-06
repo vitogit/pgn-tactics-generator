@@ -4,6 +4,8 @@
 
 import argparse
 import logging
+import io
+import sys
 
 import chess.engine
 import chess.pgn
@@ -11,6 +13,7 @@ import chess.pgn
 from modules.api.api import post_puzzle
 from modules.bcolors.bcolors import bcolors
 from modules.investigate.investigate import investigate
+from modules.investigate.investigate import filter_game
 from modules.puzzle.puzzle import puzzle
 from modules.utils.helpers import str2bool, get_stockfish_command, configure_logging, prepare_terminal
 
@@ -36,6 +39,21 @@ def prepare_settings():
                         help="If False then generated puzzles won't include initial blunder move")
     parser.add_argument("--stockfish", metavar="STOCKFISH", default=None, help="Path to Stockfish binary")
 
+    parser.add_argument("--color", metavar="DESIRED_COLOR", type=str, default="EITHER",
+                        help="desired color in puzzle- BLACK, WHITE, or EITHER(default)")
+
+    parser.add_argument("--forcedMate", metavar="MATES_ONLY", type=bool, default=False,
+                        help="only return forced checkmates")
+
+    parser.add_argument("--minTurn", metavar="MIN_TURN", type=int, default=0,
+                        help="only return tactics starting after inputted turn")
+
+    parser.add_argument("--maxTurn", metavar="MAX_TURN", type=int, default=999,
+                        help="only return tactics starting before inputted turn")
+
+    parser.add_argument("--opening", metavar="ROOT_PGN", type=str, default="NONE",
+                        help="to get tactics from a specific opening, input opening moves as pgn")
+
     return parser.parse_args()
 
 
@@ -53,10 +71,35 @@ engine.configure({'Threads': settings.threads, 'Hash': settings.memory})
 all_games = open(settings.games, "r")
 tactics_file = open("tactics.pgn", "w")
 game_id = 0
+
+opening_str = settings.opening
+checkmate_only = settings.forcedMate
+min_turn = settings.minTurn
+max_turn = settings.maxTurn
+color_str = settings.color.upper()
+preferred_color = 0 if (color_str == "BLACK" or color_str == 'B') else 1 if (
+            color_str == "WHITE" or color_str == "W") else 2
+opening_pgn = io.StringIO(settings.opening)
+opening = chess.pgn.read_game(opening_pgn)
+
+if len(opening.errors) > 0:
+    logging.debug(bcolors.FAIL + "Error with opening: " + opening_str)
+    tactics_file.close()
+    engine.quit()
+    sys.exit("INVALID/ILLEGAL OPENING")
+
+puzzle_count = 0
+
 while True:
     game = chess.pgn.read_game(all_games)
     if game is None:
         break
+    if opening != "NONE":
+        while not filter_game(opening, game):
+            game = chess.pgn.read_game(all_games)
+        if game is None:
+            break
+
     node = game
 
     game_id = game_id + 1
@@ -69,6 +112,10 @@ while True:
     logging.debug(bcolors.OKGREEN + "Game Length: " + str(game.end().board().fullmove_number))
     logging.debug("Analysing Game..." + bcolors.ENDC)
 
+    # store last ply where black and white created a puzzle to avoid repeats
+    last_black = -1
+    last_white = -1
+
     while not node.is_end():
         next_node = node.variation(0)
 
@@ -79,9 +126,12 @@ while True:
         logging.debug(bcolors.OKBLUE + "   CP: " + str(cur_score.score()))
         logging.debug("   Mate: " + str(cur_score.mate()) + bcolors.ENDC)
 
-        if investigate(prev_score, cur_score, node.board()):
-            logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
-            puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info, game, settings.strict))
+        if min_turn * 2 - 1 <= node.ply() <= max_turn * 2 and (preferred_color == 2 or node.turn() == preferred_color):
+            if investigate(prev_score, cur_score, node.board(), checkmate_only):
+                last_colored_puzzle = last_white if node.ply()%2==1 else last_black
+                if node.ply() > last_colored_puzzle + 2:
+                    logging.debug(bcolors.WARNING + "   Investigate!" + bcolors.ENDC)
+                    puzzles.append(puzzle(node.board(), next_node.move, str(game_id), engine, info, game, settings.strict))
 
         prev_score = cur_score
         node = next_node
@@ -93,6 +143,9 @@ while True:
             puzzle_pgn = post_puzzle(i, settings.include_blunder)
             tactics_file.write(puzzle_pgn)
             tactics_file.write("\n\n")
+            puzzle_count+=1
+
+logging.debug(bcolors.OKGREEN + "Puzzles generated:  " + str(puzzle_count))
 
 tactics_file.close()
 

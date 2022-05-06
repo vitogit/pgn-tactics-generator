@@ -41,6 +41,11 @@ def prepare_settings():
                         help="If False then generated puzzles won't include initial blunder move")
     parser.add_argument("--stockfish", metavar="STOCKFISH", default=None, help="Path to Stockfish binary")
 
+    parser.add_argument("--color", metavar="DESIRED_COLOR", type=int, default = 2, help="0 = black, 1 = white, 2 = any")
+
+    parser.add_argument("--forcedMate", metavar="MATES_ONLY", type=bool, default=False,
+                        help="only return forced checkmates")
+
     return parser.parse_args()
 
 
