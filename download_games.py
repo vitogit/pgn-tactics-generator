@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
-"""Downloading chess puzzles for lichess.org"""
+"""Downloading chess puzzles for Lichess.org"""
 
 import argparse
 import logging
 import sys
+import urllib
 
 import requests
+import lichess
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--token", metavar="TOKEN", default="",
@@ -18,15 +20,42 @@ parser.add_argument("--quiet", dest="loglevel",
                     help="substantially reduce the number of logged messages")
 parser.add_argument("--max", metavar="MAX", default="60",
                     help="max number of games")
-settings = parser.parse_args()
-logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
+parser.add_argument("--site", metavar="SITE", default="lichess", help="Website to query user game data")
 
+settings = parser.parse_args()
+
+logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 logging.debug("Downloading games from: " + settings.username)
 
-response = requests.get(
-    'https://lichess.org/api/games/user/' + settings.username + '?max=' + settings.max + '&token=' + settings.token + '&perfType=blitz,rapid,classical&opening=true')
-pgn = str(response.text)
-all_games = open("games.pgn", "w")
-all_games.write(pgn)
-all_games.close()
-logging.debug("Finished. Pgn is in games.pgn ")
+
+if settings.site == "lichess":
+    with open("games.pgn", "w") as new_file:
+        myclient = lichess.Client()
+        new_file.write(myclient.export_by_user(settings.username, max_games=settings.max))
+    new_file.close()
+    logging.debug("Finished. Pgn is in games.pgn ")
+elif settings.site == "chessdotcom":
+    url_chessdotcom = "https://api.chess.com/pub/player/" + \
+                      settings.username.lower() + "/games"
+    url_archive = url_chessdotcom + "/archives"
+    http_response = urllib.request.urlopen(url_archive)
+
+    archives = http_response.read().decode("utf-8")
+    archives = archives.replace("{\"archives\":[\"", "\",\"")
+    archive_dates = archives.split("\",\"" + url_chessdotcom)
+    archive_dates[len(archive_dates) - 1] = archive_dates[
+        len(archive_dates) - 1].rstrip("\"]}")
+
+    with open("games.pgn", "w") as new_file:
+        for i in range(len(archive_dates) - 1):
+            cur_url = url_chessdotcom + archive_dates[i + 1] + "/pgn"
+            cur_filename = archive_dates[i + 1].replace("/", "-")
+            response = requests.get(cur_url, "./" + cur_filename + ".pgn")
+            new_file.write(response.text)
+    new_file.close()
+    logging.debug("Finished. Pgn is in games.pgn ")
+else:
+    # print("ERROR: invalid site ")
+    logging.debug("Invalid argument for site: only arguments allowed are lichess and chessdotcom")
+
+
