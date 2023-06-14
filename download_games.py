@@ -18,6 +18,9 @@ parser.add_argument("--quiet", dest="loglevel",
                     help="substantially reduce the number of logged messages")
 parser.add_argument("--max", metavar="MAX", default="60",
                     help="max number of games")
+parser.add_argument("--perfType", metavar="PERFTYPE", default="blitz,rapid,classical",
+                    help="Game type in lichess : blitz, rapid or classical. Comma separated eg. 'classical " or "rapid,classical")
+
 settings = parser.parse_args()
 logging.basicConfig(format="%(message)s", level=settings.loglevel, stream=sys.stdout)
 
